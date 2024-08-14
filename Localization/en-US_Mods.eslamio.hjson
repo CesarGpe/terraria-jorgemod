@@ -1,0 +1,495 @@
+# This file will automatically update with entries for new content after a build and reload
+
+Items: {
+	Eslamiador: {
+		DisplayName: EL ESLAMIADOR
+		Tooltip:
+			'''
+			ESLAMEA A TUS ENEMIGOS
+			SHOUTOUT AL FRAGOSO
+			'''
+	}
+
+	CacaCabeza: {
+		SetBonus:
+			'''
+			eres el jorge
+			moverse no es una posibilidad
+			tienes un incontrolable deseo por tetas
+			tu densidad corporal te acerca a la inmortalidad
+			'''
+		DisplayName: Casco de Caca
+		Tooltip:
+			'''
+			-32 de defensa
+			-32% de velocidad de movimiento jaja
+			'''
+	}
+
+	CacaCuerpo: {
+		DisplayName: Pechera de Caca
+		Tooltip:
+			'''
+			-32 de defensa
+			-32% de velocidad de movimiento jaja
+			'''
+	}
+
+	CacaPiernas: {
+		DisplayName: Perneras de Caca
+		Tooltip:
+			'''
+			-32 de defensa
+			-32% de velocidad de movimiento jaja
+			'''
+	}
+
+	PistolaNuclear: {
+		DisplayName: PISTOLA NUCLEAR MK-1
+		Tooltip:
+			'''
+			+294875% DE DAÑO CONTRA LOS DE TECNICOS DE MEGACABLE
+			PRIMER MODELO DE LA PISTOLA NUCLEAR DESARROLLADA POR PUTOSNEGROS INC.
+			'''
+	}
+
+	PistolaNuclearMK2: {
+		DisplayName: PISTOLA NUCLEAR MK-2
+		Tooltip:
+			'''
+			+398472094% DE DAÑO CONTRA LOS DE TECNICOS DE MEGACABLE
+			SEGUNDO MODELO DE LA PISTOLA NUCLEAR DE PUTOSNEGROS INC.
+			MEJORADA CON LA MAS ALTA TECNOLOGIA DE LA INDUSTRIA
+			'''
+	}
+
+	PistolaNuclearMK3: {
+		DisplayName: PISTOLA NUCLEAR MK-3
+		Tooltip:
+			'''
+			+2938562983562031% DE DAÑO CONTRA LOS DE TECNICOS DE MEGACABLE
+			EL TERCER MODELO DE LA PISTOLA NUCLEAR DE PUTOSNEGROS INC.
+			CONSTRUIDA POR LOS MEJORES INGENIEROS DEL MULTIVERSO
+			'''
+	}
+
+	PistolaNuclearUltimate: {
+		DisplayName: PISTOLA NUCLEAR DEFINITIVA
+		Tooltip:
+			'''
+			+983679252385698120481561983740236587% DE DAÑO CONTRA LOS DE TECNICOS DE MEGACABLE
+			LA PISTOLA NUCLEAR PERFECTA DISEÑADA Y CONSTRUIDA MAGISTRALMENTE POR PUTOSNEGROS INC.
+			EN COLABORACION CON JESUCRISTO DE NAZARET Y JOE BIDEN
+			'''
+	}
+
+	Whey: {
+		DisplayName: PROTEINA WHEY
+		Tooltip:
+			'''
+			SUPLEMENTO ALIMENTICIO COMPUESTO PRINCIPALMENTE POR PROTEINAS GLOBULARES
+			DE ALTO VALOR BIOLOGICO EXTRAIDAS DEL SUERO DE LECHE, UN LACTEO LIQUIDO RESULTANTE
+			COMO SUBPRODUCTO DURANTE LA ELABORACION DE ALGUNOS QUESOS.
+			---------------------------
+			NO APTO PARA CONSUMO HUMANO.
+			'''
+	}
+
+	Transmutator: {
+		DisplayName: Transfigurador de Objetos
+		Tooltip:
+			'''
+			Incrementa el ID del PRIMER objeto en tu hotbar por 1,
+			bajandolo una posicion en la tabla de ID's.
+			-------------------------------------
+			Por seguridad, solo funciona con stacks de 1.
+			No cambiara objetos favoritos.
+			Usar con precaucion.
+			'''
+	}
+
+	Vape: {
+		DisplayName: iPlay
+		Tooltip: '''"No fumen niños" -Kideo Hojima, el fumador de niños'''
+	}
+
+	InstaPickaxe: {
+		DisplayName: Desestabilizador de Materia
+		Tooltip:
+			'''
+			[c/FFFF69:Vibra en la frecuencia perfecta para romper materiales,]
+			[c/FFFF69:pero es intangible para todo material vivo y/o organico.]
+			[i:3509] [c/8a8a8a:(Su potencia aumenta con tu progreso)]
+			'''
+	}
+
+	ShimmerGun: {
+		DisplayName: Pistola de Fulgor
+		Tooltip: "[c/FFFF69:Es hora de fulgorear.]"
+	}
+
+	GetOverHereItem: {
+		DisplayName: Get Over Here!
+		Tooltip: '''"Manten cerca al enemigo."'''
+	}
+
+	PocketKnifeItem: {
+		DisplayName: Guillotina Portatil
+		Tooltip: '''"Castelbania" -Follagor'''
+	}
+
+	FlyHookItem: {
+		DisplayName: Tiempo Aire!
+		Tooltip:
+			'''
+			"¿Ya viste todo lo que te da Movistar?"
+			[c/FFFF69:No engancha bloques, en su lugar, golpear uno otorga un]
+			[c/FFFF69:bono de vuelo, movilidad y anula el daño de caida. Ademas]
+			[c/FFFF69:de regenerar tus saltos extra y tiempo de vuelo.]
+			'''
+	}
+
+	Screwdriver: {
+		DisplayName: Destornillador marca Philips de base plástica cubierta con resina epóxica y acabados de franja amarilla punta plana de 1cm a base de hierro
+		Tooltip: Destornillador marca Philips de base plástica cubierta con resina epóxica y acabados de franja amarilla punta plana de 1cm a base de hierro
+	}
+
+	NotGun: {
+		DisplayName: Pistola que no dispara
+		Tooltip: '''"Voy a inventar un rayo que haga que Sonic VIVA" '''
+	}
+
+	GravitySword: {
+		DisplayName: wip sword
+		Tooltip: dev item
+	}
+
+	GravBuffPotion: {
+		DisplayName: wip potion
+		Tooltip: dev item
+	}
+
+	TarzanHookItem: {
+		DisplayName: Tarzan Hook Item
+		Tooltip: dev item
+	}
+
+	TurboHookItem: {
+		DisplayName: Turbo Hook Item
+		Tooltip: dev item
+	}
+
+	TestGun: {
+		DisplayName: Test Gun
+		Tooltip: dev item
+	}
+
+	CesarPants: {
+		DisplayName: pantalones del cesar
+		Tooltip: maxima ventilacion
+	}
+
+	Fentanilo: {
+		DisplayName: FENTANILO
+		Tooltip:
+			'''
+			POTENTE OPIOIDE SINTETICO HASTA 50 VECES MAS FUERTE QUE LA HEROINA Y 100 VECES
+			MAS FUERTE QUE LA MORFINA. RECETADO EN DIMINUTAS CANTIDADES PARA ALIVIAR DOLORES
+			INTENSOS. UNA DOSIS DE SOLO 2 MILIGRAMOS DE FENTANILO SE CONSIDERA LETAL.
+			'''
+	}
+
+	ElMartillo: {
+		DisplayName: El Martillo
+		Tooltip: TOMENME UNA FOTO CON EL
+	}
+}
+
+Dialogue: {
+	Jorge: {
+		PartyGirlDialogue: la chica fiestera esta bien pendeja me recuerda a la mari
+		StandardDialogue1: E
+		StandardDialogue2: ahorita vengo voy a cagar
+		StandardDialogue3: quieres ver mi webserie? sale pronto
+		StandardDialogue4: deberias jugar mi mod sale pronto
+		CommonDialogue: E
+	}
+
+	Antonio: {
+		StandardDialogue1: Rompe la dompe
+		StandardDialogue2: Dom Perignon Lady Gaga
+		StandardDialogue3: Un doble vaso con un cuarto jarabe morado
+		StandardDialogue4: Compa que le parece esa morra
+		StandardDialogue5: Los zetas ya vienen
+		StandardDialogue6: Ya llegaron los zetas
+		StandardDialogue7: Los zetas estan afuera de mi casa
+		StandardDialogue8: Pinche
+		StandardDialogue9: Dile al cesar que lo voy a prostituir
+		StandardDialogue10: Pepe
+		StandardDialogue11: Pinche Suyochi se deberia suicidar
+		StandardDialogue12: El Iscrack deberia vender crack
+	}
+
+	Tsuyar: {
+		StandardDialogue1: hail grasa papu >:v
+		StandardDialogue2: Que quieres ahora?
+		StandardDialogue3: Que chingados quieres?
+		StandardDialogue4: Que hago aqui?
+		StandardDialogue5: Como estas? Yo si.
+		StandardDialogue6: Puta madre, ya me quiero ir.
+		StandardDialogue7: saquenme de terraria chingada madreee
+		StandardDialogue8: Solo camino por ahi, no se que mas hacer.
+		StandardDialogue9: C
+		StandardDialogue10: puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta\nputa puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta puta
+		HelpDialogue1: No.
+		HelpDialogue2: No estes chingando.
+		HelpDialogue3: Yo ni juego Terraria wey.
+		HelpDialogue4: Vete a la verga.
+		HelpDialogue5: Porque te ayudaria?
+		HelpDialogue6: Chinga tu madre.
+		HelpDialogue7: Dejame de hablar.
+		HelpDialogue8: jaja no wey xd
+	}
+
+	Isaac: {
+		StandardDialogue1: Reimu Hakurei (博麗　霊夢 Hakurei Reimu) es la miko del Templo Hakurei y la personaje principal de Touhou Project junto con Marisa Kirisame. Fue el primer personaje creado por ZUN, y a lo largo de sus apariciones ha sufrido algunos cambios, tanto físicos como mentales.
+		StandardDialogue2: Marisa Kirisame (霧雨魔理沙 Kirisame Marisa) es una humana con grandes capacidades en la magia y es una de las protagonistas de Touhou Project junto con Reimu Hakurei. Su especialidad es la magia de la luz y el calor, para este fin utiliza un pequeño objeto mágico conocido como "Mini-Hakkero".
+		StandardDialogue3: Koishi Komeiji (古明地 こいし Komeiji Koishi) es la hermana menor de Satori Komeiji y jefe extra de Subterranean Animism. Posteriormente aparece como personaje jugable en Hopeless Masquerade, Urban Legend in Limbo y Antinomy of Common Flowers.
+		StandardDialogue4: Toyosatomimi no Miko (豊聡耳　神子) es la jefa del nivel 6 de Ten Desires, así como su principal antagonista. Miko es una santa que esparció el budismo hasta que Seiga Kaku la convirtiera al taoismo. Ahora vive como una ermitaña.
+		StandardDialogue5: Satori Komeiji (古明地　さとり Komeiji Satori) es la ama del Palacio de los Espiritus Terrenales, luego de que la ciudad subterránea fuera separada del Infierno. Su habilidad de leer la "mente" hace que varios youkai y espíritus le tengan miedo, mientras que ella es muy querida por los animales que normalmente no son comprendidos. Con estos animales como mascotas, ella controla las ruinas del infierno donde está su hogar.
+		StandardDialogue6: Youmu Konpaku (魂魄　妖夢 Konpaku Youmu)) es una de las entidades más raras de Gensokyo, teniendo una parte espectro y parte humana al mismo tiempo. Sus dos mitades no se entremezclan, como cabría esperar de una raza cruzada, pero en realidad existe en cuerpos separados físicamente. Apareció por primera vez como la jefa del nivel 5 de Perfect Cherry Blossom y desde entonces ha aparecido en múltiples ocasiones en posteriores juegos y obras impresas.
+		StandardDialogue7: Seija Kijin (鬼人 正邪 Kijin Seija)es una amanojaku con el poder de voltear la posición física de las cosas a su alrededor. Ella aparece como la quinta etapa jefe de Double Dealing Character.
+		StandardDialogue8: Saki Kurokoma (驪駒 早鬼 Kurokoma Saki) es la líder de la Familia Keiga del Reino de las Bestias, conformada por bestias con excelente fuerza de piernas, colmillos y fuertes cuerpos. Se trata de un kurokoma, una criatura similar a un pegaso negro.
+		StandardDialogue9: Cirno (チルノ Chiruno) es un hada del hielo. Pasa la mayor parte de su tiempo en el Lago de la Niebla, junto a otras hadas entre las cuales tiene una especie de figura de autoridad,[2] y se podría decir que este es su lugar de residencia.[3][2] Si bien es cierto que las hadas en Touhou Project son enemigos débiles y Cirno es por lo general una jefa débil (solo apareciendo en los primeros niveles), Cirno es particularmente fuerte en relación al resto, pudiendo llegar a suponer una amenaza para el humano promedio. A pesar de lo anterior dicho y fuera de la creencia popular, Cirno dista mucho de ser el hada más fuerte; éste es un título el cual ella misma se ha otorgado a lo largo de sus diversas apariciones, y sea como sea siempre termina siendo desmentido en poco tiempo tras enfrentarse a distintos oponentes.
+	}
+
+	Cesar: {
+		text0: jumbo sauce
+		text1: jesucristo nos abandono
+		text2: que ves wey te gusto o que
+		text3: ey que onda que pex
+		text4: como andas wey
+		text5: kiuvole
+		text6: holis soy el cesar
+		text7: odio terraria
+		text8: garten of banban 54 coming soon
+		text9: bolas
+		text10: alguna vez has chupado monedas
+		text11: las hallullas son mejores que las marraquetas
+		text12: el toño se deberia suicidar
+		text13: tengo unos items que encontre haya atras en el source quieres verlos?
+		text14: cual es tu compuerta logica favorita?
+		text15: sabias que mi maquina mutiladora de jorges mata 32 slimes por segundo
+		text16: vendo cable gratis por que puedo hacer de que new Item(ItemID.Wire) {shopCustomPrice = Item.buyPrice(copper: 0)}
+		text17: programe el transfigurador de objetos mientraa comia tapioca
+		text18: ya dije que me llamo cesar verdad?
+		text19: la estatua de piedra es mi favorita (me encanta la piedra)
+		text20: tengo mana etereo gratis por si quieres hacer la old ones army
+		text21: amo el ItemName.BoringBow es todo menos aburrido
+		text22: comprame un whoopie cushion dan risa
+		text23: sabias que tengo un chingo de dialogos? puedo decir 72 pendejadas diferentes
+		text24: no le digas al tsuyar que yo lo puedo sacar de terraria (pero no lo voy a hacer)
+		text25: me converti a mi mismo en un personaje de terraria mierda mas chistosa que he visto
+		text26: amo estar en un videojuego el sat nunca me encontrara aqui
+		text27: no me hables estoy pensando en la inmortalidad del cangrejo
+		text28: no dejes que el isaac tenga acceso a tus huesos, juro que conte mas de 206 huesos en ese esqueleto
+		text29: me hice inmortal porque me iba a dar flojera volver si me moria
+		text30: me aburro de hablar con los otros npcs wey tienen como maximo 10 cosas para decir
+		text31: si tan solo pudiera hacer un trato con dios
+		text32: este es el dialogo numero 32 si te toco dios te odiara para siempre y debes suicidarse lo mas rapido que puedas
+		text33: pasa codigos de amongus yo empiezo PWYH
+		text34: terraria ocupa mas vanidad la neta
+		text35: when eres el cesar
+		text36: programar es como el sexo en verdad no se que estoy haciendo
+		text37: sabias que mi mod hace que las hadas tengan un 1% de probabilidad de matarte?
+		text38: porque juegas terraria si este juego es basura we hay que jugar amongus
+		text39: imaginate llamarte jorge y que alguien haga un mod con tu nombre
+		text40: este dialogo fue removido por temas legales
+		text41: como que la panocha no es el pene??
+		text42: hola gamer! juguemos league of legends
+		text43: when eres una aspiradora
+		text44: top 100 jefes de atomicrops
+		text45: muy buen dia gente del internet
+		text46: recuerda no picarte con genshin impact
+		text47: los subs de itowngameplay son bots copia y pega esta verdad
+		text48: la unica gorda en la que me monto es mi ñonga
+		text49: pene
+		text50: todos son putos menos yo
+		text51: todos los npcs son pendejos menos yo
+		text52: apuesto a que te gano en un 1v1
+		text53: me harias muy feliz si me depositaras 30 mil pesos solo digo
+		text54: tenia tantas ganas de comerme el chocolate
+		cesartxt1: HOLA CESAR COMO ESTAS YO MUY BIEN
+		cesartxt2: COMO QUE TU TAMBIEN TE LLAMAS CESAR?? HAY QUE PELEAR NO PUEDEN HABER DOS
+		cesartxt3: A LA MADRE ES EL CESAR QUE ONDA WEY
+		cesartxt4: NO LO PUEDO CREER HOLA CESAR SOY TU FAN NUMERO 1
+		cesartxt5: AAAAA ES EL CESAR ERES MI IDOLO ME FIRMAS LAS NALGAS
+		cesartxt6: QUEEEEEE HOLA CESAR JAJAJA LIKE SI TE LLAMAS CESAR
+		youtxt1: holaaa jorge digo {0} jaja
+		youtxt2: hola {0} que haces
+		youtxt3: imaginate llamarte {0} no podria ser yo
+		youtxt4: has oido de un tal {0}? yo no
+		youtxt5: has oido de una tal {0}? yo no
+		youtxt6: porque te llamas {0} que feo nombre
+		youtxt7: solo voy a decir que {0} es un nombre horrible
+		mantxt1: tu tambien estas en terraria?? tenemos tanto en comun!!
+		mantxt2: tengo sueño me dejas dormirme en tu cama
+		mantxt3: no quieres ver garten of banban conmigo?
+		mantxt4: quieres ver skibidi toilet conmigo?
+		mantxt5: el otro dia desperte sin pantalones
+		mantxt6: quieres comer tierra conmigo?
+		mantxt7: por ultima vez no te dejo prostituirme
+		mantxt8: dicen que duermo como persona atropellada
+		mantxt9: quieres comer musgo conmigo?
+		mantxt10: soñe algo muy raro creo que tu estabas ahi
+		mantxt11: weles rico
+		mantxt12: tu, yo, y un queso buajaka, piensalo
+		mantxt13: creo que te verias mejor sin camisa
+		femtxt1: una mujer? deberias presionar mi boton de Ganar
+		femtxt2: jugador mujer? es 40% probable que en realidad seas hombre
+		femtxt3: que quieres ahora
+		femtxt4: como te atreves a hablarme con dos cromosomas x
+	}
+}
+
+Emotes.JorgeEmote.Command: jorge
+
+NPCs: {
+	Jorge: {
+		DisplayName: Eslamio
+
+		TownNPCMood: {
+			Content: e
+			NoHome: quiero una casa
+			FarFromHome: ando lejos de mi casa
+			LoveSpace: tengo mucho espacio para cagar aqui
+			DislikeCrowded: hay mucha gente no puedo cagar agusto
+			HateCrowded: hay mucha gente no puedo cagar agusto
+			LoveNPC: me gustan las chichis de {NPCName}
+			LikeNPC: me gustan las chichis de {NPCName}
+			DislikeNPC: me cae gordo el {NPCName}
+			HateNPC: me cae gordo el {NPCName}.
+			LikeNPC_Princess: me gustan las chichis de {NPCName}.
+			Princess_LovesNPC: me gustan las chichis de {NPCName}.
+		}
+	}
+
+	Tsuyar: {
+		DisplayName: Grasoso
+
+		TownNPCMood: {
+			Content: No esta mal.
+			NoHome: No mames wey dame una casa no?
+			FarFromHome: Estoy hasta la quinta chingada, y mi casa?.
+			LoveSpace: Gracias por todo el espacio.
+			DislikeCrowded: Me estoy cansado de toda esta gente.
+			HateCrowded: Odio que haya tanta gente aqui.
+			LikeBiome: Preparate la puta que te re pario porque Los viernes de la jungla serán a todo ojete todo ojete. Para vivir una noche con las mejores putas de la zona. No te la puedes perder hijo de re mil. Porque si no estás allí, andate a la concha de la lora. Te esperamos para que vivas una noche de la puta madre.
+			LikeNPC: El pinche {NPCName} si cae bien.
+			HateNPC: No mames porque tengo que vivir con el pinche jorge que se suicide ese wey a la verga llevame con alguien mas no me importa quien.
+			LikeNPC_Princess: Estoy programado para que me caiga bien la princesa.
+			Princess_LovesNPC: Estoy programado para que me caiga bien la princesa.
+			DislikeBiome: Hace un pinche caloron aqui wey, llevame a otro lado.
+		}
+	}
+
+	Isaac: {
+		DisplayName: Player
+
+		TownNPCMood: {
+			Content: Pues si ando bien.
+			NoHome: Estaria padre tener casa.
+			FarFromHome: Donde estoy? Y mi casa?
+			LoveSpace: Hay mucho espacio esta padre.
+			DislikeCrowded: Muchos putos aqui para mi gusto.
+			HateCrowded: Esta lleno de pendejos aqui no manches.
+			LikeBiome: Esta bien padre la nieve me caga tener calor.
+			LikeNPC: El pinche {NPCName} si cae bien.
+			HateNPC: Me da mucho asco el Jorge lo podrias alejar de mi por favor?
+			LikeNPC_Princess: Estoy programado para que me caiga bien la princesa.
+			Princess_LovesNPC: Estoy programado para que me caiga bien la princesa.
+			LoveNPC: El puto del cesar si cae bien.
+		}
+	}
+
+	Cesar: {
+		DisplayName: cesar
+
+		TownNPCMood: {
+			Content: toy bien gracias por preguntar!
+			NoHome: me gustaria tener una casita,
+			FarFromHome: creo que me perdi sabes onta mi casita?
+			LoveSpace: aqui hay mucho espacio que padre!!
+			DislikeCrowded: hay mucha gente no tienes un lugar mas solito?
+			HateCrowded: a la verga es mucha gente wey,
+			LikeBiome: nieve gratis ojooo aqui esta bien!
+			LoveBiome: ta bien bonito el hallow!! hay pixies somos pixies ritmo pixie,
+			LikeNPC: el {NPCName} si me cai bien.
+			HateNPC: el jorge esta aqui que pedo?? borralo del juego o algo porfis.
+			LikeNPC_Princess: esta hardcodeado que me caiga bien la princesa chingada madreeeee
+			Princess_LovesNPC: esta hardcodeado que me caiga bien la princesa chingada madreeeeee
+			DislikeBiome: el bosque esta medio aburrido no puedo vivir en otra parte?
+		}
+	}
+
+	Antonio: {
+		DisplayName: Arquitecto
+
+		TownNPCMood: {
+			Content: Asi estoy bien.
+			NoHome: Dame una casa pinche negro.
+			FarFromHome: Esta lejos la casa me voy a tener que arrastrar.
+			LoveSpace: Que suave el espacio.
+			DislikeCrowded: Hay mucha gente aqui.
+			HateCrowded: Hay un chingo de gente aqui.
+			LikeNPC: Esta padre andar con el {NPCName}.
+			HateNPC: Pinche {NPCName} que se mate.
+			LikeNPC_Princess: Estoy programado para que me caiga bien la princesa.
+			Princess_LovesNPC: Estoy programado para que me caiga bien la princesa.
+		}
+	}
+}
+
+Buffs: {
+	WheyBuff: {
+		DisplayName: PROTEINA WHEY
+		Description:
+			'''
+			EL WHEY CORRE POR TUS VENAS SI LEES ESTO NO TE QUEDA MUCHO TIEMPO
+			TU PIEL HIERVE, TU CEREBRO SE PUDRE, TU CUERPO SE DESMORONA DESDE DENTRO
+			'''
+	}
+
+	GravBuff: {
+		DisplayName: wip buff
+		Description: puto el que lo lea
+	}
+
+	FlightMobilityBuff: {
+		DisplayName: "[c/96FF96:Tiempo Aire!]"
+		Description:
+			'''
+			Incrementa la mobilidad y el tiempo de vuelo
+			Brinda inmunidad al daño de caida
+			'''
+	}
+
+	FentaniloBuff: {
+		DisplayName: Fentanilo Buff
+		Description: Mods.eslamio.Buffs.FentaniloBuff.Description
+	}
+}
+
+RecipeGroup.AnyMythrilBar: Cualquier barra de Mythril
+
+Projectiles: {
+	ShimmerGunProjectile.DisplayName: Shimmer Gun Projectile
+	GetOverHereProjectile.DisplayName: Get Over Here Projectile
+	PocketKnifeProjectile.DisplayName: Pocket Knife Projectile
+	FlyHookProjectile.DisplayName: Fly Hook Projectile
+	TarzanHookProjectile.DisplayName: Tarzan Hook Projectile
+	TurboHookProjectile.DisplayName: Turbo Hook Projectile
+	EpicHookProjectile.DisplayName: Epic Hook Projectile
+	ScrewdriverProjectile.DisplayName: Destornillador marca Philips de base plástica cubierta con resina epóxica y acabados de franja amarilla punta plana de 1cm a base de hierro
+	NuclearProjectile.DisplayName: Nuclear Projectile
+}
