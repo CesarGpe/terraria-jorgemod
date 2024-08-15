@@ -11,3 +11,6 @@ SI TE INTERESA TENER:
 ENTONCES EL PINCHE JORGE MOD ES PARA TI ORALE DALE A SUSCRIBIR ANTES DE QUE LAS PIEDRAS EN MIS RIÑONES ME MATEN
 
 La pistolita se consigue metiendo la pistola de slime en el fulgor y ya
+
+El source code del mod esta disponible en mi GitHub por si te interesa:
+https://github.com/CesarGpe/terraria-jorgemod

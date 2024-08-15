@@ -34,6 +34,7 @@ namespace eslamio.Content.NPCs
 		}
 
 		public override void SetStaticDefaults() {
+
 			Main.npcFrameCount[Type] = 25; // The total amount of frames the NPC has
 
 			NPCID.Sets.ExtraFramesCount[Type] = 9; // Generally for Town NPCs, but this is how the NPC does extra things such as sitting in a chair and talking to other NPCs. This is the remaining frames after the walking frames.
@@ -87,7 +88,7 @@ namespace eslamio.Content.NPCs
 			NPC.DeathSound = SoundID.DD2_SkeletonDeath;
 			NPC.knockBackResist = 0f;
 
-			AnimationType = NPCID.Guide;
+			AnimationType = NPCID.SantaClaus;
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
@@ -273,13 +274,13 @@ namespace eslamio.Content.NPCs
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
 
 		public override void TownNPCAttackStrength(ref int damage, ref float knockback) {
-			damage = 50;
+			damage = 60;
 			knockback = 4f;
 		}
 
 		public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown) {
 			cooldown = 20;
-			randExtraCooldown = 20;
+			randExtraCooldown = 10;
 		}
 
 		public override void TownNPCAttackProj(ref int projType, ref int attackDelay) {

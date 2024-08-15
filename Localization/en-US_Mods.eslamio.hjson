@@ -203,6 +203,35 @@ Items: {
 		DisplayName: El Martillo
 		Tooltip: TOMENME UNA FOTO CON EL
 	}
+
+	CesarPetItem: {
+		DisplayName: cesar portatil
+		Tooltip: por si me extrañas
+	}
+
+	RegrowthHamaxe: {
+		DisplayName: Hamaxe of Regrowth
+		Tooltip: wip item
+	}
+
+	CesarSpawner: {
+		DisplayName: me atrapaste!!
+		Tooltip:
+			'''
+			mmm tu inventario esta comodo
+			si me dejas aqui no me quejo
+			'''
+	}
+
+	IsaacSpawner: {
+		DisplayName: LA CALACA
+		Tooltip:
+			'''
+			UNA PUTA CALAVERA ASOMBROSA MALVADA
+			USA ESTO PARA SACAR A LA PUTA CALAVERA
+			ASOMBROSA MALVADA (PELIGRO ES MALVADA)
+			'''
+	}
 }
 
 Dialogue: {
@@ -475,8 +504,13 @@ Buffs: {
 	}
 
 	FentaniloBuff: {
-		DisplayName: Fentanilo Buff
-		Description: Mods.eslamio.Buffs.FentaniloBuff.Description
+		DisplayName: FENTANILO
+		Description: ESTAS BAJO LOS EFECTOS DE LA DROGA MAS POTENTE CONOCIDA POR EL HOMBRE
+	}
+
+	CesarPetBuff: {
+		DisplayName: el cesar
+		Description: weles rico
 	}
 }
 
@@ -492,4 +526,5 @@ Projectiles: {
 	EpicHookProjectile.DisplayName: Epic Hook Projectile
 	ScrewdriverProjectile.DisplayName: Destornillador marca Philips de base plástica cubierta con resina epóxica y acabados de franja amarilla punta plana de 1cm a base de hierro
 	NuclearProjectile.DisplayName: Nuclear Projectile
+	CesarPetProjectile.DisplayName: Cesar Pet Projectile
 }

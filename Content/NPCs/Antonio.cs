@@ -227,8 +227,8 @@ namespace eslamio.Content.NPCs
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
 
 		public override void TownNPCAttackStrength(ref int damage, ref float knockback) {
-			damage = 10;
-			knockback = 8f;
+			damage = 15;
+			knockback = 9f;
 		}
 
 		public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown) {
@@ -238,9 +238,9 @@ namespace eslamio.Content.NPCs
 
 		public override void DrawTownAttackSwing(ref Texture2D item, ref Rectangle itemFrame, ref int itemSize, ref float scale, ref Vector2 offset)//Allows you to customize how this town NPC's weapon is drawn when this NPC is swinging it (this NPC must have an attack type of 3). ItemType is the Texture2D instance of the item to be drawn (use Main.PopupTexture[id of item]), itemSize is the width and height of the item's hitbox
         {
+			item = TextureAssets.Item[ItemID.IronHammer].Value; //this defines the item that this npc will use
+			itemSize = 48;
             scale = 1f;
-            item = TextureAssets.Item[ItemID.IronHammer].Value; //this defines the item that this npc will use
-            itemSize = 40;
         }
 
 		public override void TownNPCAttackSwing(ref int itemWidth, ref int itemHeight) //  Allows you to determine the width and height of the item this town NPC swings when it attacks, which controls the range of this NPC's swung weapon.

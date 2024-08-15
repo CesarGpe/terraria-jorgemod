@@ -1,4 +1,5 @@
 using eslamio.Content.Items.Consumables;
+using eslamio.Content.Items.Pets;
 using eslamio.Content.Items.Weapons;
 using Humanizer;
 using Microsoft.Xna.Framework;
@@ -154,6 +155,7 @@ namespace eslamio.Content.NPCs
 		public override bool? CanBeHitByProjectile(Projectile projectile) { return false; }
         public override bool? CanBeHitByItem(Player player, Item item) { return false; }
         public override bool CanBeHitByNPC(NPC attacker) { return false; }
+		//
 
         public override string GetChat() {
 			WeightedRandom<string> chat = new WeightedRandom<string>();
@@ -282,9 +284,9 @@ namespace eslamio.Content.NPCs
 				Main.LocalPlayer.KillMe(Terraria.DataStructures.PlayerDeathReason.ByCustomReason("el cesar le gano a " + Main.LocalPlayer.name + " jaja"), 69420420f, 1);
 
 				if (Main.LocalPlayer.Male)
-					ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("<cesar> no mames que pendejo jajaj"), Colors.RarityNormal, Main.LocalPlayer.whoAmI);
+					ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("<cesar> no mames que pendejo jajaj"), Colors.RarityNormal);
 				else
-					ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("<cesar> no mames que pendeja jajaj"), Colors.RarityNormal, Main.LocalPlayer.whoAmI);
+					ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("<cesar> no mames que pendeja jajaj"), Colors.RarityNormal);
 			}
 		}
 
@@ -315,12 +317,12 @@ namespace eslamio.Content.NPCs
 
 				.Add(ItemID.CombatWrench)
 				.Add<Screwdriver>()
+				.Add<CesarPetItem>()
 				.Add(ItemID.LogicGate_AND)
 				.Add(ItemID.LogicGate_NAND)
 				.Add(ItemID.LogicGate_OR)
 				.Add(ItemID.LogicGate_NOR)
 				.Add(ItemID.LogicGate_XOR)
-				.Add(ItemID.LogicGate_NXOR)
 				.Add(ItemID.LogicGateLamp_On)
 				.Add(ItemID.LogicGateLamp_Off)
 				
