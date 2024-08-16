@@ -49,8 +49,7 @@ namespace eslamio.Content.Items.Tools
             return base.UseItem(player);
         }
 
-        // Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
-        public override void AddRecipes() {
+        /*public override void AddRecipes() {
 			CreateRecipe()
 				.AddIngredient(ItemID.AcornAxe)
 				.AddIngredient(ItemID.GoldHammer)
@@ -62,7 +61,7 @@ namespace eslamio.Content.Items.Tools
 				.AddIngredient(ItemID.PlatinumHammer)
 				.AddTile(TileID.Anvils)
 				.Register();
-		}
+		}*/
     }
 
 	public class AcornHamaxePlayer : ModPlayer

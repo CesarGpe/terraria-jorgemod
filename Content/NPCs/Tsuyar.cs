@@ -91,7 +91,7 @@ namespace eslamio.Content.NPCs
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0.5f;
 
-			AnimationType = NPCID.Guide;
+			AnimationType = NPCID.WitchDoctor;
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {

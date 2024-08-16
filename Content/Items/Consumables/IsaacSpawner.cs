@@ -27,7 +27,7 @@ namespace eslamio.Content.Items.Consumables
 			Item.noMelee = true;
 			//Item.noUseGraphic = true;
 			Item.UseSound = new SoundStyle($"{nameof(eslamio)}/Assets/Sounds/BadToTheBone");
-			Item.makeNPC = (short)ModContent.NPCType<NPCs.Isaac>();
+			Item.makeNPC = ModContent.NPCType<NPCs.Isaac>();
 		}
 
 		public override void HoldItem(Player player)

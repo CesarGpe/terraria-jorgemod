@@ -82,8 +82,8 @@ namespace eslamio.Content.NPCs
 			NPC.width = 18;
 			NPC.height = 40;
 			NPC.aiStyle = 7;
-			NPC.damage = 100;
-			NPC.defense = 50;
+			NPC.damage = 160;
+			NPC.defense = 100;
 			NPC.lifeMax = 500;
 			NPC.HitSound = SoundID.DD2_SkeletonHurt;
 			NPC.DeathSound = SoundID.DD2_SkeletonDeath;
@@ -131,6 +131,19 @@ namespace eslamio.Content.NPCs
 		}
 
 		public override bool CanTownNPCSpawn(int numTownNPCs) { // Requirements for the town NPC to spawn.
+			// no llega otro npc si lo tienes en el inventario
+			for (int k = 0; k < Main.maxPlayers; k++) {
+				Player player = Main.player[k];
+				if (!player.active) {
+					continue;
+				}
+
+				if (player.inventory.Any(item => item.type == ModContent.ItemType<IsaacSpawner>())) {
+					return false;
+				}
+			}
+
+			// llega despues de skeletron
 			if (NPC.downedBoss3)
                 return true;
 			else
@@ -148,7 +161,7 @@ namespace eslamio.Content.NPCs
 				"Isaac",
 				"Isaac",
 				"Isaac",
-				"Hector",
+				"Isaac",
 				"Hector",
 				"Hector",
 				"Hector",

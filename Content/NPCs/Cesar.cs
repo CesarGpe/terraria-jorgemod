@@ -95,7 +95,7 @@ namespace eslamio.Content.NPCs
 			NPC.knockBackResist = 0f;
 			NPC.rarity = 10000;
 
-			AnimationType = NPCID.Guide;
+			AnimationType = NPCID.SantaClaus;
 		}
 
 		public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
@@ -135,6 +135,19 @@ namespace eslamio.Content.NPCs
 		}
 
 		public override bool CanTownNPCSpawn(int numTownNPCs) { // Requirements for the town NPC to spawn.
+			// no llega otro npc si lo tienes en el inventario
+			for (int k = 0; k < Main.maxPlayers; k++) {
+				Player player = Main.player[k];
+				if (!player.active) {
+					continue;
+				}
+
+				if (player.inventory.Any(item => item.type == ModContent.ItemType<CesarSpawner>())) {
+					return false;
+				}
+			}
+
+			// llega despues del cerebro / tragamundos
 			if (NPC.downedBoss2)
                 return true;
 			else

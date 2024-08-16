@@ -13,6 +13,9 @@ namespace eslamio.Content.Items.Pets
 
 			Item.shoot = ModContent.ProjectileType<TsuyarPetProjectile>(); // "Shoot" your pet projectile.
 			Item.buffType = ModContent.BuffType<TsuyarPetBuff>(); // Apply buff upon usage of the Item.
+
+			// se consigue fulgoreando la cesar mascota
+			ItemID.Sets.ShimmerTransformToItem[ModContent.ItemType<CesarPetItem>()] = Type;
 		}
 
         public override bool? UseItem(Player player)

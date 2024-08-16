@@ -26,7 +26,7 @@ namespace eslamio.Content.Items.Consumables
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.UseSound = SoundID.Item30;
-            Item.makeNPC = (short)ModContent.NPCType<NPCs.Cesar>();
+            Item.makeNPC = ModContent.NPCType<NPCs.Cesar>();
         }
 
         public override void HoldItem(Player player)
@@ -42,7 +42,7 @@ namespace eslamio.Content.Items.Consumables
 
         public override void OnConsumeItem(Player player)
         {
-            Main.NewText("<cesar> chale andaba bien agusto ahi", ItemRarityID.Orange);
+            Main.NewText("<cesar> chale andaba bien agusto ahi", 255, 255, 255);
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

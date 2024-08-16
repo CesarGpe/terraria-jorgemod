@@ -13,6 +13,9 @@ namespace eslamio.Content.Items.Pets
 
 			Item.shoot = ModContent.ProjectileType<CesarPetProjectile>(); // "Shoot" your pet projectile.
 			Item.buffType = ModContent.BuffType<CesarPetBuff>(); // Apply buff upon usage of the Item.
+
+			// ping pong
+			ItemID.Sets.ShimmerTransformToItem[ModContent.ItemType<TsuyarPetItem>()] = Type;
 		}
 
         public override bool? UseItem(Player player)
