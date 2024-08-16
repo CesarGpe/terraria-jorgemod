@@ -211,7 +211,13 @@ Items: {
 
 	RegrowthHamaxe: {
 		DisplayName: Hamaxe of Regrowth
-		Tooltip: wip item
+		Tooltip:
+			'''
+			SIN TERMINAR, NO USAR PORFIS :3
+			puta madre me voy a suicidar
+			ayer me coji a tu padre y hoy
+			a un muerto
+			'''
 	}
 
 	CesarSpawner: {
@@ -230,6 +236,35 @@ Items: {
 			UNA PUTA CALAVERA ASOMBROSA MALVADA
 			USA ESTO PARA SACAR A LA PUTA CALAVERA
 			ASOMBROSA MALVADA (PELIGRO ES MALVADA)
+			'''
+	}
+
+	TsuyarPetItem: {
+		DisplayName: susoshi
+		Tooltip: when el impostor es 20
+	}
+
+	FatBlunt: {
+		DisplayName: Cigarrote enorme super padrisimo
+		Tooltip: '''"No le muestres esto al TsuyAr"'''
+	}
+
+	ThrowingBlunts: {
+		DisplayName: Cigarros Malboro
+		Tooltip: '''"No le muestres esto al TsuyAr"'''
+	}
+
+	Chocolate: {
+		DisplayName: Chocolate (no casero)
+		Tooltip:
+			'''
+			Seria de mi agrado que me dieras una porcion de chocolate.
+			Mis disculpas, no me queda mas chocolate.
+			Una pena, ansiaba mucho ese dulce sabor.
+			¿Lo que me dice es cierto?
+			Por supuesto.
+			Despreocupese, hare chocolate yo mismo. ¿Tengo su aprobacion?
+			La dare una vez que compruebe que termino la tarea.
 			'''
 	}
 }
@@ -512,6 +547,11 @@ Buffs: {
 		DisplayName: el cesar
 		Description: weles rico
 	}
+
+	TsuyarPetBuff: {
+		Description: te esta siguiendo el tsuyar
+		DisplayName: huye
+	}
 }
 
 RecipeGroup.AnyMythrilBar: Cualquier barra de Mythril
@@ -527,4 +567,6 @@ Projectiles: {
 	ScrewdriverProjectile.DisplayName: Destornillador marca Philips de base plástica cubierta con resina epóxica y acabados de franja amarilla punta plana de 1cm a base de hierro
 	NuclearProjectile.DisplayName: Nuclear Projectile
 	CesarPetProjectile.DisplayName: Cesar Pet Projectile
+	TsuyarPetProjectile.DisplayName: Tsuyar Pet Projectile
+	BluntProjectile.DisplayName: Blunt Projectile
 }

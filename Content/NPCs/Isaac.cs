@@ -1,3 +1,4 @@
+using eslamio.Content.Items.Consumables;
 using eslamio.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -39,9 +40,9 @@ namespace eslamio.Content.NPCs
 
 			NPCID.Sets.ExtraFramesCount[Type] = 9; // Generally for Town NPCs, but this is how the NPC does extra things such as sitting in a chair and talking to other NPCs. This is the remaining frames after the walking frames.
 			NPCID.Sets.AttackFrameCount[Type] = 4; // The amount of frames in the attacking animation.
-			NPCID.Sets.DangerDetectRange[Type] = 700; // The amount of pixels away from the center of the NPC that it tries to attack enemies.
+			NPCID.Sets.DangerDetectRange[Type] = 1200; // The amount of pixels away from the center of the NPC that it tries to attack enemies.
 			NPCID.Sets.AttackType[Type] = 2; // The type of attack the Town NPC performs. 0 = throwing, 1 = shooting, 2 = magic, 3 = melee
-			NPCID.Sets.AttackTime[Type] = 70; // The amount of time it takes for the NPC's attack animation to be over once it starts.
+			NPCID.Sets.AttackTime[Type] = 40; // The amount of time it takes for the NPC's attack animation to be over once it starts.
 			NPCID.Sets.AttackAverageChance[Type] = 15; // The denominator for the chance for a Town NPC to attack. Lower numbers make the Town NPC appear more aggressive.
 			NPCID.Sets.HatOffsetY[Type] = -2; // For when a party is active, the party hat spawns at a Y offset.
 			NPCID.Sets.ShimmerTownTransform[NPC.type] = true; // This set says that the Town NPC has a Shimmered form. Otherwise, the Town NPC will become transparent when touching Shimmer like other enemies.
@@ -235,6 +236,7 @@ namespace eslamio.Content.NPCs
 		public override void AddShops() {
 			var npcShop = new NPCShop(Type, ShopName)
 				.Add<PistolaNuclear>()
+				.Add<Chocolate>()
 				.Add(ItemID.Sake)
 				.Add(ItemID.Bone)
 				.Add(ItemID.BoneWand)
@@ -274,12 +276,12 @@ namespace eslamio.Content.NPCs
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
 
 		public override void TownNPCAttackStrength(ref int damage, ref float knockback) {
-			damage = 60;
-			knockback = 4f;
+			damage = 160;
+			knockback = 6f;
 		}
 
 		public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown) {
-			cooldown = 20;
+			cooldown = 10;
 			randExtraCooldown = 10;
 		}
 

@@ -26,6 +26,7 @@ namespace eslamio.Content.Items.Consumables
 			Item.consumable = true;
 			Item.noMelee = true;
 			//Item.noUseGraphic = true;
+			Item.UseSound = new SoundStyle($"{nameof(eslamio)}/Assets/Sounds/BadToTheBone");
 			Item.makeNPC = (short)ModContent.NPCType<NPCs.Isaac>();
 		}
 
@@ -43,13 +44,6 @@ namespace eslamio.Content.Items.Consumables
 		public override void OnConsumeItem(Player player)
 		{
 			Main.NewText("THE SKELETON APPEARS", 255, 255, 255);
-
-			SoundStyle jumpscare = new SoundStyle($"{nameof(eslamio)}/Assets/Sounds/BadToTheBone")
-			{
-				Volume = 1f,
-				PitchVariance = 0f,
-			};
-			SoundEngine.PlaySound(jumpscare);
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

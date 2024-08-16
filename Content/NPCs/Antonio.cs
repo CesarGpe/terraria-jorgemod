@@ -40,7 +40,7 @@ namespace eslamio.Content.NPCs
 			NPCID.Sets.DangerDetectRange[Type] = 100; // The amount of pixels away from the center of the NPC that it tries to attack enemies.
 			NPCID.Sets.AttackType[Type] = 3; // The type of attack the Town NPC performs. 0 = throwing, 1 = shooting, 2 = magic, 3 = melee
 			NPCID.Sets.AttackTime[Type] = 35; // The amount of time it takes for the NPC's attack animation to be over once it starts.
-			NPCID.Sets.AttackAverageChance[Type] = 20; // The denominator for the chance for a Town NPC to attack. Lower numbers make the Town NPC appear more aggressive.
+			NPCID.Sets.AttackAverageChance[Type] = 10; // The denominator for the chance for a Town NPC to attack. Lower numbers make the Town NPC appear more aggressive.
 			NPCID.Sets.HatOffsetY[Type] = -2; // For when a party is active, the party hat spawns at a Y offset.
 			NPCID.Sets.ShimmerTownTransform[NPC.type] = false; // This set says that the Town NPC has a Shimmered form. Otherwise, the Town NPC will become transparent when touching Shimmer like other enemies.
 
@@ -227,8 +227,8 @@ namespace eslamio.Content.NPCs
 		public override bool CanGoToStatue(bool toKingStatue) => toKingStatue;
 
 		public override void TownNPCAttackStrength(ref int damage, ref float knockback) {
-			damage = 15;
-			knockback = 9f;
+			damage = 40;
+			knockback = 4f;
 		}
 
 		public override void TownNPCAttackCooldown(ref int cooldown, ref int randExtraCooldown) {
@@ -239,7 +239,9 @@ namespace eslamio.Content.NPCs
 		public override void DrawTownAttackSwing(ref Texture2D item, ref Rectangle itemFrame, ref int itemSize, ref float scale, ref Vector2 offset)//Allows you to customize how this town NPC's weapon is drawn when this NPC is swinging it (this NPC must have an attack type of 3). ItemType is the Texture2D instance of the item to be drawn (use Main.PopupTexture[id of item]), itemSize is the width and height of the item's hitbox
         {
 			item = TextureAssets.Item[ItemID.IronHammer].Value; //this defines the item that this npc will use
-			itemSize = 48;
+			itemFrame.Width = 38;
+			itemFrame.Height = 38;
+			itemSize = 38;
             scale = 1f;
         }
 

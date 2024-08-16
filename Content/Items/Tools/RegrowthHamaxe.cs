@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Mono.Cecil.Cil;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -31,6 +33,22 @@ namespace eslamio.Content.Items.Tools
 			Main.dust[poop].noGravity = true;
 		}
 
+        public override bool? UseItem(Player player)
+        {
+			int x = Main.MouseWorld.ToTileCoordinates().X;
+			int y = Main.MouseWorld.ToTileCoordinates().Y;
+			
+			Tile tile = Main.tile[x, y];
+			tile.TileType = TileID.WoodBlock;
+
+			int tileType = TileID.Saplings;
+			int style = 0;
+			
+			PlantLoader.CheckAndInjectModSapling(x, y, ref tileType, ref style);
+
+            return base.UseItem(player);
+        }
+
         // Please see Content/ExampleRecipes.cs for a detailed explanation of recipe creation.
         public override void AddRecipes() {
 			CreateRecipe()
@@ -46,4 +64,13 @@ namespace eslamio.Content.Items.Tools
 				.Register();
 		}
     }
+
+	public class AcornHamaxePlayer : ModPlayer
+	{
+		public bool replant;
+
+		public override void ResetEffects() {
+			replant = false;
+		}
+	}
 }

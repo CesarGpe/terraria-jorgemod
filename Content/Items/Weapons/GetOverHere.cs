@@ -15,6 +15,7 @@ namespace eslamio.Content.Items.Weapons
 			Item.shoot = ModContent.ProjectileType<GetOverHereProjectile>();
 			
 			Item.DamageType = DamageClass.Generic;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.noUseGraphic = true;
 			Item.damage = 100;
 			Item.shootSpeed = 20;
@@ -25,7 +26,13 @@ namespace eslamio.Content.Items.Weapons
         public override void AddRecipes() {
 			CreateRecipe()
 				.AddIngredient(ItemID.GrapplingHook)
-				.AddRecipeGroup(RecipeSystem.AnyMythrilBar, 10)
+				.AddIngredient(ItemID.MythrilBar, 10)
+				.AddTile(TileID.MythrilAnvil)
+				.Register();
+
+			CreateRecipe()
+				.AddIngredient(ItemID.GrapplingHook)
+				.AddIngredient(ItemID.OrichalcumBar, 10)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}

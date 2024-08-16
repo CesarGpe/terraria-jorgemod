@@ -21,7 +21,7 @@ namespace eslamio.Content.Items.Tools
 			Item.useStyle = ItemUseStyleID.Swing;
 
 			Item.value = 10000;
-			Item.rare = ItemRarityID.Green;
+			Item.rare = ItemRarityID.Blue;
 
 			Item.UseSound = SoundID.Item1;
 			Item.autoReuse = true; // Automatically re-swing/re-use this item after its swinging animation is over.

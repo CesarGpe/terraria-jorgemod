@@ -1,4 +1,3 @@
-using eslamio.Common.Players;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -70,6 +69,23 @@ namespace eslamio.Content.Items.Weapons
 
 		public override void HoldItem(Player player) {
             player.GetModPlayer<PistolaNuclearPlayer>().canHitNPC = true;
+        }
+	}
+
+	public class PistolaNuclearPlayer : ModPlayer
+	{
+		public bool canHitNPC;
+
+		public override void ResetEffects() {
+			canHitNPC = false;
+		}
+
+        public override bool? CanHitNPCWithProj(Projectile proj, NPC target)
+        {
+            if (canHitNPC && target.townNPC && proj.type == ProjectileID.GrenadeI)
+				return true;
+			else
+				return null;
         }
 	}
 }

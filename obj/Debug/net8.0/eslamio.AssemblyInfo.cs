@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("eslamio")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+12976ec6a04ff2f728ffa045cde7eb046f9496f4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d952f0e3016f207646bdb8793e9e4adb1910316b")]
 [assembly: System.Reflection.AssemblyProductAttribute("eslamio")]
 [assembly: System.Reflection.AssemblyTitleAttribute("eslamio")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

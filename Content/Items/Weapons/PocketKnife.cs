@@ -15,6 +15,7 @@ namespace eslamio.Content.Items.Weapons
 			Item.shoot = ModContent.ProjectileType<PocketKnifeProjectile>();
 			
 			Item.DamageType = DamageClass.Generic;
+			Item.useStyle = ItemUseStyleID.Swing;
 			Item.noUseGraphic = true;
 			Item.damage = 60;
 			Item.shootSpeed = 20;
@@ -25,7 +26,13 @@ namespace eslamio.Content.Items.Weapons
         public override void AddRecipes() {
 			CreateRecipe()
 				.AddIngredient(ItemID.DualHook)
-				.AddRecipeGroup(RecipeSystem.AnyMythrilBar, 10)
+				.AddIngredient(ItemID.MythrilBar, 10)
+				.AddTile(TileID.MythrilAnvil)
+				.Register();
+
+			CreateRecipe()
+				.AddIngredient(ItemID.DualHook)
+				.AddIngredient(ItemID.OrichalcumBar, 10)
 				.AddTile(TileID.MythrilAnvil)
 				.Register();
 		}

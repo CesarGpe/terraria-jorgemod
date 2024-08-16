@@ -1,4 +1,6 @@
 using eslamio.Content.Items.Consumables;
+using eslamio.Content.Items.Weapons;
+using eslamio.Content.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -41,8 +43,8 @@ namespace eslamio.Content.NPCs
 			NPCID.Sets.AttackFrameCount[Type] = 4; // The amount of frames in the attacking animation.
 			NPCID.Sets.DangerDetectRange[Type] = 700; // The amount of pixels away from the center of the NPC that it tries to attack enemies.
 			NPCID.Sets.AttackType[Type] = 0; // The type of attack the Town NPC performs. 0 = throwing, 1 = shooting, 2 = magic, 3 = melee
-			NPCID.Sets.AttackTime[Type] = 90; // The amount of time it takes for the NPC's attack animation to be over once it starts.
-			NPCID.Sets.AttackAverageChance[Type] = 20; // The denominator for the chance for a Town NPC to attack. Lower numbers make the Town NPC appear more aggressive.
+			NPCID.Sets.AttackTime[Type] = 40; // The amount of time it takes for the NPC's attack animation to be over once it starts.
+			NPCID.Sets.AttackAverageChance[Type] = 1; // The denominator for the chance for a Town NPC to attack. Lower numbers make the Town NPC appear more aggressive.
 			NPCID.Sets.HatOffsetY[Type] = -2; // For when a party is active, the party hat spawns at a Y offset.
 			NPCID.Sets.ShimmerTownTransform[NPC.type] = true; // This set says that the Town NPC has a Shimmered form. Otherwise, the Town NPC will become transparent when touching Shimmer like other enemies.
 
@@ -262,7 +264,9 @@ namespace eslamio.Content.NPCs
 		}
 
 		public override void ModifyNPCLoot(NPCLoot npcLoot) {
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Vape>()));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Vape>(), 3));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FatBlunt>(), 3));
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<ThrowingBlunts>(), 3, 100, 300));
 		}
 
 		// Make this Town NPC teleport to the King and/or Queen statue when triggered. Return toKingStatue for only King Statues. Return !toKingStatue for only Queen Statues. Return true for both.
@@ -279,7 +283,7 @@ namespace eslamio.Content.NPCs
 		}
 
 		public override void TownNPCAttackProj(ref int projType, ref int attackDelay) {
-			projType = ProjectileID.Shuriken;
+			projType = ModContent.ProjectileType<BluntProjectile>();
 			attackDelay = 1;
 		}
 

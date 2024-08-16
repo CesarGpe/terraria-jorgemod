@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace eslamio.Common.Players
 {
-	public class PistolaNuclearPlayer : ModPlayer
+	public class UnusedPistolaNuclearPlayer : ModPlayer
 	{
 		public bool canHitNPC;
 

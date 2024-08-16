@@ -1,10 +1,43 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace eslamio.Content.Items.Pets
 {
-	public class CesarPetProjectile : ModProjectile
+	public class TsuyarPetItem : ModItem
+	{
+		// Names and descriptions of all ExamplePetX classes are defined using .hjson files in the Localization folder
+		public override void SetDefaults() {
+			Item.CloneDefaults(ItemID.ZephyrFish); // Copy the Defaults of the Zephyr Fish Item.
+
+			Item.shoot = ModContent.ProjectileType<TsuyarPetProjectile>(); // "Shoot" your pet projectile.
+			Item.buffType = ModContent.BuffType<TsuyarPetBuff>(); // Apply buff upon usage of the Item.
+		}
+
+        public override bool? UseItem(Player player)
+        {
+			if (player.whoAmI == Main.myPlayer) {
+				player.AddBuff(Item.buffType, 3600);
+			}
+   			return true;
+		}
+	}
+
+	public class TsuyarPetBuff : ModBuff
+	{
+		public override void SetStaticDefaults() {
+			Main.buffNoTimeDisplay[Type] = true;
+			Main.vanityPet[Type] = true;
+		}
+
+		public override void Update(Player player, ref int buffIndex) { // This method gets called every frame your buff is active on your player.
+			bool unused = false;
+			player.BuffHandle_SpawnPetIfNeededAndSetTime(buffIndex, ref unused, ModContent.ProjectileType<TsuyarPetProjectile>());
+		}
+	}
+
+	public class TsuyarPetProjectile : ModProjectile
 	{
 		public override void SetStaticDefaults() {
 			Main.projFrames[Projectile.type] = 1;
@@ -43,7 +76,7 @@ namespace eslamio.Content.Items.Pets
 			Player player = Main.player[Projectile.owner];
 
 			// Keep the projectile from disappearing as long as the player isn't dead and has the pet buff.
-			if (!player.dead && player.HasBuff(ModContent.BuffType<CesarPetBuff>())) {
+			if (!player.dead && player.HasBuff(ModContent.BuffType<TsuyarPetBuff>())) {
 				Projectile.timeLeft = 2;
 			}
 		}
