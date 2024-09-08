@@ -61,10 +61,11 @@ namespace eslamio.Content.NPCs
 			NPC.Happiness
 				//.SetBiomeAffection<JungleBiome>(AffectionLevel.Like) // Example Person prefers the forest.
 				//.SetBiomeAffection<DesertBiome>(AffectionLevel.Dislike) // Example Person dislikes the snow.
-				.SetNPCAffection(ModContent.NPCType<Antonio>(), AffectionLevel.Like) // Hates living near the demolitionist.
-				.SetNPCAffection(ModContent.NPCType<Isaac>(), AffectionLevel.Like) // Hates living near the demolitionist.
-				.SetNPCAffection(ModContent.NPCType<Cesar>(), AffectionLevel.Like) // Hates living near the demolitionist.
-				.SetNPCAffection(ModContent.NPCType<Jorge>(), AffectionLevel.Hate) // Hates living near the demolitionist.
+				.SetNPCAffection(ModContent.NPCType<Antonio>(), AffectionLevel.Like)
+				.SetNPCAffection(ModContent.NPCType<Tsuyar>(), AffectionLevel.Like)
+				.SetNPCAffection(ModContent.NPCType<Isaac>(), AffectionLevel.Like)
+				.SetNPCAffection(ModContent.NPCType<Cesar>(), AffectionLevel.Like)
+				.SetNPCAffection(ModContent.NPCType<Jorge>(), AffectionLevel.Hate)
 			; // < Mind the semicolon!
 
 			// This creates a "profile" for ExamplePerson, which allows for different textures during a party and/or while the NPC is shimmered.

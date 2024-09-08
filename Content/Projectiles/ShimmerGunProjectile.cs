@@ -26,6 +26,7 @@ namespace eslamio.Content.Projectiles
 			if (NPCID.Sets.ShimmerTownTransform[target.type])
 			{
 				// esto cambia al npc
+				NPC.ShimmeredTownNPCs[target.type] = !NPC.ShimmeredTownNPCs[target.type];
 				target.townNpcVariationIndex = target.IsShimmerVariant ? 0 : 1;
 
 				// el resto son particulas
@@ -39,7 +40,7 @@ namespace eslamio.Content.Projectiles
 				SoundEngine.PlaySound(SoundID.Splash, target.position);
 			}
 
-			base.OnHitNPC(target, hit, damageDone);
+
 		}
     }
 }

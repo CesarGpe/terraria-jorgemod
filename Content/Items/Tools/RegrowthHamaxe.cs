@@ -33,23 +33,24 @@ namespace eslamio.Content.Items.Tools
 			Main.dust[poop].noGravity = true;
 		}
 
-        public override bool? UseItem(Player player)
+        public override void Load()
         {
-			int x = Main.MouseWorld.ToTileCoordinates().X;
-			int y = Main.MouseWorld.ToTileCoordinates().Y;
-			
-			Tile tile = Main.tile[x, y];
-			tile.TileType = TileID.WoodBlock;
-
-			int tileType = TileID.Saplings;
-			int style = 0;
-			
-			PlantLoader.CheckAndInjectModSapling(x, y, ref tileType, ref style);
-
-            return base.UseItem(player);
+            Terraria.On_Player.ItemCheck_OwnerOnlyCode += VanillaItemCheck;
         }
 
-        /*public override void AddRecipes() {
+        private void VanillaItemCheck(On_Player.orig_ItemCheck_OwnerOnlyCode orig, Player self, ref Player.ItemCheckContext context, Item sItem, int weaponDamage, Rectangle heldItemFrame)
+        {
+            if (sItem.type == ModContent.ItemType<RegrowthHamaxe>())
+			{
+				sItem.type = 5295;
+				orig(self, ref context, sItem, weaponDamage, heldItemFrame);
+				sItem.type = ModContent.ItemType<RegrowthHamaxe>();
+			}
+			else
+				orig(self, ref context, sItem, weaponDamage, heldItemFrame);
+        }
+
+        public override void AddRecipes() {
 			CreateRecipe()
 				.AddIngredient(ItemID.AcornAxe)
 				.AddIngredient(ItemID.GoldHammer)
@@ -61,15 +62,6 @@ namespace eslamio.Content.Items.Tools
 				.AddIngredient(ItemID.PlatinumHammer)
 				.AddTile(TileID.Anvils)
 				.Register();
-		}*/
-    }
-
-	public class AcornHamaxePlayer : ModPlayer
-	{
-		public bool replant;
-
-		public override void ResetEffects() {
-			replant = false;
 		}
-	}
+    }
 }

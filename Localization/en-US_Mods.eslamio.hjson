@@ -213,10 +213,9 @@ Items: {
 		DisplayName: Hamaxe of Regrowth
 		Tooltip:
 			'''
-			SIN TERMINAR, NO USAR PORFIS :3
-			puta madre me voy a suicidar
-			ayer me coji a tu padre y hoy
-			a un muerto
+			Creates grass on dirt
+			Increases alchemy plant collection when used to gather
+			Plants acorns when cutting down trees
 			'''
 	}
 
