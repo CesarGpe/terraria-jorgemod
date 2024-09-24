@@ -21,8 +21,8 @@ namespace eslamio.Content
 
 		public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{menuAssetPath}/logo");
 		//public override Asset<Texture2D> Logo => base.Logo;
-		public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>($"{menuAssetPath}/cesarfumo");
-		public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>($"{menuAssetPath}/iscaca");
+		//public override Asset<Texture2D> SunTexture => ModContent.Request<Texture2D>($"{menuAssetPath}/cesarfumo");
+		//public override Asset<Texture2D> MoonTexture => ModContent.Request<Texture2D>($"{menuAssetPath}/iscaca");
 
 		public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Music/menu");
 
@@ -40,10 +40,18 @@ namespace eslamio.Content
 		private Color[] colors = {Color.Red, Color.Green, Color.Blue, Color.Yellow, Color.Purple};
 		//
 
-		public override string DisplayName => "JORGE MOD";
+		public override string DisplayName => "JORGE MENU";
 
 		public override void OnSelected() {
 			SoundEngine.PlaySound(selectSound, null);
+
+			if (init)
+			{
+				logoHitbox.Location = new Point(rnd.Next(0, Main.screenWidth - logoHitbox.Width), rnd.Next(0, Main.screenHeight - logoHitbox.Height));
+
+				int markiplier = (rnd.Next(0, 2) == 0) ? 1 : -1;
+				velX = velY = Math.Max(vel * Main.screenWidth, 1) * markiplier;
+			}
 		}
 
 		public override void OnDeselected() {
@@ -92,48 +100,48 @@ namespace eslamio.Content
 			//draw the actual menu logo
 			if (!init)
 			{
-                logoHitbox = new Rectangle(0, 0, Utils.Width(Logo) + 600, Utils.Height(Logo) + 120) {
-                    Location = new Point(rnd.Next(0, Main.screenWidth - logoHitbox.Width), rnd.Next(0, Main.screenHeight - logoHitbox.Height))
-                    //Location = logoDrawCenter.ToPoint()
-                };
-                velX = velY = Math.Max(vel * Main.screenWidth, 1);
+                logoHitbox = new Rectangle(0, 0, Utils.Width(Logo) + 600, Utils.Height(Logo) + 120);
+                logoHitbox.Location = new Point(rnd.Next(0, Main.screenWidth - logoHitbox.Width), rnd.Next(0, Main.screenHeight - logoHitbox.Height));
+                
+				int markiplier = (rnd.Next(0, 2) == 0) ? 1 : -1;
+				velX = velY = Math.Max(vel * Main.screenWidth, 1) * markiplier;
 				
 				logoCenter = logoHitbox.Center.ToVector2();
 				init = true;
 			}
 			else
 			{
-				var pos = logoHitbox.Location;
-				pos.X += (int)velX;
-            	pos.Y += (int)velY;
+				logoHitbox.X += (int)velX;
+            	logoHitbox.Y += (int)velY;
 
 				int count = 0;
-				if (pos.X < 0)
+				// top left corners
+				if (logoHitbox.Location.X < 0)
 				{
 					velX = Math.Abs(velX);
-					bounces++;
+					Bounce();
 					count++;
 				}
-				if (pos.Y < 0)
+				if (logoHitbox.Location.Y < 0)
 				{
 					velY = Math.Abs(velY);
-					bounces++;
+					Bounce();
 					count++;
 				}
-				if (pos.X > Main.screenWidth - logoHitbox.Width)
+				// bottom right corners
+				if (logoHitbox.Location.X > Main.screenWidth - logoHitbox.Width)
 				{
 					velX = -Math.Abs(velX);
-					bounces++;
+					Bounce();
 					count++;
 				}
-				if (pos.Y > Main.screenHeight - logoHitbox.Height)
+				if (logoHitbox.Location.Y > Main.screenHeight - logoHitbox.Height)
 				{
 					velY = -Math.Abs(velY);
-					bounces++;
+					Bounce();
 					count++;
 				}
 
-				logoHitbox.Location = pos;
 				logoCenter = logoHitbox.Center.ToVector2();
 				drawColor = colors[bounces % colors.Length];
 
@@ -150,6 +158,13 @@ namespace eslamio.Content
 			Utils.DrawBorderString(spriteBatch, $"Bounces: {bounces}\nCorner hits: {cornerCount}", new Vector2(20, 20), Color.White);
 
 			return false;
+		}
+
+		private void Bounce()
+		{
+			bounces++;
+
+			
 		}
 
         public override void Update(bool isOnTitleScreen)

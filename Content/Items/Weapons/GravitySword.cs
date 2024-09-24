@@ -1,4 +1,5 @@
 using eslamio.Content.Buffs;
+using eslamio.Effects;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -28,7 +29,8 @@ namespace eslamio.Content.Items.Weapons
 
         public override void HoldItem(Player player)
         {
-    		player.AddBuff(ModContent.BuffType<GravBuff>(), 0);
+    		//player.AddBuff(ModContent.BuffType<GravBuff>(), 0);
+			//player.GetModPlayer<SlimeShaderPlayer>().IsActive = true;
 		}
 
         public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)

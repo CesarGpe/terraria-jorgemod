@@ -266,6 +266,16 @@ Items: {
 			La dare una vez que compruebe que termino la tarea.
 			'''
 	}
+
+	DVDPetItem: {
+		DisplayName: Logo del DVD
+		Tooltip: el subway surfers de la generacion pasada
+	}
+
+	JorgeBossSummonItem: {
+		DisplayName: JORGEBOSS-INADOR
+		Tooltip: INVOCA AL ANTICRISTO USAR CON CAUTELA
+	}
 }
 
 Dialogue: {
@@ -409,7 +419,7 @@ Dialogue: {
 		mantxt12: tu, yo, y un queso buajaka, piensalo
 		mantxt13: creo que te verias mejor sin camisa
 		femtxt1: una mujer? deberias presionar mi boton de Ganar
-		femtxt2: jugador mujer? es 40% probable que en realidad seas hombre
+		femtxt2: porque me hablassss aaaaaaaaaaaaaaaaaaaaa
 		femtxt3: que quieres ahora
 		femtxt4: como te atreves a hablarme con dos cromosomas x
 	}
@@ -511,6 +521,9 @@ NPCs: {
 			Princess_LovesNPC: Estoy programado para que me caiga bien la princesa.
 		}
 	}
+
+	JorgeBoss.DisplayName: JORGE BOSS
+	Dop.DisplayName: Doppelganger
 }
 
 Buffs: {
@@ -551,6 +564,11 @@ Buffs: {
 		Description: te esta siguiendo el tsuyar
 		DisplayName: huye
 	}
+
+	DVDPetBuff: {
+		DisplayName: DVD Screensaver
+		Description: El logo de DVD reduce el aburrimiento en un 7%!!!!
+	}
 }
 
 RecipeGroup.AnyMythrilBar: Cualquier barra de Mythril
@@ -568,4 +586,6 @@ Projectiles: {
 	CesarPetProjectile.DisplayName: Cesar Pet Projectile
 	TsuyarPetProjectile.DisplayName: Tsuyar Pet Projectile
 	BluntProjectile.DisplayName: Blunt Projectile
+	DVDPetProjectile.DisplayName: DVD Pet Projectile
+	PlayerCloneProjectile.DisplayName: Player Clone Projectile
 }

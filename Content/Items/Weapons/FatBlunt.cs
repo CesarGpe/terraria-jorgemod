@@ -29,10 +29,12 @@ namespace eslamio.Content.Items.Weapons
 
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
-			if (Main.rand.NextBool(8)) { // This creates a 1/10 chance that a dust will spawn every frame that this item is in its 'Swinging' animation.
+			/*if (Main.rand.NextBool(2)) { // This creates a 1/10 chance that a dust will spawn every frame that this item is in its 'Swinging' animation.
 				// Creates a dust at the hitbox rectangle, following the rules of our 'if' conditional.
-				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.FlameBurst);
-			}
+				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.InfernoFork);
+			}*/
+			for (int i = 0; i < 2; i++)
+				Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.InfernoFork);
         }
 
     }

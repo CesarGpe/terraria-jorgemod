@@ -20,8 +20,8 @@ namespace eslamio.Content.Projectiles
 
         public override void AI()
         {
-			if (Main.rand.NextBool(10))
-				Dust.NewDustPerfect(Projectile.Center, DustID.FlameBurst);
+			//if (Main.rand.NextBool(10))
+			Dust.NewDustPerfect(Projectile.Center, DustID.InfernoFork);
 
             base.AI();
         }

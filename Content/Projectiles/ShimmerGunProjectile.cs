@@ -28,6 +28,8 @@ namespace eslamio.Content.Projectiles
 				// esto cambia al npc
 				NPC.ShimmeredTownNPCs[target.type] = !NPC.ShimmeredTownNPCs[target.type];
 				target.townNpcVariationIndex = target.IsShimmerVariant ? 0 : 1;
+				target.netUpdate = true;
+				target.netUpdate2 = true;
 
 				// el resto son particulas
 				Gore.NewGore(target.GetSource_Death(), target.position + new Vector2(0, 2), target.velocity, 11);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -26,16 +27,56 @@ namespace eslamio.Content.Items.Weapons
 			Item.UseSound = SoundID.Item36;
 
 			// Weapon Properties
-			Item.DamageType = DamageClass.Generic; // Sets the damage type to ranged.
+			Item.DamageType = DamageClass.Default; // Sets the damage type to ranged.
 			Item.damage = 1;
 			Item.knockBack = 0f;
 			Item.noMelee = true;
 
 			// Gun Properties
-			//Item.shoot = ModContent.ProjectileType<EpicHookProjectile>();
-			Item.shoot = ProjectileID.IvyWhip;
-			Item.shootSpeed = 16f;
+			Item.shoot = ProjectileID.PurificationPowder;
+			//Item.shoot = ModContent.ProjectileType<PlayerCloneProjectile>();
+			//Item.shoot = ProjectileID.IvyWhip;
+			Item.shootSpeed = 6f;
 		}
+
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+			Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<PlayerCloneProjectile>(), damage, knockback, player.whoAmI, 0, 0, 1);
+			return false;
+        }
+
+    }
+
+	internal class PlayerCloneProjectile : ModProjectile
+	{
+		public override string Texture => "eslamio/Content/Projectiles/ShimmerGunProjectile";
+		public Player clone;
+
+        public override void SetDefaults() {
+			Projectile.CloneDefaults(ProjectileID.JavelinFriendly);
+			AIType = ProjectileID.JavelinFriendly;
+		}
+
+        public override void AI()
+        {
+			if (Projectile.ai[2] == 1)
+			{
+				var player = Main.player[Projectile.owner];
+				clone = (Player)player.Clone();
+				clone.CurrentLoadoutIndex = player.CurrentLoadoutIndex;
+				Projectile.ai[2] = 0;
+			}
+            base.AI();
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+			//Player clone = Main.player[Projectile.owner];
+			//Player clone = (Player)Main.player[Projectile.owner].Clone();
+			Main.PlayerRenderer.DrawPlayer(Main.Camera, clone, Projectile.position, clone.fullRotation, clone.fullRotationOrigin, 0f);
+
+            return false;
+        }
     }
 
 	internal class EpicHookProjectile : ModProjectile
