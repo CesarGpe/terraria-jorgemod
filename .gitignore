@@ -1,5 +1,10 @@
+.vscode
+.vs
+Backup
+bin
+obj
 .vscode/
 .vs/
-bin/
 Backup/
+bin/
 obj/
