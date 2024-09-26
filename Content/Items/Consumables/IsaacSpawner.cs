@@ -26,7 +26,7 @@ namespace eslamio.Content.Items.Consumables
 			Item.consumable = true;
 			Item.noMelee = true;
 			//Item.noUseGraphic = true;
-			Item.UseSound = new SoundStyle($"{nameof(eslamio)}/Assets/Sounds/BadToTheBone");
+			Item.UseSound = new SoundStyle("eslamio/Assets/Sounds/BadToTheBone");
 			Item.makeNPC = ModContent.NPCType<NPCs.Isaac>();
 		}
 
