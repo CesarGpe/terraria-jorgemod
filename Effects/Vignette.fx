@@ -22,6 +22,7 @@ float2 uZoom;
 
 float Radius;
 float FadeDistance;
+float DesatLevel;
 
 float4 MainPS(float2 coords : TEXCOORD0) : COLOR0
 {
@@ -42,7 +43,7 @@ float4 MainPS(float2 coords : TEXCOORD0) : COLOR0
     float gray = dot(origColor.rgb, float3(0.299, 0.587, 0.114));
 
     // Mix the original color with the grayscale color (50% desaturation)
-    origColor.rgb = lerp(origColor.rgb, float3(gray, gray, gray), 0.5);
+    origColor.rgb = lerp(origColor.rgb, float3(gray, gray, gray), DesatLevel);
     
     origColor = lerp(origColor, float4(uColor, 0), lerpStrength * uOpacity * uIntensity);
     return origColor;

@@ -1,21 +1,12 @@
-using eslamio.Common.ModSystems;
+using eslamio.Core;
 using eslamio.Effects;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.DataStructures;
-using Terraria.GameContent;
-using Terraria.GameContent.Bestiary;
 using Terraria.Graphics.CameraModifiers;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
-using Terraria.Localization;
-using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 
 namespace eslamio.Content.NPCs.Enemies.Faker
@@ -23,17 +14,12 @@ namespace eslamio.Content.NPCs.Enemies.Faker
 	public class Dop : ModNPC
 	{
 		int despawnTimer = 0;
-		Player victim;
+		bool angry = false;
 		Player skin;
-		SoundStyle disappearSound = new("eslamio/Assets/Sounds/Dop/Disappear") {
-			PitchVariance = 0.5f
-		};
-		SoundStyle hitSound = new(SoundID.NPCHit37.SoundPath) {
-			PitchVariance = 0.5f
-		};
-		SoundStyle deathSound = new("eslamio/Assets/Sounds/Dop/Death") {
-			PitchVariance = 0.5f
-		};
+		SoundStyle disappearSound = new("eslamio/Assets/Sounds/Dop/Disappear") { PitchVariance = 0.5f };
+		SoundStyle deathSound = new("eslamio/Assets/Sounds/Dop/Death") { PitchVariance = 0.5f };
+		SoundStyle spottedSound = new("eslamio/Assets/Sounds/Dop/Spotted") { PitchVariance = 0.5f };
+		SoundStyle hitSound = new(SoundID.NPCHit37.SoundPath) { PitchVariance = 0.5f };
 
 
 		public override void SetStaticDefaults()
@@ -52,18 +38,19 @@ namespace eslamio.Content.NPCs.Enemies.Faker
 			NPC.damage = 60;
 			NPC.defense = 40;
 			NPC.lifeMax = 400;
+			NPC.rarity = 5;
 			//NPC.HitSound = SoundID.NPCHit37;
 			NPC.HitSound = hitSound;
 			NPC.DeathSound = deathSound;
-			NPC.value = 360f;
+			NPC.value = Main.rand.Next(25000, 50000);
 			NPC.knockBackResist = 0.16f;
-			NPC.aiStyle = 3;
+			NPC.aiStyle = NPCAIStyleID.Fighter;
 
 			AIType = NPCID.BloodMummy;
 			AnimationType = NPCID.BloodMummy;
 		}
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
 			if (skin is not null)
 			{
@@ -75,13 +62,6 @@ namespace eslamio.Content.NPCs.Enemies.Faker
 				skin.headFrame.Y = NPC.frame.Y;
 				skin.bodyFrame.Y = NPC.frame.Y;
 				skin.legFrame.Y = NPC.frame.Y;
-
-				// player camera stuff
-				VignettePlayer vignettePlayer = victim.GetModPlayer<VignettePlayer>();
-                vignettePlayer.SetVignette(0f, 500f, 0.95f, Color.Black, victim.Center);
-
-				PunchCameraModifier modifier = new(victim.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 1f, 6f, 10, 1f, FullName);
-				Main.instance.CameraModifiers.Add(modifier);
 			}
 			Main.PlayerRenderer.DrawPlayer(Main.Camera, skin, skin.position, skin.fullRotation, skin.fullRotationOrigin, 0f);
 
@@ -98,18 +78,17 @@ namespace eslamio.Content.NPCs.Enemies.Faker
 		public override bool CheckActive() => false;
 
 		const float speedX = 2.5f;
-        public override bool PreAI()
-        {
-			if (!IsNpcOnscreen(NPC.Center))
+		public override bool PreAI()
+		{
+			if (!IsNpcOnscreen(NPC.Center) && angry)
 				despawnTimer++;
 			else
 				despawnTimer = 0;
 
-			if (despawnTimer == 200 && Main.netMode != NetmodeID.Server)
-					SoundEngine.PlaySound(disappearSound, null);
-			else if (despawnTimer > 240)
+			if (despawnTimer == 350)
+				SoundEngine.PlaySound(disappearSound, null);
+			else if (despawnTimer > 360)
 			{
-				//ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral("It's no longer after you."), Color.MediumPurple, skin.whoAmI);
 				NPC.EncourageDespawn(10);
 				NPC.active = false;
 				NPC.netSkip = -1;
@@ -119,39 +98,72 @@ namespace eslamio.Content.NPCs.Enemies.Faker
 			}
 
 			NPC.velocity.X /= speedX;
-            return base.PreAI();
+			return base.PreAI();
+		}
+		public override void AI()
+        {
+            NPC.TargetClosest();
+
+			var players = FindPlayersInRadius(1000);
+			if (!angry)
+			{
+				NPC.velocity = Vector2.Zero;
+				for (int i = 0; i < players.Count; i++)
+				{
+					VignettePlayer vignettePlayer = players[i].GetModPlayer<VignettePlayer>();
+					vignettePlayer.SetVignette(0f, 1000f, 0.8f, Color.Black, players[i].Center, 0.2f);
+				}
+			}
+			else
+			{
+				for (int i = 0; i < players.Count; i++)
+				{
+					VignettePlayer vignettePlayer = players[i].GetModPlayer<VignettePlayer>();
+					vignettePlayer.SetVignette(0f, 500f, 0.9f, Color.Black, players[i].Center, 0.5f);
+					vignettePlayer.sceneActive = true;
+				}
+			}
+			
+			if (!angry && (CheckForPlayer(200) || NPC.life != NPC.lifeMax))
+			{
+				angry = true;
+				SoundEngine.PlaySound(spottedSound, NPC.position);
+			}
         }
         public override void PostAI()
-        {
+		{
 			NPC.velocity.X *= speedX;
-            base.PostAI();
-        }
+			base.PostAI();
+		}
 
-		private static bool IsNpcOnscreen(Vector2 center) {
+		private static bool IsNpcOnscreen(Vector2 center)
+		{
 			int w = NPC.sWidth + NPC.safeRangeX * 2;
 			int h = NPC.sHeight + NPC.safeRangeY * 2;
-			Rectangle npcScreenRect = new Rectangle((int)center.X - w / 2, (int)center.Y - h / 2, w, h);
-			foreach (Player player in Main.player) {
+			Rectangle npcScreenRect = new((int)center.X - w / 2, (int)center.Y - h / 2, w, h);
+			foreach (Player player in Main.player)
+			{
 				if (player.active && player.getRect().Intersects(npcScreenRect))
 					return true;
 			}
 			return false;
 		}
 
-        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			// spawns in the underground and cavern layers, and only if no other doppelgangers exist
-			if (!NPC.AnyNPCs(Type) && (DopSpawner.moodPhase == -1) && (spawnInfo.Player.ZoneDirtLayerHeight || spawnInfo.Player.ZoneRockLayerHeight))
+			if (!NPC.AnyNPCs(Type) && spawnInfo.Player.GetModPlayer<DopSpawner>().moodPhase <= 0
+				&& (spawnInfo.Player.ZoneDirtLayerHeight || spawnInfo.Player.ZoneRockLayerHeight))
 				return SpawnCondition.Cavern.Chance;
-				//return SpawnCondition.Cavern.Chance * 0.008f;
-			
+			//return SpawnCondition.Cavern.Chance * 0.008f;
+
 			return 0f;
 		}
 
-        public override void OnSpawn(IEntitySource source)
+		public override void OnSpawn(IEntitySource source)
 		{
 			despawnTimer = 0;
-			victim = FindClosestPlayer(1600);
+			Player victim = FindClosestPlayer(1600);
 			if (victim is not null)
 			{
 				skin = (Player)victim.Clone();
@@ -193,9 +205,55 @@ namespace eslamio.Content.NPCs.Enemies.Faker
 			return closestPlayer;
 		}
 
-		public override void HitEffect(NPC.HitInfo hit) {
+		private bool CheckForPlayer(float maxDetectDistance)
+		{
+			// Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
+			float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
+
+			// Loop through all Players
+			foreach (Player target in Main.ActivePlayers)
+			{
+				// The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
+				float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, NPC.Center);
+
+				// Check if it is within the radius and not through blocks
+				if (sqrDistanceToTarget < sqrMaxDetectDistance && Collision.CanHit(NPC.position, NPC.width, NPC.height, Main.player[NPC.target].position, Main.player[NPC.target].width, Main.player[NPC.target].height))
+					return true;
+			}
+
+			return false;
+		}
+
+		private List<Player> FindPlayersInRadius(float maxDetectDistance)
+		{
+			List<Player> foundPlayers = [];
+
+			// Using squared values in distance checks will let us skip square root calculations, drastically improving this method's speed.
+			float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
+
+			// Loop through all Players
+			foreach (Player target in Main.ActivePlayers)
+			{
+				// The DistanceSquared function returns a squared distance between 2 points, skipping relatively expensive square root calculations
+				float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, NPC.Center);
+
+				// Check if it is within the radius
+				if (sqrDistanceToTarget < sqrMaxDetectDistance)
+				{
+					sqrMaxDetectDistance = sqrDistanceToTarget;
+					foundPlayers.Add(target);
+				}
+			}
+
+			return foundPlayers;
+		}
+
+	
+		public override void HitEffect(NPC.HitInfo hit)
+		{
 			// Create gore when the NPC is killed.
-			if (Main.netMode != NetmodeID.Server && NPC.life <= 0) {
+			if (Main.netMode != NetmodeID.Server && NPC.life <= 0)
+			{
 				Gore.NewGore(NPC.GetSource_Death(), NPC.position + new Vector2(0, 2), NPC.velocity, 11);
 				Gore.NewGore(NPC.GetSource_Death(), NPC.position + new Vector2(0, 2), NPC.velocity, 12);
 				Gore.NewGore(NPC.GetSource_Death(), NPC.position + new Vector2(0, 3), NPC.velocity, 13);

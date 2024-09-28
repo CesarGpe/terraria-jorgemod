@@ -6,7 +6,7 @@ namespace eslamio.Content.NPCs.Enemies.Faker
 	public class DopSpawner : ModPlayer
 	{
 		int noiseTimer = 0;
-		public static int moodPhase = 0;
+		public int moodPhase = 1;
 
 		private void PlaySound()
 		{
@@ -21,15 +21,17 @@ namespace eslamio.Content.NPCs.Enemies.Faker
 
 		public override void PreUpdate()
 		{
+			//28800
 			if (Player.ZoneDirtLayerHeight || Player.ZoneRockLayerHeight)
-			{
 				noiseTimer += Main.rand.Next(2);
-				if (noiseTimer >= 28800)
-				{
-					if (Main.netMode != NetmodeID.Server) PlaySound();
-					moodPhase++;
-					noiseTimer = 0;
-				}
+			else
+				noiseTimer -= Main.rand.Next(2);
+
+			if (noiseTimer >= 240)
+			{
+				if (Main.netMode != NetmodeID.Server) PlaySound();
+				moodPhase++;
+				noiseTimer = 0;
 			}
 
 			base.PreUpdate();
