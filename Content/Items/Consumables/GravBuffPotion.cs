@@ -1,8 +1,5 @@
 using eslamio.Content.Buffs;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace eslamio.Content.Items.Consumables
 {

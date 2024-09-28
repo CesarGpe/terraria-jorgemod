@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using eslamio.Core;
 using eslamio.Core.Helpers;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace eslamio.Core.Loaders;

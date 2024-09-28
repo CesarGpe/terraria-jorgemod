@@ -1,8 +1,5 @@
-﻿using Terraria;
-using Terraria.GameInput;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace eslamio.Common.ModSystems;
 

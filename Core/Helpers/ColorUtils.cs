@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-
 namespace eslamio.Core.Helpers;
 
 public static class ColorUtils

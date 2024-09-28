@@ -1,7 +1,5 @@
-﻿using Terraria;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace eslamio.Content.Items.Armor
 {

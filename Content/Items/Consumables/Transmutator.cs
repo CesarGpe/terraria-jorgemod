@@ -1,10 +1,7 @@
-﻿using Terraria;
-using Terraria.Audio;
+﻿using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.ID;
-using Terraria.IO;
 using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace eslamio.Content.Items.Consumables
 {

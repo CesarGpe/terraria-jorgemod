@@ -1,7 +1,4 @@
 ﻿using eslamio.Content.Projectiles;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace eslamio.Common.Players
 {

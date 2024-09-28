@@ -1,9 +1,4 @@
-﻿using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
-
-namespace eslamio.Common.Players
+﻿namespace eslamio.Common.Players
 {
 	public class SomePlayer : ModPlayer
 	{

@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.Utilities;
 
 namespace eslamio.Core.Helpers;

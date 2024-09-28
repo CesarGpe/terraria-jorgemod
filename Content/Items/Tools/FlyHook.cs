@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using eslamio.Common.ModSystems;
-using eslamio.Content.Buffs;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using eslamio.Content.Buffs;
 using ReLogic.Content;
-using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace eslamio.Content.Items.Tools
 {

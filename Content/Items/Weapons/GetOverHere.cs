@@ -1,10 +1,5 @@
-﻿using eslamio.Common.ModSystems;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using Terraria;
+﻿using ReLogic.Content;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace eslamio.Content.Items.Weapons
 {

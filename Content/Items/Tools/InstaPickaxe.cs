@@ -1,8 +1,4 @@
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.GameContent.UI;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace eslamio.Content.Items.Tools
 {

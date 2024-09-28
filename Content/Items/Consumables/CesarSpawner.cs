@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace eslamio.Content.Items.Consumables
 {

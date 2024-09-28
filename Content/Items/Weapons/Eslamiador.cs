@@ -1,6 +1,4 @@
-using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace eslamio.Content.Items.Weapons
 {

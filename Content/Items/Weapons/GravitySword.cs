@@ -1,10 +1,4 @@
-using eslamio.Content.Buffs;
-using eslamio.Effects;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace eslamio.Content.Items.Weapons
 {
