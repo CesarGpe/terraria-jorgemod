@@ -7,14 +7,15 @@ namespace eslamio.Effects
     class VignettePlayer : ModPlayer
 	{
 		private bool WasActiveLastTick;
+		private bool IsActive;
 		public bool sceneActive;
-		public bool IsActive;
+		public float shakeIntensity = 0f;
 
 		private Vector2 TargetPosition;
-		public float DesatLevel;
-		public float Opacity;
+		private float DesatLevel;
+		private float Opacity;
 		private float Radius;
-		public float FadeDistance;
+		private float FadeDistance;
 		private Color Color;
 
 		public override void ResetEffects()
@@ -45,22 +46,21 @@ namespace eslamio.Effects
 			eslamio.vignetteEffect.Parameters["DesatLevel"].SetValue(DesatLevel);
 			eslamio.vignetteEffect.Parameters["FadeDistance"].SetValue(FadeDistance);
 			Player.ManageSpecialBiomeVisuals("eslamio:Vignette", IsActive || WasActiveLastTick, TargetPosition);
+
+			if (IsActive || WasActiveLastTick)
+			{
+				PunchCameraModifier modifier = new(Player.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), shakeIntensity, 6f, 10, 1f, FullName);
+				Main.instance.CameraModifiers.Add(modifier);
+			}
 		}
 	}
 
+	[Autoload(Side = ModSide.Client)]
 	public class DopChase : ModSceneEffect
 	{
 		public override bool IsSceneEffectActive(Player player) => player.GetModPlayer<VignettePlayer>().sceneActive;
 		public override int Music => MusicLoader.GetMusicSlot("eslamio/Assets/Music/DopChase");
 		public override SceneEffectPriority Priority => SceneEffectPriority.BossMedium;
 		public override string MapBackground => "Terraria/Images/MapBG25";
-        public override void SpecialVisuals(Player player, bool isActive)
-        {
-            if (isActive)
-			{
-				PunchCameraModifier modifier = new(player.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 1f, 6f, 10, 1f, FullName);
-				Main.instance.CameraModifiers.Add(modifier);
-			}
-        }
     }
 }

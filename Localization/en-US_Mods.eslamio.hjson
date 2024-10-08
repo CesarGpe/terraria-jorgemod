@@ -571,8 +571,6 @@ Buffs: {
 	}
 }
 
-RecipeGroup.AnyMythrilBar: Cualquier barra de Mythril
-
 Projectiles: {
 	ShimmerGunProjectile.DisplayName: Shimmer Gun Projectile
 	GetOverHereProjectile.DisplayName: Get Over Here Projectile
@@ -588,4 +586,35 @@ Projectiles: {
 	BluntProjectile.DisplayName: Blunt Projectile
 	DVDPetProjectile.DisplayName: DVD Pet Projectile
 	PlayerCloneProjectile.DisplayName: Player Clone Projectile
+}
+
+Configs: {
+	ClientConfig: {
+		DisplayName: Configuracion del cliente
+
+		LlamasDelDesastre: {
+			Label: Las llamas del desastre
+			Tooltip: Reproduce "las llamas del desastre" cuando saltas.
+		}
+
+		AguasDeLaTranquilidad: {
+			Label: Las aguas de la tranquilidad
+			Tooltip: Reproduce "las aguas de la tranquilidad" cuando presionas abajo.
+		}
+
+		DopSpawnChance: {
+			Label: La variable cuyo valor no debe ser cambiado
+			Tooltip: peor error de mi vida
+		}
+
+		DVDPetSpeed: {
+			Label: Velocidad de mascota DVD
+			Tooltip: Ajusta la velocidad de la mascota del logo DVD.
+		}
+
+		ModLogoSpeed: {
+			Label: Velocidad del logo del mod
+			Tooltip: Ajusta la velocidad del "jorg emod" de la pantalla de titulo.
+		}
+	}
 }

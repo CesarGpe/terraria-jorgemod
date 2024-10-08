@@ -1,4 +1,5 @@
 ﻿using System;
+using eslamio.Content.Config;
 using ReLogic.Content;
 using Terraria.Audio;
 using Terraria.ID;
@@ -62,6 +63,7 @@ namespace eslamio.Content
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
 		{
 			//drawColor = Main.DiscoColor;
+			vel = 0.003f * ModContent.GetInstance<ClientConfig>().ModLogoSpeed;
 
 			//hides the sun offscreen so you cant click it
             Main.sunModY = -300;

@@ -1,8 +1,10 @@
 using ReLogic.Utilities;
 using Terraria.Audio;
+using Terraria.ID;
 
 namespace eslamio.Core;
 
+[Autoload(Side = ModSide.Client)]
 public class JiskUtils : ModSystem
 {
     private static SlotId _currentSlotId;
@@ -16,16 +18,19 @@ public class JiskUtils : ModSystem
     /// </summary>
     /// <param name="style">The sound style containing the parameters for the sound to be played.</param>
     /// <param name="volumeMultiplier">The multiplier for quieting the background music volume.</param>
-    public static void PlaySoundOverBGM(in SoundStyle style, float volumeMultiplier = 0.45f)
+    public static void PlaySoundOverBGM(in SoundStyle style, float volumeMultiplier = 0.45f, Vector2? position = null)
     {
-        var slotId = SoundEngine.PlaySound(style);
-        if (Main.musicVolume <= 0) return;
-        _originalMusicVolume = Main.musicVolume;
-        _currentSlotId = slotId;
+        if (Main.netMode != NetmodeID.Server || !Main.dedServ)
+        {
+            var slotId = SoundEngine.PlaySound(style, position);
+            if (Main.musicVolume <= 0) return;
+            _originalMusicVolume = Main.musicVolume;
+            _currentSlotId = slotId;
 
-        float nVolume = Main.soundVolume * volumeMultiplier;
-        //Main.musicVolume = Main.soundVolume * volumeMultiplier;
-        Tween.To(() => Main.musicVolume, x => { Main.musicVolume = x; }, nVolume, 0.75f);
+            float nVolume = Main.soundVolume * volumeMultiplier;
+            //Main.musicVolume = Main.soundVolume * volumeMultiplier;
+            Tween.To(() => Main.musicVolume, x => { Main.musicVolume = x; }, nVolume, 0.75f);
+        }
     }
 
     public override void PostUpdateEverything()
@@ -35,8 +40,8 @@ public class JiskUtils : ModSystem
             if (!_isPlayingSoundLastFrame) return;
             _isPlayingSoundLastFrame = false;
             _currentSlotId = default;
-            
-            Tween.To(() => Main.musicVolume, x => { Main.musicVolume = x; }, _originalMusicVolume, 1.5f);
+
+            Tween.To(() => Main.musicVolume, x => { Main.musicVolume = x; }, _originalMusicVolume, 0.75f);
 
             return;
         }

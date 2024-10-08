@@ -20,7 +20,7 @@ namespace eslamio.Content.Items.Consumables
 		public override void SetDefaults() {
 			Item.width = 20;
 			Item.height = 20;
-			Item.maxStack = 20;
+			Item.maxStack = 32;
 			Item.value = 100;
 			Item.rare = ItemRarityID.Cyan;
 			Item.useAnimation = 30;

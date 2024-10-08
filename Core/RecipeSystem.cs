@@ -1,10 +1,10 @@
 ﻿using Terraria.ID;
 using Terraria.Localization;
 
-namespace eslamio.Common.ModSystems;
+namespace eslamio.Core;
 
 public class RecipeSystem : ModSystem
-{
+{/*
     internal static RecipeGroup AnyCopperBar;
     internal static RecipeGroup AnySilverBar;
     internal static RecipeGroup AnyGoldBar;
@@ -56,4 +56,4 @@ public class RecipeSystem : ModSystem
         string text = Language.GetTextValue($"Mods.eslamio.{str}", arg);
         return text;
     }
-}
+*/}

@@ -1,11 +1,8 @@
-using eslamio.Core;
+using eslamio.Content.Config;
 using eslamio.Effects;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader.Utilities;
 
@@ -103,15 +100,17 @@ namespace eslamio.Content.NPCs.Enemies.Faker
 		public override void AI()
         {
             NPC.TargetClosest();
+			Lighting.AddLight(NPC.position, 0.5f, 0.2f, 0);
 
-			var players = FindPlayersInRadius(1000);
+			var players = FindPlayersInRadius(1200);
 			if (!angry)
 			{
 				NPC.velocity = Vector2.Zero;
 				for (int i = 0; i < players.Count; i++)
 				{
 					VignettePlayer vignettePlayer = players[i].GetModPlayer<VignettePlayer>();
-					vignettePlayer.SetVignette(0f, 1000f, 0.8f, Color.Black, players[i].Center, 0.2f);
+					vignettePlayer.SetVignette(0f, 900f, 0.85f, Color.Black, players[i].Center, 0.35f);
+					vignettePlayer.shakeIntensity = 0.6f;
 				}
 			}
 			else
@@ -119,7 +118,8 @@ namespace eslamio.Content.NPCs.Enemies.Faker
 				for (int i = 0; i < players.Count; i++)
 				{
 					VignettePlayer vignettePlayer = players[i].GetModPlayer<VignettePlayer>();
-					vignettePlayer.SetVignette(0f, 500f, 0.9f, Color.Black, players[i].Center, 0.5f);
+					vignettePlayer.SetVignette(0f, 500f, 0.9f, Color.Black, players[i].Center, 0.6f);
+					vignettePlayer.shakeIntensity = 1.2f;
 					vignettePlayer.sceneActive = true;
 				}
 			}
@@ -152,10 +152,9 @@ namespace eslamio.Content.NPCs.Enemies.Faker
 		public override float SpawnChance(NPCSpawnInfo spawnInfo)
 		{
 			// spawns in the underground and cavern layers, and only if no other doppelgangers exist
-			if (!NPC.AnyNPCs(Type) && spawnInfo.Player.GetModPlayer<DopSpawner>().moodPhase <= 0
-				&& (spawnInfo.Player.ZoneDirtLayerHeight || spawnInfo.Player.ZoneRockLayerHeight))
-				return SpawnCondition.Cavern.Chance;
-			//return SpawnCondition.Cavern.Chance * 0.008f;
+			if (!NPC.AnyNPCs(Type) && (spawnInfo.Player.ZoneDirtLayerHeight || spawnInfo.Player.ZoneRockLayerHeight))
+				return SpawnCondition.Cavern.Chance * 0.01f;
+			//return SpawnCondition.Cavern.Chance * 0.01f;
 
 			return 0f;
 		}
@@ -252,7 +251,7 @@ namespace eslamio.Content.NPCs.Enemies.Faker
 		public override void HitEffect(NPC.HitInfo hit)
 		{
 			// Create gore when the NPC is killed.
-			if (Main.netMode != NetmodeID.Server && NPC.life <= 0)
+			if (Main.netMode != NetmodeID.Server && !Main.dedServ && NPC.life <= 0)
 			{
 				Gore.NewGore(NPC.GetSource_Death(), NPC.position + new Vector2(0, 2), NPC.velocity, 11);
 				Gore.NewGore(NPC.GetSource_Death(), NPC.position + new Vector2(0, 2), NPC.velocity, 12);

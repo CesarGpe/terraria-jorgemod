@@ -39,6 +39,8 @@ namespace eslamio.Content.Items.Pets
 
 	public class TsuyarPetProjectile : ModProjectile
 	{
+		public override string Texture => "eslamio/Content/Items/Pets/TsuyarPetItem";
+
 		public override void SetStaticDefaults() {
 			Main.projFrames[Projectile.type] = 1;
 			Main.projPet[Projectile.type] = true;

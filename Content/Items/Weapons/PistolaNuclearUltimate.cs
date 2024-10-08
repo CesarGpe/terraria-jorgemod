@@ -44,7 +44,6 @@ namespace eslamio.Content.Items.Weapons
 				// Decrease velocity randomly for nicer visuals.
 				newVelocity *= 1f - Main.rand.NextFloat(0.3f);
 
-				//Projectile.NewProjectileDirect(source, position, newVelocity, type, damage, knockback, player.whoAmI);
 				Projectile.NewProjectileDirect(source, position, newVelocity, ProjectileID.GrenadeI, damage, knockback, player.whoAmI);
 			}
 

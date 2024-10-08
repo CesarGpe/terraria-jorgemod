@@ -39,7 +39,9 @@ namespace eslamio.Content.Items.Pets
 
 	public class CesarPetProjectile : ModProjectile
 	{
-		public override void SetStaticDefaults() {
+        public override string Texture => "eslamio/Content/Items/Pets/CesarPetItem";
+
+        public override void SetStaticDefaults() {
 			Main.projFrames[Projectile.type] = 1;
 			Main.projPet[Projectile.type] = true;
 			ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
