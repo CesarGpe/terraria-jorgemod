@@ -569,6 +569,11 @@ Buffs: {
 		DisplayName: DVD Screensaver
 		Description: El logo de DVD reduce el aburrimiento en un 7%!!!!
 	}
+
+	FloatingBuff: {
+		Description: Mods.eslamio.Buffs.FloatingBuff.Description
+		DisplayName: Floating Buff
+	}
 }
 
 Projectiles: {
@@ -586,6 +591,8 @@ Projectiles: {
 	BluntProjectile.DisplayName: Blunt Projectile
 	DVDPetProjectile.DisplayName: DVD Pet Projectile
 	PlayerCloneProjectile.DisplayName: Player Clone Projectile
+	StockExplosion.DisplayName: Stock Explosion
+	ExplodesYou.DisplayName: Explodes You
 }
 
 Configs: {
@@ -617,4 +624,10 @@ Configs: {
 			Tooltip: Ajusta la velocidad del "jorg emod" de la pantalla de titulo.
 		}
 	}
+}
+
+Keybinds: {
+	KillBind.DisplayName: Killbind
+	ExplodeNearestNPC.DisplayName: Explotar NPC cercano
+	CrashGameKey.DisplayName: Boton que cierra el videojuego
 }

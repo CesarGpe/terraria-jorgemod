@@ -46,7 +46,7 @@ namespace eslamio.Content.Items.Weapons
 
 	internal class PlayerCloneProjectile : ModProjectile
 	{
-		public override string Texture => "eslamio/Assets/Textures/blank";
+		public override string Texture => "eslamio/Assets/Textures/Blank";
 		public Player clone;
 
         public override void SetDefaults() {

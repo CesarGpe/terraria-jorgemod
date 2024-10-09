@@ -1,7 +1,7 @@
 ﻿using Terraria.ID;
 using Terraria.Localization;
 
-namespace eslamio.Core;
+namespace eslamio.Common;
 
 public class RecipeSystem : ModSystem
 {/*

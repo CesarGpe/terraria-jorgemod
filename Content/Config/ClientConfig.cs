@@ -12,10 +12,10 @@ namespace eslamio.Content.Config
 
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         public bool LlamasDelDesastre { get; set; }
 
-		[DefaultValue(true)]
+		[DefaultValue(false)]
         public bool AguasDeLaTranquilidad { get; set; }
 
 		[Range(0f, 2f)]

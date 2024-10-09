@@ -1,6 +1,11 @@
+using eslamio.Content.Config;
+using eslamio.Content.Items.Pets;
+using ReLogic.Content;
 using System;
 using Terraria.GameContent;
+using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
+using Terraria.UI;
 
 namespace eslamio.Content.Projectiles
 {

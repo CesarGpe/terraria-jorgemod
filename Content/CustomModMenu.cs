@@ -85,7 +85,7 @@ namespace eslamio.Content
                 if (yScale > xScale)
                 {
                     scale = yScale;
-                    drawOffset.X -= (MenuTexture.Width() * scale - Main.screenWidth - 10) * 0.5f;
+                    drawOffset.X -= (MenuTexture.Width() * scale - Main.screenWidth) * 0.5f;
                 }
                 else
                 {
