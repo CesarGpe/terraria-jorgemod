@@ -125,7 +125,11 @@ Items: {
 
 	ShimmerGun: {
 		DisplayName: Pistola de Fulgor
-		Tooltip: "[c/FFFF69:Es hora de fulgorear.]"
+		Tooltip:
+			'''
+			Lanza un inofensivo chorro de fulgor.
+			[c/FFFF69:Es hora de fulgorear.]
+			'''
 	}
 
 	GetOverHereItem: {

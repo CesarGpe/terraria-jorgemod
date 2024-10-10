@@ -3,6 +3,7 @@ using eslamio.Effects;
 using System.Collections.Generic;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader.Utilities;
 
@@ -35,20 +36,31 @@ namespace eslamio.Content.NPCs.Enemies.Faker
 			NPC.damage = 60;
 			NPC.defense = 40;
 			NPC.lifeMax = 400;
-			NPC.rarity = 5;
+			NPC.rarity = 10;
 			//NPC.HitSound = SoundID.NPCHit37;
 			NPC.HitSound = hitSound;
 			NPC.DeathSound = deathSound;
 			NPC.value = Main.rand.Next(25000, 50000);
-			NPC.knockBackResist = 0.16f;
+			NPC.knockBackResist = 0f;
 			NPC.aiStyle = NPCAIStyleID.Fighter;
 
 			AIType = NPCID.BloodMummy;
 			AnimationType = NPCID.BloodMummy;
 		}
 
-		public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange([
+				BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns,
+				new FlavorTextBestiaryInfoElement("...")
+            ]);
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 		{
+            if (NPC.IsABestiaryIconDummy)
+				return true;
+
 			if (skin is not null)
 			{
 				// drawing stuff
@@ -105,7 +117,7 @@ namespace eslamio.Content.NPCs.Enemies.Faker
 			var players = FindPlayersInRadius(1200);
 			if (!angry)
 			{
-				NPC.velocity = Vector2.Zero;
+				NPC.velocity.X = 0;
 				for (int i = 0; i < players.Count; i++)
 				{
 					VignettePlayer vignettePlayer = players[i].GetModPlayer<VignettePlayer>();

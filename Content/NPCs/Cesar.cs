@@ -93,7 +93,7 @@ namespace eslamio.Content.NPCs
 			NPC.HitSound = SoundID.NPCHit1;
 			NPC.DeathSound = SoundID.NPCDeath1;
 			NPC.knockBackResist = 0f;
-			NPC.rarity = 10000;
+			//NPC.rarity = 10000;
 
 			AnimationType = NPCID.SantaClaus;
 		}
