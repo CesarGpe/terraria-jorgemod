@@ -1,4 +1,3 @@
-using eslamio.Content.Config;
 using eslamio.Effects;
 using System.Collections.Generic;
 using Terraria.Audio;
@@ -7,7 +6,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader.Utilities;
 
-namespace eslamio.Content.NPCs.Enemies.Faker
+namespace eslamio.Content.NPCs.Enemies
 {
 	public class Dop : ModNPC
 	{

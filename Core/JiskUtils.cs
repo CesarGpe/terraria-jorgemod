@@ -1,6 +1,5 @@
 using ReLogic.Utilities;
 using Terraria.Audio;
-using Terraria.ID;
 
 namespace eslamio.Core;
 
@@ -20,7 +19,7 @@ public class JiskUtils : ModSystem
     /// <param name="volumeMultiplier">The multiplier for quieting the background music volume.</param>
     public static void PlaySoundOverBGM(in SoundStyle style, float volumeMultiplier = 0.45f, Vector2? position = null)
     {
-        if (Main.netMode != NetmodeID.Server || !Main.dedServ)
+        if (!Main.dedServ)
         {
             var slotId = SoundEngine.PlaySound(style, position);
             if (Main.musicVolume <= 0) return;

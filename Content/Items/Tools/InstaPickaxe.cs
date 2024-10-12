@@ -33,10 +33,10 @@ namespace eslamio.Content.Items.Tools
 				Item.pick = 230;
 			else if (NPC.downedGolemBoss)
 				Item.pick = 210;
-			else if (NPC.downedPlantBoss)
-				Item.pick = 200;
-			else if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
-				Item.pick = 150;
+            else if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+                Item.pick = 200;
+            else if (NPC.downedMechBoss1 || NPC.downedMechBoss2 || NPC.downedMechBoss3)
+				Item.pick = 180;
 			else if (Main.hardMode)
 				Item.pick = 100;
 			else if (NPC.downedBoss2)

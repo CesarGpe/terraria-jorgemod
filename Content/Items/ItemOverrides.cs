@@ -1,3 +1,4 @@
+using eslamio.Content.NPCs.TownNPCs;
 using Terraria.ID;
 
 namespace eslamio.Content.Items;
@@ -14,12 +15,12 @@ public class ItemOverrides : GlobalItem
                 NPC npc = Main.npc[v];
                 if (npc.active && npc.townNPC)
                 {
-                    if (npc.type == ModContent.NPCType<NPCs.Cesar>())
+                    if (npc.type == ModContent.NPCType<Cesar>())
                     {
                         Main.npcCatchable[npc.type] = true;
                         npc.catchItem = ModContent.ItemType<Items.Consumables.CesarSpawner>();
                     }
-                    if (npc.type == ModContent.NPCType<NPCs.Isaac>())
+                    if (npc.type == ModContent.NPCType<Isaac>())
                     {
                         Main.npcCatchable[npc.type] = true;
                         npc.catchItem = ModContent.ItemType<Items.Consumables.IsaacSpawner>();

@@ -127,7 +127,7 @@ Items: {
 		DisplayName: Pistola de Fulgor
 		Tooltip:
 			'''
-			Lanza un inofensivo chorro de fulgor.
+			Lanza un inofensivo chorro de fulgor
 			[c/FFFF69:Es hora de fulgorear.]
 			'''
 	}
@@ -163,11 +163,6 @@ Items: {
 		Tooltip: '''"Voy a inventar un rayo que haga que Sonic VIVA" '''
 	}
 
-	GravitySword: {
-		DisplayName: wip sword
-		Tooltip: dev item
-	}
-
 	GravBuffPotion: {
 		DisplayName: wip potion
 		Tooltip: dev item
@@ -180,6 +175,11 @@ Items: {
 
 	TurboHookItem: {
 		DisplayName: Turbo Hook Item
+		Tooltip: dev item
+	}
+
+	TestSword: {
+		DisplayName: Test Sword
 		Tooltip: dev item
 	}
 
@@ -427,9 +427,39 @@ Dialogue: {
 		femtxt3: que quieres ahora
 		femtxt4: como te atreves a hablarme con dos cromosomas x
 	}
+
+	Douglass: {
+		StandardDialogue1: tienes llerva?
+		StandardDialogue2: estoy fumando mota
+		StandardDialogue3: gamer word*
+		StandardDialogue4: un enemigo del fortnite
+		StandardDialogue5: league of lol
+		StandardDialogue6: sexooooo
+		StandardDialogue7: Era un día como cualquier otro solo que llovía sangre, no le tome importancia asi que fui al tianguis de mi tío. Mi tío vende productos audiovisuales de gente haciendo el amor. Yo fui para buscar lo nuevo de Alexis Texas y Abella Danger, estaba todo agotado para mí sorpresa. Entonces mi tío se me acerca y me dice que uno de sus clientes le regreso un DVD. Así que me lo regala, en eso me percató que el DVD tiene un nombre muy extraño, decía: "el pepe ete sech". Se me hizo extraño, pero pensé que era un producto audiovisual de femboys haciendo el amor así que me lo lleve de todas formas hacia mi casa para reproducirlo en mi televisor sacado de coppel a 12 meses. Cuando le doy al play me percato que solo son unas palabras en pantalla que decían: \"yo soy el pepe, yo soy el ete sech, yo soy Dios\". Justo cuando termine de leer ese texto que estaba reproduciendo mi televisor, surge un cortocircuito y en eso una figura grande y oscura sale de mi televisor, se me acerca poco a poco con una mirada muy penetrante, tenía los ojos como de un demonio, no lo podía creer me quedé en shock, no podía moverme. Con una voz muy seductora, varonil y erótica me dice: \"yo soy el pepe ete sech\". En eso mi dopamina aumenta de forma exagerada, tanto que mi erección se vuelve mortal y después me dió diabetes tipo 2, tuve que cortar mis piernas para regular mi sangre. En eso el pepe ete sech me dice: \"para que te deje en paz tienes que darme tu alma\". No me quedo de otra, tuve que dar mi alma. Actualmente vago en las calles de ciudad Juárez sin alma, como un fantasma... Pero no le tome importancia.
+		StandardDialogue8: el pepe ete sech tilin potaxio el niño del oxxo
+		StandardDialogue9: eso tilin
+		StandardDialogue10: wiwi
+		StandardDialogue11: buenas me da un kilo de sexo por favor
+		StandardDialogue12: pongan aqui la del tilin
+	}
+
+	Banban: {
+		StandardDialogue1: Hey.
+		StandardDialogue2: Sharing is caring! Your pancreas is mine.
+		StandardDialogue3: What are friends for?
+		StandardDialogue4: I am so happy to see you, and I need your help with something.
+		StandardDialogue5: I know why you're here, and I can help you. But you've got to get me out of here.
+		StandardDialogue6: Three birds with one stone!
+		StandardDialogue7: Oh come on, I didn't hit you that hard. Or maybe I did.
+		StandardDialogue8: No liver, no intestines, but most importantly, no pancreas...
+		StandardDialogue9: Oh, the good old drone.
+		StandardDialogue10: If you can hear what am saying, wave at the camera.
+		StandardDialogue11: My memory is a little fuzzy. I remember something about management...
+		StandardDialogue12: For whatever reason I am prone to violent instincts, and I do not trust myself to not give into them again.
+	}
 }
 
-Emotes.JorgeEmote.Command: jorge
+Emotes.JorgeEmote.Command: poop
 
 NPCs: {
 	Jorge: {
@@ -528,6 +558,42 @@ NPCs: {
 
 	JorgeBoss.DisplayName: JORGE BOSS
 	Dop.DisplayName: Doppelganger
+
+	Douglass: {
+		DisplayName: Douglass
+
+		TownNPCMood: {
+			Content: no esta mal.
+			NoHome: para cuando me das una casa pinche negro?
+			FarFromHome: eh no mames mi casa esta bien lejos de aqui.
+			LoveSpace: espacio mucho guau.
+			DislikeCrowded: porque hay tantos negros aqui?
+			HateCrowded: porque hay tantos negros aqui?
+			LikeNPC: ese {NPCName} es chido.
+			HateNPC: odio a los negros y tambien al {NPCName}.
+			LikeNPC_Princess: Estoy programado para que me caiga bien la princesa.
+			Princess_LovesNPC: Estoy programado para que me caiga bien la princesa.
+		}
+	}
+
+	Banban: {
+		DisplayName: Monster
+
+		TownNPCMood: {
+			Content: I am content.
+			NoHome: I hate not having a home.
+			FarFromHome: I am too far from home.
+			LoveSpace: I love having so much space.
+			DislikeCrowded: I dislike how crowded I am.
+			HateCrowded: I hate how crowded I am.
+			LikeBiome: I like {BiomeName}, it's peaceful and quiet.
+			HateBiome: I hate {BiomeName}, reminds me of that old kindergarten.
+			LikeNPC: I like {NPCName}, his intellect reminds me of my own.
+			HateNPC: I hate {NPCName}, children can be arrogant.
+			LikeNPC_Princess: I like {NPCName}, though I couldn't say exactly why.
+			Princess_LovesNPC: I like {NPCName}, though I couldn't say exactly why.
+		}
+	}
 }
 
 Buffs: {
@@ -597,6 +663,9 @@ Projectiles: {
 	PlayerCloneProjectile.DisplayName: Player Clone Projectile
 	StockExplosion.DisplayName: Stock Explosion
 	ExplodesYou.DisplayName: Explodes You
+	OpilaBird.DisplayName: Opila Bird
+	MrKebobman.DisplayName: Mr Kebobman
+	BanbanProjSpawner.DisplayName: Banban Proj Spawner
 }
 
 Configs: {
@@ -633,5 +702,5 @@ Configs: {
 Keybinds: {
 	KillBind.DisplayName: Killbind
 	ExplodeNearestNPC.DisplayName: Explotar NPC cercano
-	CrashGameKey.DisplayName: Boton que cierra el videojuego
+	CrashGameKey.DisplayName: Decir gamer word
 }

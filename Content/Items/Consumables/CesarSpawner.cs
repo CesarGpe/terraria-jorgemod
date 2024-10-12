@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using eslamio.Content.NPCs.TownNPCs;
+using System.Collections.Generic;
 using Terraria.ID;
 
 namespace eslamio.Content.Items.Consumables
@@ -23,7 +24,7 @@ namespace eslamio.Content.Items.Consumables
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.UseSound = SoundID.Item30;
-            Item.makeNPC = ModContent.NPCType<NPCs.Cesar>();
+            Item.makeNPC = ModContent.NPCType<Cesar>();
         }
 
         public override void HoldItem(Player player)
@@ -34,7 +35,7 @@ namespace eslamio.Content.Items.Consumables
 
         public override bool CanUseItem(Player player)
         {
-            return !NPC.AnyNPCs(ModContent.NPCType<NPCs.Cesar>());
+            return !NPC.AnyNPCs(ModContent.NPCType<Cesar>());
         }
 
         public override void OnConsumeItem(Player player)

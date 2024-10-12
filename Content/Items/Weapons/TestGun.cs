@@ -36,11 +36,11 @@ namespace eslamio.Content.Items.Weapons
 			Item.shootSpeed = 6f;
 		}
 
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        /*public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
 			Projectile.NewProjectileDirect(source, position, velocity, ModContent.ProjectileType<PlayerCloneProjectile>(), damage, knockback, player.whoAmI, 0, 0, 1);
 			return false;
-        }
+        }*/
 
     }
 

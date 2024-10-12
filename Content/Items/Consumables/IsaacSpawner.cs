@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using eslamio.Content.NPCs.TownNPCs;
+using System.Collections.Generic;
 using Terraria.Audio;
 using Terraria.ID;
 
 namespace eslamio.Content.Items.Consumables
 {
-	public class IsaacSpawner : ModItem
+    public class IsaacSpawner : ModItem
 	{
 		public override void SetStaticDefaults()
 		{
@@ -25,7 +26,7 @@ namespace eslamio.Content.Items.Consumables
 			Item.noMelee = true;
 			//Item.noUseGraphic = true;
 			Item.UseSound = new SoundStyle("eslamio/Assets/Sounds/BadToTheBone");
-			Item.makeNPC = ModContent.NPCType<NPCs.Isaac>();
+			Item.makeNPC = ModContent.NPCType<Isaac>();
 		}
 
 		public override void HoldItem(Player player)
@@ -36,7 +37,7 @@ namespace eslamio.Content.Items.Consumables
 
 		public override bool CanUseItem(Player player)
 		{
-			return !NPC.AnyNPCs(ModContent.NPCType<NPCs.Isaac>());
+			return !NPC.AnyNPCs(ModContent.NPCType<Isaac>());
 		}
 
 		public override void OnConsumeItem(Player player)

@@ -5,9 +5,10 @@ using Terraria.UI;
 
 namespace eslamio.Core;
 
+[Autoload(Side = ModSide.Client)]
 public class Tween : SmartUIState
 {
-    public static readonly List<ITweener> ActiveTweens = new();
+    public static readonly List<ITweener> ActiveTweens = [];
     public override bool Visible => true;
 
     public override int InsertionIndex(List<GameInterfaceLayer> layers)

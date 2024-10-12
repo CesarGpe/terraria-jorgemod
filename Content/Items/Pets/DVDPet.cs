@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using eslamio.Content.Config;
+using Microsoft.Xna.Framework;
 using ReLogic.Content;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
@@ -10,12 +11,10 @@ namespace eslamio.Content.Items.Pets
 {
 	public class DVDPetItem : ModItem
 	{
-		// Names and descriptions of all ExamplePetX classes are defined using .hjson files in the Localization folder
 		public override void SetDefaults() {
 			Item.CloneDefaults(ItemID.ZephyrFish); // Copy the Defaults of the Zephyr Fish Item.
 
 			Item.shoot = ProjectileID.None; // "Shoot" your pet projectile.
-			//Item.shoot = ModContent.ProjectileType<DVDPetProjectile>(); // "Shoot" your pet projectile.
 			Item.buffType = ModContent.BuffType<DVDPetBuff>(); // Apply buff upon usage of the Item.
 			Item.scale = 0.25f;
 		}
@@ -52,66 +51,20 @@ namespace eslamio.Content.Items.Pets
 			Main.vanityPet[Type] = true;
 		}
 
-		public override void Update(Player player, ref int buffIndex) { // This method gets called every frame your buff is active on your player.
-			//bool unused = false;
+        public override void Update(Player player, ref int buffIndex)
+        { // This method gets called every frame your buff is active on your player.
+			bool unused = false;
 			//player.BuffHandle_SpawnPetIfNeededAndSetTime(buffIndex, ref unused, ModContent.ProjectileType<DVDPetProjectile>());
-		}
-	}
+			player.BuffHandle_SpawnPetIfNeededAndSetTime(buffIndex, ref unused, ProjectileID.None);
+        }
+    }
 
-	public class DVDPetProjectile : ModProjectile
-	{
-		public override string Texture => "eslamio/Content/Items/Pets/DVDPetItem";
-
-		public override void SetStaticDefaults() {
-			/*Main.projFrames[Projectile.type] = 1;
-			Main.projPet[Projectile.type] = true;
-			ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
-
-			// This code is needed to customize the vanity pet display in the player select screen. Quick explanation:
-			// * It uses fluent API syntax, just like Recipe
-			// * You start with ProjectileID.Sets.SimpleLoop, specifying the start and end frames as well as the speed, and optionally if it should animate from the end after reaching the end, effectively "bouncing"
-			// * To stop the animation if the player is not highlighted/is standing, as done by most grounded pets, add a .WhenNotSelected(0, 0) (you can customize it just like SimpleLoop)
-			// * To set offset and direction, use .WithOffset(x, y) and .WithSpriteDirection(-1)
-			// * To further customize the behavior and animation of the pet (as its AI does not run), you have access to a few vanilla presets in DelegateMethods.CharacterPreview to use via .WithCode(). You can also make your own, showcased in MinionBossPetProjectile
-			ProjectileID.Sets.CharacterPreviewAnimations[Projectile.type] = ProjectileID.Sets.SimpleLoop(0, Main.projFrames[Projectile.type], 6)
-				.WithOffset(-10, 0f)
-				.WithSpriteDirection(1)
-				.WithCode(DelegateMethods.CharacterPreview.Float);*/
-		}
-
-		public override void SetDefaults() {
-			Projectile.CloneDefaults(ProjectileID.ZephyrFish);
-			AIType = ProjectileID.ZephyrFish;
-
-			Projectile.width = 39;
-			Projectile.height = 55;
-		}
-
-		public override bool PreAI() {
-			Player player = Main.player[Projectile.owner];
-
-			player.zephyrfish = false; // Relic from AIType
-
-			return true;
-		}
-
-		public override void AI() {
-			Player player = Main.player[Projectile.owner];
-
-			// Keep the projectile from disappearing as long as the player isn't dead and has the pet buff.
-			if (!player.dead && player.HasBuff(ModContent.BuffType<DVDPetBuff>())) {
-				Projectile.timeLeft = 2;
-			}
-		}
-	}
-
-	internal class DVDLogo : UIState
+    internal class DVDLogo : UIState
 	{
 		private UIElement area;
 		private UIImage logo;
 		private UIText text;
 
-		// dvd logo stuff
 		Rectangle logoHitbox;
         readonly Random rnd = new();
 		private bool init = false;
@@ -122,7 +75,6 @@ namespace eslamio.Content.Items.Pets
 		private int cornerCount = 0;
 		private readonly Color[] colors = [Color.Red, Color.Green, Color.Blue, Color.Yellow, Color.Purple];
 		private Asset<Texture2D> Logo => ModContent.Request<Texture2D>("eslamio/Content/Items/Pets/DVDPetItem");
-		//
 
 		public override void OnInitialize()
 		{
@@ -151,17 +103,6 @@ namespace eslamio.Content.Items.Pets
 			Append(area);
 		}
 
-		public void InitDVDLogo()
-		{
-			logoHitbox = new Rectangle(0, 0, Utils.Width(Logo), Utils.Height(Logo));
-			logoHitbox.Location = new Point(rnd.Next(0, Main.screenWidth - logoHitbox.Width), rnd.Next(0, Main.screenHeight - logoHitbox.Height));
-				
-			int markiplier = (rnd.Next(0, 2) == 0) ? 1 : -1;
-			velX = velY = Math.Max(vel * Main.screenWidth, 1) * markiplier;
-
-			init = true;
-		}
-
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 			// This prevents drawing unless we are using the DVD pet thing
@@ -169,12 +110,6 @@ namespace eslamio.Content.Items.Pets
 				return;
 
 			base.Draw(spriteBatch);
-		}
-
-		// Here we draw our UI
-		protected override void DrawSelf(SpriteBatch spriteBatch)
-		{
-			base.DrawSelf(spriteBatch);
 		}
 
 		public override void Update(GameTime gameTime)
@@ -235,7 +170,9 @@ namespace eslamio.Content.Items.Pets
 					cornerCount++;
 
 				text.SetText($"Bounces: {bounces}\nCorner hits: {cornerCount}");
-			}
+                text.Left.Set(-10, 0f);
+                text.Top.Set(Main.screenHeight - 50, 0f);
+            }
 
 			base.Update(gameTime);
 		}
@@ -246,9 +183,7 @@ namespace eslamio.Content.Items.Pets
 	internal class DVDUISystem : ModSystem
 	{
 		private UserInterface DVDUserInterface;
-
 		internal DVDLogo DVDLogo;
-
 		public override void Load()
 		{
 			DVDLogo = new();
@@ -258,10 +193,10 @@ namespace eslamio.Content.Items.Pets
 
 		public override void UpdateUI(GameTime gameTime)
 		{
-			DVDUserInterface?.Update(gameTime);
-		}
+            DVDUserInterface?.Update(gameTime);
+        }
 
-		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 		{
 			int DVDLogoIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
 			if (DVDLogoIndex != -1)
