@@ -8,7 +8,7 @@ namespace eslamio.Content.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.timeLeft = 1;
+            Projectile.timeLeft = 100;
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -18,7 +18,12 @@ namespace eslamio.Content.Projectiles
             Projectile.velocity *= Projectile.velocity.Length();
 
             var projType = Main.rand.NextBool(3) ? ModContent.ProjectileType<MrKebobman>() : ModContent.ProjectileType<OpilaBird>();
-            Projectile.NewProjectile(source, Projectile.position, Projectile.velocity, projType, Projectile.damage, Projectile.knockBack, Projectile.whoAmI);
+            Projectile.NewProjectile(source, Projectile.position, Projectile.velocity, projType, Projectile.damage, Projectile.knockBack, default);
+        }
+
+        public override void AI()
+        {
+            Projectile.Kill();
         }
     }
 }

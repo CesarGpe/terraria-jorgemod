@@ -280,6 +280,46 @@ Items: {
 		DisplayName: JORGEBOSS-INADOR
 		Tooltip: INVOCA AL ANTICRISTO USAR CON CAUTELA
 	}
+
+	DronePetItem: {
+		DisplayName: Drone Controller
+		Tooltip: Summons a maintenance drone to light your way
+	}
+
+	CoolSwagSword: {
+		DisplayName: coolswag
+		Tooltip: mlg pro
+	}
+
+	Scalpel: {
+		DisplayName: Scalpel
+		Tooltip:
+			'''
+			Ignores half of enemy defense
+			Used for surgical removal of vital organs
+			"Guide is looking mighty fine..."
+			'''
+	}
+
+	Pancreas: {
+		DisplayName: Pancreas
+		Consumable: Consumable?
+		Tooltip:
+			'''
+			Sure doesn't look like it
+			Might attract a certain red monster...
+			'''
+	}
+
+	PancreasTruffle: {
+		DisplayName: Truffle Gleba
+		Consumable: Consumable?
+		Tooltip:
+			'''
+			Gross, but tasty
+			Might attract a certain red monster...
+			'''
+	}
 }
 
 Dialogue: {
@@ -452,7 +492,7 @@ Dialogue: {
 		StandardDialogue6: Three birds with one stone!
 		StandardDialogue7: Oh come on, I didn't hit you that hard. Or maybe I did.
 		StandardDialogue8: No liver, no intestines, but most importantly, no pancreas...
-		StandardDialogue9: Oh, the good old drone.
+		StandardDialogue9: Oh, the good old drones.
 		StandardDialogue10: If you can hear what am saying, wave at the camera.
 		StandardDialogue11: My memory is a little fuzzy. I remember something about management...
 		StandardDialogue12: For whatever reason I am prone to violent instincts, and I do not trust myself to not give into them again.
@@ -594,6 +634,9 @@ NPCs: {
 			Princess_LovesNPC: I like {NPCName}, though I couldn't say exactly why.
 		}
 	}
+
+	DopActive.DisplayName: Doppleganger
+	DopInactive.DisplayName: You.
 }
 
 Buffs: {
@@ -644,6 +687,16 @@ Buffs: {
 		Description: Mods.eslamio.Buffs.FloatingBuff.Description
 		DisplayName: Floating Buff
 	}
+
+	DronePetBuff: {
+		DisplayName: Maintenance Drone
+		Description: Oh, the good old drones...
+	}
+
+	GlebaBuff: {
+		DisplayName: Glowing?
+		Description: Something feels off...
+	}
 }
 
 Projectiles: {
@@ -666,6 +719,7 @@ Projectiles: {
 	OpilaBird.DisplayName: Opila Bird
 	MrKebobman.DisplayName: Mr Kebobman
 	BanbanProjSpawner.DisplayName: Banban Proj Spawner
+	DronePetProjectile.DisplayName: Drone Pet Projectile
 }
 
 Configs: {

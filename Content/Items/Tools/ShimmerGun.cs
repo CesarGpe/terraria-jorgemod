@@ -14,6 +14,7 @@ namespace eslamio.Content.Items.Tools
 
             Item.width = 40;
             Item.height = 30;
+            //Item.expert = true;
             Item.rare = ItemRarityID.Expert;
             Item.shoot = ModContent.ProjectileType<ShimmerGunProjectile>();
             Item.shootSpeed = 10f;

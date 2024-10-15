@@ -1,4 +1,5 @@
 using eslamio.Content.Items.Consumables;
+using eslamio.Content.Items.Pets;
 using eslamio.Content.Projectiles;
 using System;
 using System.Collections.Generic;
@@ -138,7 +139,13 @@ namespace eslamio.Content.NPCs.TownNPCs
 
         public override bool CanTownNPCSpawn(int numTownNPCs)
         { // Requirements for the town NPC to spawn.
-            return true;
+            foreach (Player player in Main.ActivePlayers)
+            {
+                if (player.HasItemInAnyInventory(ModContent.ItemType<Pancreas>()) ||
+                    player.HasItemInAnyInventory(ModContent.ItemType<PancreasTruffle>()))
+                    return true;
+            }
+            return false;
         }
 
         public override List<string> SetNPCNameList()
@@ -164,6 +171,7 @@ namespace eslamio.Content.NPCs.TownNPCs
                 "Banban",
                 "Banban",
                 "Banban",
+                "Evil Banban",
                 "Banban 2",
                 "Batman",
                 "Uthman Adam",
@@ -175,6 +183,7 @@ namespace eslamio.Content.NPCs.TownNPCs
         {
             var npcShop = new NPCShop(Type, ShopName)
                 .Add(ItemID.SleepingIcon)
+                .Add<DronePetItem>()
             //.Add<Whey>()
             ;
 

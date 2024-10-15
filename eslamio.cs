@@ -1,12 +1,15 @@
 using Terraria.Graphics.Effects;
-using Terraria.ID;
 using ReLogic.Content;
 using eslamio.Effects;
+using eslamio.Core;
 
 namespace eslamio;
 
 public class eslamio : Mod
 {
+    public static Effect screenTintEffect;
+    public static ScreenTintShader screenTintShader;
+
     public static Effect slimeEffect;
     public static SlimeShader slimeShader;
 
@@ -16,8 +19,14 @@ public class eslamio : Mod
     public override void Load()
     {
         // All of this loading needs to be client-side.
-        if (Main.netMode != NetmodeID.Server)
+        if (!Main.dedServ)
         {
+            // basic shader for screen tints
+            screenTintEffect = ModContent.Request<Effect>("eslamio/Effects/ScreenTintShader", AssetRequestMode.ImmediateLoad).Value;
+            screenTintShader = new ScreenTintShader(screenTintEffect, "MainPS");
+            Filters.Scene["eslamio:ScreenTintShader"] = new Filter(screenTintShader, (EffectPriority)100);
+            //Filters.Scene["eslamio:BasicTintShader"] = new Filter(new BasicTintShader("FilterMiniTower").UseColor(0f, 0f, 255f).UseOpacity(0.001f), EffectPriority.VeryHigh);
+
             // jorge boss
             slimeEffect = ModContent.Request<Effect>("eslamio/Effects/SlimeShader", AssetRequestMode.ImmediateLoad).Value;
             slimeShader = new SlimeShader(slimeEffect, "MainPS");
@@ -27,14 +36,6 @@ public class eslamio : Mod
             vignetteEffect = ModContent.Request<Effect>("eslamio/Effects/Vignette", AssetRequestMode.ImmediateLoad).Value;
             vignetteShader = new Vignette(vignetteEffect, "MainPS");
             Filters.Scene["eslamio:Vignette"] = new Filter(vignetteShader, (EffectPriority)100);
-
-            // doppleganger desaturation effect
-            //Asset<Effect> desatShader = Assets.Request<Effect>("Effects/Desaturation");
-            //Filters.Scene["eslamio:Desaturation"] = new Filter(new ScreenShaderData(desatShader, "MainPS"), EffectPriority.Medium);
-
-            // doppelganger glitch shader
-            //Asset<Effect> glitchShader = Assets.Request<Effect>("Effects/GlitchShader");
-            //GameShaders.Misc["eslamio:GlitchShader"] = new MiscShaderData(glitchShader, "P0");
         }
     }
 }

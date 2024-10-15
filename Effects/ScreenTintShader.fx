@@ -20,16 +20,16 @@ float uSaturation;
 float4 uSourceRect;
 float2 uZoom;
 
+float Red;
+float Green;
+float Blue;
+
 float4 MainPS(float2 coords : TEXCOORD0) : COLOR0
 {
     float4 origColor = tex2D(uImage0, coords);
-
-    // Calculate the grayscale value using the luminance formula
-    float gray = dot(origColor.rgb, float3(0.299, 0.587, 0.114));
-
-    // Mix the original color with the grayscale color (50% desaturation)
-    origColor.rgb = lerp(origColor.rgb, float3(gray, gray, gray), 0.5);
-    
+    origColor.r *= Red;
+    origColor.g *= Green;
+    origColor.b *= Blue;
     return origColor;
 }
 
