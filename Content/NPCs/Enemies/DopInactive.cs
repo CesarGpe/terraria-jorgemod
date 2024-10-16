@@ -1,3 +1,4 @@
+using eslamio.Core;
 using eslamio.Effects;
 using System.Collections.Generic;
 using Terraria.Audio;
@@ -10,9 +11,6 @@ namespace eslamio.Content.NPCs.Enemies;
 
 public class DopInactive : ModNPC
 {
-    ref float anger => ref NPC.ai[0];
-    ref float despawnTimer => ref NPC.ai[1];
-
     Player skin;
     SoundStyle disappearSound = new("eslamio/Assets/Sounds/Dop/Disappear") { PitchVariance = 0.5f };
     SoundStyle deathSound = new("eslamio/Assets/Sounds/Dop/Death") { PitchVariance = 0.5f };
@@ -25,7 +23,7 @@ public class DopInactive : ModNPC
     {
         Main.npcFrameCount[NPC.type] = Main.npcFrameCount[NPCID.BloodMummy];
 
-        NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers() { };
+        NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true };
         NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
     }
 
@@ -42,7 +40,7 @@ public class DopInactive : ModNPC
         NPC.value = Main.rand.Next(25000, 50000);
         NPC.knockBackResist = 0f;
 
-        NPC.aiStyle = NPCAIStyleID.LostGirl;
+        //NPC.aiStyle = NPCAIStyleID.LostGirl;
         //AIType = NPCID.BloodMummy;
         AnimationType = NPCID.BloodMummy;
     }
@@ -51,7 +49,7 @@ public class DopInactive : ModNPC
     {
         bestiaryEntry.Info.AddRange([
             BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns,
-            new FlavorTextBestiaryInfoElement("It's just you.")
+            new FlavorTextBestiaryInfoElement("You shouldn't be reading this.")
         ]);
     }
 
@@ -70,8 +68,8 @@ public class DopInactive : ModNPC
             skin.headFrame.Y = NPC.frame.Y;
             skin.bodyFrame.Y = NPC.frame.Y;
             skin.legFrame.Y = NPC.frame.Y;
+            Main.PlayerRenderer.DrawPlayer(Main.Camera, skin, skin.position, skin.fullRotation, skin.fullRotationOrigin);
         }
-        Main.PlayerRenderer.DrawPlayer(Main.Camera, skin, skin.position, skin.fullRotation, skin.fullRotationOrigin, 0f);
 
         return false;
     }
@@ -85,78 +83,48 @@ public class DopInactive : ModNPC
             target.AddBuff(BuffID.Cursed, 180);
     }
 
-    public override bool PreAI()
+    ref float DespawnTimer => ref NPC.ai[0];
+    public override void AI()
     {
         NPC.TargetClosest();
         Lighting.AddLight(NPC.position, 0.5f, 0.2f, 0);
         var players = FindPlayersInRadius(1200);
 
-        if (anger >= 1f)
+        // set screen effect for nearby players
+        foreach (var player in players)
         {
-            for (int i = 0; i < players.Count; i++)
-            {
-                VignettePlayer vignettePlayer = players[i].GetModPlayer<VignettePlayer>();
-                vignettePlayer.SetVignette(0f, 500f, 0.9f, Color.Black, players[i].Center, 0.6f);
-                vignettePlayer.shakeIntensity = 1.2f;
-                vignettePlayer.sceneActive = true;
-            }
-
-            if (!IsNpcOnscreen(NPC.Center))
-                despawnTimer++;
-
-            if (despawnTimer == 350)
-                SoundEngine.PlaySound(disappearSound, null);
-            else if (despawnTimer > 360)
-            {
-                NPC.EncourageDespawn(10);
-                NPC.active = false;
-                NPC.netSkip = -1;
-                NPC.life = 0;
-
-                return false;
-            }
-        }
-        else
-        {
-            despawnTimer = 0;
-
-            for (int i = 0; i < players.Count; i++)
-            {
-                VignettePlayer vignettePlayer = players[i].GetModPlayer<VignettePlayer>();
-                vignettePlayer.SetVignette(0f, 900f, 0.85f, Color.Black, players[i].Center, 0.35f);
-                vignettePlayer.shakeIntensity = 0.6f;
-            }
-
-            if (CheckForPlayer(200) || NPC.life != NPC.lifeMax)
-            {
-                anger = 1f;
-                SoundEngine.PlaySound(spottedSound, NPC.position);
-            }
-
-            return false;
-        }
-
-        return base.PreAI();
-    }
-
-    public override void AI()
-    {
-        Lighting.AddLight(NPC.position, 0.5f, 0.2f, 0);
-        var players = FindPlayersInRadius(1200);
-
-        for (int i = 0; i < players.Count; i++)
-        {
-            VignettePlayer vignettePlayer = players[i].GetModPlayer<VignettePlayer>();
-            vignettePlayer.SetVignette(0f, 900f, 0.85f, Color.Black, players[i].Center, 0.35f);
+            VignettePlayer vignettePlayer = player.GetModPlayer<VignettePlayer>();
+            vignettePlayer.SetVignette(0f, 900f, 0.85f, Color.Black, player.Center, 0.35f);
             vignettePlayer.shakeIntensity = 0.6f;
         }
 
-        if (CheckForPlayer(200) || NPC.life != NPC.lifeMax)
+        // raise the timer for despawn when the player is too far away
+        if (IsNpcOnscreen(NPC.Center))
+            DespawnTimer = 0;
+        else
+            DespawnTimer++;
+
+        // if attacked or player comes nearby it activates
+        if (CheckForPlayer(150) || NPC.life != NPC.lifeMax)
         {
-            // converts the npc into the "active" state
-            NPC.Transform(ModContent.NPCType<DopActive>());
             SoundEngine.PlaySound(spottedSound, NPC.position);
+            NPC.Transform(ModContent.NPCType<DopActive>());
         }
+
+        // despawn and play a sound when it does
+        if (DespawnTimer == 350)
+        {
+            if (!Main.dedServ)
+                SoundEngine.PlaySound(disappearSound, NPC.Center);
+
+            NPC.despawnEncouraged = true;
+            NPC.active = false;
+            NPC.netSkip = -1;
+            NPC.life = 0;
+        }
+
+        // debug trash
+        //Main.NewText($"ai[0]: {NPC.ai[0]}, ai[1]: {NPC.ai[1]}, ai[2]: {NPC.ai[2]}, ai[3]: {NPC.ai[3]}");
     }
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -169,23 +137,20 @@ public class DopInactive : ModNPC
 
     public override void OnSpawn(IEntitySource source)
     {
-        despawnTimer = 0;
+        DespawnTimer = 0;
 
         NPC.TargetClosest();
-        var victim = Main.player[NPC.target];
+        skin = eslamio.playerCloneHelper.ClonePlayer(Main.player[NPC.target]);
 
-        if (victim is not null)
+        if (skin is not null)
         {
-            skin = (Player)victim.Clone();
-            skin.CurrentLoadoutIndex = victim.CurrentLoadoutIndex;
-
             NPC.GivenName = skin.name;
             NPC.damage *= (int)(skin.statLifeMax * 0.005);
             NPC.defense = skin.statDefense * 2;
             NPC.lifeMax = skin.statLifeMax * 2;
             NPC.life = NPC.lifeMax;
 
-            Main.NewText("You can hear someone mining in the distance.", Color.MediumPurple);
+            //Main.NewText("You can hear someone mining in the distance.", Color.MediumPurple);
         }
     }
 

@@ -596,9 +596,6 @@ NPCs: {
 		}
 	}
 
-	JorgeBoss.DisplayName: JORGE BOSS
-	Dop.DisplayName: Doppelganger
-
 	Douglass: {
 		DisplayName: Douglass
 
@@ -635,8 +632,9 @@ NPCs: {
 		}
 	}
 
-	DopActive.DisplayName: Doppleganger
-	DopInactive.DisplayName: You.
+	JorgeBoss.DisplayName: JORGE BOSS
+	DopActive.DisplayName: Doppleganger (Active)
+	DopInactive.DisplayName: Doppleganger (Inactive)
 }
 
 Buffs: {

@@ -5,7 +5,6 @@ using Terraria.UI;
 
 namespace eslamio.Core;
 
-[Autoload(Side = ModSide.Client)]
 public class Tween : SmartUIState
 {
     public static readonly List<ITweener> ActiveTweens = [];

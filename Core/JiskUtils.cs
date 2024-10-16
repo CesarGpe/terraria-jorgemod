@@ -3,7 +3,6 @@ using Terraria.Audio;
 
 namespace eslamio.Core;
 
-[Autoload(Side = ModSide.Client)]
 public class JiskUtils : ModSystem
 {
     private static SlotId _currentSlotId;

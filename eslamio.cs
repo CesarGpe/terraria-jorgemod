@@ -7,6 +7,8 @@ namespace eslamio;
 
 public class eslamio : Mod
 {
+    public static PlayerCloneHelper playerCloneHelper;
+
     public static Effect screenTintEffect;
     public static ScreenTintShader screenTintShader;
 
@@ -15,6 +17,8 @@ public class eslamio : Mod
 
     public override void Load()
     {
+        playerCloneHelper = new();
+
         // All of this loading needs to be client-side.
         if (!Main.dedServ)
         {
