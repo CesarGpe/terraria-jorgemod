@@ -1,5 +1,6 @@
 using eslamio.Content.Items.Consumables;
 using eslamio.Content.NPCs.TownNPCs;
+using eslamio.Effects;
 using Terraria.ID;
 
 namespace eslamio.Content.Items.Weapons;

@@ -8,13 +8,13 @@ public class BasicTintShader : ScreenShaderData
     {
     }
 
-    private void UpdateSpookyIndex()
+    private void UpdateIndex()
     {
     }
 
     public override void Apply()
     {
-        UpdateSpookyIndex();
+        UpdateIndex();
         base.Apply();
     }
 }

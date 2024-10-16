@@ -20,17 +20,12 @@ float uSaturation;
 float4 uSourceRect;
 float2 uZoom;
 
-float Red;
-float Green;
-float Blue;
-
-float4 MainPS(float2 coords : TEXCOORD0) : COLOR0
+float4 MainPS(float4 sampleColor : COLOR0, float2 coords : TEXCOORD0) : COLOR0
 {
     float4 origColor = tex2D(uImage0, coords);
-    origColor.r *= Red;
-    origColor.g *= Green;
-    origColor.b *= Blue;
-    return origColor;
+    origColor.rgb *= uColor;
+    //origColor.rgb = lerp(origColor.rgb, uColor, uIntensity);
+    return origColor * sampleColor;
 }
 
 technique Technique1

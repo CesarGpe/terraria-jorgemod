@@ -1,13 +1,13 @@
 ﻿namespace eslamio.Effects;
 
-[Autoload(Side = ModSide.Client)]
-class UnusedScreenTintShaderPlayer : ModPlayer
+class ScreenTintShaderPlayer : ModPlayer
 {
-    /*public bool IsActive;
+    public bool IsActive;
 
     private float Red;
     private float Green;
     private float Blue;
+    //private float Intensity;
 
     public override void ResetEffects()
     {
@@ -15,6 +15,7 @@ class UnusedScreenTintShaderPlayer : ModPlayer
         Red = 1f;
         Green = 1f;
         Blue = 1f;
+        //Intensity = 0f;
     }
 
     public void SetColor(float red, float green, float blue)
@@ -23,13 +24,13 @@ class UnusedScreenTintShaderPlayer : ModPlayer
         Red = red;
         Green = green;
         Blue = blue;
+        //Intensity = intensity;
     }
 
     public override void PostUpdateMiscEffects()
     {
-        eslamio.screenTintEffect.Parameters["Red"].SetValue(Red);
-        eslamio.screenTintEffect.Parameters["Green"].SetValue(Green);
-        eslamio.screenTintEffect.Parameters["Blue"].SetValue(Blue);
+        eslamio.screenTintShader.UseColor(Red, Green, Blue);
+        //eslamio.screenTintShader.UseIntensity(Intensity);
         Player.ManageSpecialBiomeVisuals("eslamio:ScreenTintShader", IsActive, Main.screenPosition);
-    }*/
+    }
 }

@@ -1,6 +1,6 @@
 ﻿using eslamio.Effects;
 using System;
-using System.Collections.Generic;
+using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
@@ -60,10 +60,7 @@ namespace eslamio.Content.NPCs.Enemies
         public override void AI()
         {
             if (!Main.dedServ)
-            {
-                foreach (var player in Main.ActivePlayers)
-                    player.GetModPlayer<SlimeShaderPlayer>().IsActive = true;
-            }
+                Main.LocalPlayer.ManageSpecialBiomeVisuals("eslamio:SlimeShader", NPC.active, NPC.Center);
             
             float num759 = 1f;
             float num760 = 1f;

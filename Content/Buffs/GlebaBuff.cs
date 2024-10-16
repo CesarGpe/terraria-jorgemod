@@ -1,6 +1,5 @@
-﻿using eslamio.Core;
+﻿using eslamio.Effects;
 using System;
-using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 
@@ -10,6 +9,7 @@ public class GlebaBuff : ModBuff
 {
     public override void SetStaticDefaults()
     {
+        Main.debuff[Type] = true;
         Main.buffNoSave[Type] = false;
     }
 
@@ -18,41 +18,18 @@ public class GlebaBuff : ModBuff
         Lighting.AddLight(player.position, 0.3f, 0.33f, 1);
 
         const float colorMult = 0.005f;
-        if (!Main.dedServ)
-            player.GetModPlayer<GlebaShaderPlayer>().SetColor(Main.DiscoR * colorMult, Main.DiscoG * colorMult, Main.DiscoB * colorMult);
+        player.GetModPlayer<ScreenTintShaderPlayer>().SetColor(Main.DiscoR * colorMult, Main.DiscoG * colorMult, Main.DiscoB * colorMult);
+        player.GetModPlayer<GlebaPlayer>().IsActive = true;
     }
 }
 
-internal class GlebaShaderPlayer : ModPlayer
+internal class GlebaPlayer : ModPlayer
 {
     public bool IsActive;
-
-    private float Red;
-    private float Green;
-    private float Blue;
 
     public override void ResetEffects()
     {
         IsActive = false;
-        Red = 1f;
-        Green = 1f;
-        Blue = 1f;
-    }
-
-    public void SetColor(float red, float green, float blue)
-    {
-        IsActive = true;
-        Red = red;
-        Green = green;
-        Blue = blue;
-    }
-
-    public override void PostUpdateMiscEffects()
-    {
-        eslamio.screenTintEffect.Parameters["Red"].SetValue(Red);
-        eslamio.screenTintEffect.Parameters["Green"].SetValue(Green);
-        eslamio.screenTintEffect.Parameters["Blue"].SetValue(Blue);
-        Player.ManageSpecialBiomeVisuals("eslamio:ScreenTintShader", IsActive, Main.screenPosition);
     }
 
     public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
@@ -114,7 +91,7 @@ internal class GlebalProjectile : GlobalProjectile
 {
     public override Color? GetAlpha(Projectile projectile, Color lightColor)
     {
-        if (Main.player[Main.myPlayer].GetModPlayer<GlebaShaderPlayer>().IsActive)
+        if (Main.player[Main.myPlayer].GetModPlayer<GlebaPlayer>().IsActive)
             return new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB, Main.DiscoR);
 
         return base.GetAlpha(projectile, lightColor);
@@ -122,7 +99,7 @@ internal class GlebalProjectile : GlobalProjectile
 
     public override bool PreDraw(Projectile projectile, ref Color lightColor)
     {
-        if (Main.player[Main.myPlayer].GetModPlayer<GlebaShaderPlayer>().IsActive)
+        if (Main.player[Main.myPlayer].GetModPlayer<GlebaPlayer>().IsActive)
         {
             Texture2D texture = TextureAssets.Projectile[projectile.type].Value;
 
