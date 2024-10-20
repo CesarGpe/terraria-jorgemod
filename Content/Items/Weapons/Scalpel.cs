@@ -30,7 +30,7 @@ public class Scalpel : ModItem
 
     public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
     {
-        if (target.life < 0)
+        if (target.isLikeATownNPC && target.life < 0)
         {
             if (target.type == NPCID.Truffle)
                 player.QuickSpawnItem(target.GetSource_FromThis(), ModContent.ItemType<PancreasTruffle>());

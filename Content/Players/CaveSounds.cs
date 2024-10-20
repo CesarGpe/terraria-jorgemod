@@ -1,5 +1,4 @@
 using eslamio.Core;
-using Terraria.ID;
 
 namespace eslamio.Content.Players;
 
@@ -13,17 +12,16 @@ public class CaveSounds : ModPlayer
         bool choose = Main.rand.NextBool();
         int sound = Main.rand.Next(4);
         if (choose)
-            JiskUtils.PlaySoundOverBGM(new($"eslamio/Assets/Sounds/Dop/CaveNoise{sound}"), 0.5f, Player.position);
+            JiskUtils.PlaySoundOverBGM(new($"eslamio/Assets/Sounds/Dop/CaveNoise{sound}"), 0.5f, Player);
         else
-            JiskUtils.PlaySoundOverBGM(new($"eslamio/Assets/Sounds/Dop/Stalk{sound}"), 0.5f, Player.position);
+            JiskUtils.PlaySoundOverBGM(new($"eslamio/Assets/Sounds/Dop/Stalk{sound}"), 0.5f, Player);
     }
 
     public override void PreUpdate()
     {
-        if (Main.netMode != NetmodeID.Server || !Main.dedServ)
+        if (Main.dedServ)
             return;
 
-        //ChatHelper.SendChatMessageToClient(NetworkText.FromLiteral($"noiseTimer: {noiseTimer}"), Color.MediumPurple, Player.whoAmI);
         if (noiseTimer >= 28800)
         {
             PlaySound();
@@ -31,7 +29,5 @@ public class CaveSounds : ModPlayer
         }
         else if (Player.ZoneDirtLayerHeight || Player.ZoneRockLayerHeight)
             noiseTimer += Main.rand.Next(2);
-        //else if (noiseTimer > 0) 
-        //	noiseTimer--;
     }
 }

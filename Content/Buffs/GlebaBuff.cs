@@ -16,10 +16,29 @@ public class GlebaBuff : ModBuff
     public override void Update(Player player, ref int buffIndex)
     {
         Lighting.AddLight(player.position, 0.3f, 0.33f, 1);
-
-        const float colorMult = 0.005f;
-        player.GetModPlayer<ScreenTintShaderPlayer>().SetColor(Main.DiscoR * colorMult, Main.DiscoG * colorMult, Main.DiscoB * colorMult);
         player.GetModPlayer<GlebaPlayer>().IsActive = true;
+    }
+
+    public override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)
+    {
+        drawParams.DrawColor = Main.DiscoColor * Main.buffAlpha[buffIndex];
+        return true;
+    }
+}
+
+internal class GlebaBiome : ModBiome
+{
+    public override SceneEffectPriority Priority => SceneEffectPriority.None;
+    public override int Music => -1;
+
+    public override bool IsBiomeActive(Player player)
+    {
+        return player.HasBuff<GlebaBuff>();
+    }
+
+    public override void SpecialVisuals(Player player, bool isActive)
+    {
+        player.ManageSpecialBiomeVisuals("eslamio:Trippy", isActive, player.Center);
     }
 }
 

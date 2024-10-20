@@ -1,5 +1,6 @@
 ﻿namespace eslamio.Effects;
-
+/*
+[Autoload(Side = ModSide.Client)]
 class ScreenTintShaderPlayer : ModPlayer
 {
     public bool IsActive;
@@ -34,3 +35,4 @@ class ScreenTintShaderPlayer : ModPlayer
         Player.ManageSpecialBiomeVisuals("eslamio:ScreenTintShader", IsActive, Main.screenPosition);
     }
 }
+*/

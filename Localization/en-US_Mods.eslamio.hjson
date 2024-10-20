@@ -633,8 +633,8 @@ NPCs: {
 	}
 
 	JorgeBoss.DisplayName: JORGE BOSS
-	DopActive.DisplayName: Doppleganger (Active)
-	DopInactive.DisplayName: Doppleganger (Inactive)
+	DopActive.DisplayName: You.
+	DopInactive.DisplayName: Doppleganger
 }
 
 Buffs: {
@@ -755,4 +755,31 @@ Keybinds: {
 	KillBind.DisplayName: Killbind
 	ExplodeNearestNPC.DisplayName: Explotar NPC cercano
 	CrashGameKey.DisplayName: Decir gamer word
+}
+
+Biomes: {
+	JorgeBossBiome: {
+		DisplayName: Jorge Boss Biome
+		TownNPCDialogueName: the Jorge Boss Biome
+	}
+
+	DopEffectBiome: {
+		DisplayName: Dop Effect Biome
+		TownNPCDialogueName: the Dop Effect Biome
+	}
+
+	DopInactiveBiome: {
+		DisplayName: Dop Inactive Biome
+		TownNPCDialogueName: the Dop Inactive Biome
+	}
+
+	DopActiveBiome: {
+		DisplayName: Dop Active Biome
+		TownNPCDialogueName: the Dop Active Biome
+	}
+
+	GlebaBiome: {
+		DisplayName: Gleba Biome
+		TownNPCDialogueName: the Gleba Biome
+	}
 }
