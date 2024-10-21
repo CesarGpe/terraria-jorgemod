@@ -1,13 +1,14 @@
-﻿using System;
+﻿using eslamio.Content.Items.Pets.Tsuyar;
+using System;
 using Terraria.ID;
 
-namespace eslamio.Content.Items.Pets;
-
+namespace eslamio.Content.Items.Pets.Drone;
 public class DronePetItem : ModItem
 {
     public override void SetDefaults()
     {
         Item.CloneDefaults(ItemID.ZephyrFish);
+
         Item.useStyle = ItemUseStyleID.HoldUp;
         Item.width = 22;
         Item.height = 36;
@@ -21,25 +22,17 @@ public class DronePetItem : ModItem
     public override bool? UseItem(Player player)
     {
         if (player.whoAmI == Main.myPlayer)
+        {
             player.AddBuff(Item.buffType, 3600);
-
+        }
         return true;
     }
 }
 
-public class DronePetBuff : ModBuff
+public class DronePetBuff : BasePetBuff
 {
-    public override void SetStaticDefaults()
-    {
-        Main.buffNoTimeDisplay[Type] = true;
-        Main.lightPet[Type] = true;
-    }
-
-    public override void Update(Player player, ref int buffIndex)
-    {
-        bool unused = false;
-        player.BuffHandle_SpawnPetIfNeededAndSetTime(buffIndex, ref unused, ModContent.ProjectileType<DronePetProjectile>());
-    }
+    protected override int PetProj => ModContent.ProjectileType<DronePetProjectile>();
+    protected override bool LightPet => true;
 }
 
 public class DronePetProjectile : ModProjectile

@@ -50,7 +50,7 @@ class FloatingBuff : ModBuff
     SoundStyle scream = new("eslamio/Assets/Sounds/MaltigiScream");
     SoundStyle explosion = new("eslamio/Assets/Sounds/StockExplosion");
 
-    public override string Texture => "eslamio/Assets/Textures/Blank";
+    public override string Texture => eslamio.BlankTexture;
     public override void SetStaticDefaults()
     {
         Main.debuff[Type] = true;

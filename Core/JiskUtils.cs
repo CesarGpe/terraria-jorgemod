@@ -99,6 +99,32 @@ public class JiskUtils : ModSystem
         }
     }
 
+    public static bool UpdateProjActive(Projectile projectile, int buff)
+    {
+        if (!Main.player[projectile.owner].active || Main.player[projectile.owner].dead)
+        {
+            Main.player[projectile.owner].ClearBuff(buff);
+            return false;
+        }
+        if (Main.player[projectile.owner].HasBuff(buff))
+        {
+            projectile.timeLeft = 2;
+        }
+        return true;
+    }
+    public static bool UpdateProjActive<T>(Projectile projectile) where T : ModBuff
+    {
+        return UpdateProjActive(projectile, ModContent.BuffType<T>());
+    }
+    public static bool UpdateProjActive(Projectile projectile, ref bool active)
+    {
+        if (Main.player[projectile.owner].dead)
+            active = false;
+        if (active)
+            projectile.timeLeft = 2;
+        return active;
+    }
+
     public override void PostUpdateEverything()
     {
         if (!Main.dedServ && playerToSound is not null && Main.myPlayer == playerToSound.whoAmI)
@@ -117,5 +143,13 @@ public class JiskUtils : ModSystem
             if (!activeSound.IsPlaying) return;
             _isPlayingSoundLastFrame = true;
         }
+    }
+}
+
+public static class JiskExtensions
+{
+    public static JiskPlayer Jisk(this Player player)
+    {
+        return player.GetModPlayer<JiskPlayer>();
     }
 }

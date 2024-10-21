@@ -4,17 +4,17 @@ using Terraria.ModLoader.IO;
 namespace eslamio.Content.NPCs.Enemies;
 public class DopFollowPlayer : ModPlayer
 {
+    private const float defaultDopSpawnChance = 0.02f;
+
     /// <summary>
     ///     The value to multiply SpawnCondition.Cavern.Chance for to get the spawnrate of the Doppleganger.
     /// </summary>
-    public float dopSpawnMultiplier = 0.02f;
-
+    public float dopSpawnMultiplier = defaultDopSpawnChance;
     public override void ResetEffects()
     {
-        if (dopSpawnMultiplier < 0.02f)
-            dopSpawnMultiplier = 0.02f;
-
-        Main.NewText($"dopSpawnMultiplier: {dopSpawnMultiplier}");
+        if (dopSpawnMultiplier < defaultDopSpawnChance)
+            dopSpawnMultiplier = defaultDopSpawnChance;
+        //Main.NewText($"dopSpawnMultiplier: {dopSpawnMultiplier}");
     }
 
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -28,7 +28,7 @@ public class DopFollowPlayer : ModPlayer
 
     public void ReceivePlayerSync(BinaryReader reader)
     {
-        dopSpawnMultiplier = reader.Read();
+        dopSpawnMultiplier = reader.ReadSingle();
     }
 
     public override void CopyClientState(ModPlayer targetCopy)

@@ -4,7 +4,7 @@ namespace eslamio.Content.Projectiles
 {
 	public class BanbanProjSpawner : ModProjectile
 	{
-        public override string Texture => "eslamio/Assets/Textures/Blank";
+        public override string Texture => eslamio.BlankTexture;
 
         public override void SetDefaults()
         {

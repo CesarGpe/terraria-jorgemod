@@ -1,18 +1,28 @@
+using eslamio.Content.Items.Weapons;
+using eslamio.Content.Players;
 using eslamio.Core;
-using System.IO;
+using System;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 
 namespace eslamio.Content.NPCs.Enemies;
 public class DopInactive : ModNPC
 {
-    SoundStyle disappearSound = new("eslamio/Assets/Sounds/Dop/Disappear") { PitchVariance = 0.5f };
-    SoundStyle deathSound = new("eslamio/Assets/Sounds/Dop/Death") { PitchVariance = 0.5f };
-    SoundStyle spottedSound = new("eslamio/Assets/Sounds/Dop/Spotted") { PitchVariance = 0.5f };
-    SoundStyle hitSound = new(SoundID.NPCHit37.SoundPath) { PitchVariance = 0.5f };
+    SoundStyle screamSound = new("eslamio/Assets/Sounds/Dop/Scream") { PitchVariance = 0.5f };
+    SoundStyle spottedSound = new("eslamio/Assets/Sounds/Dop/Spotted") { PitchVariance = 1f };
+    SoundStyle disappearSound = new("eslamio/Assets/Sounds/Dop/Disappear") { PitchVariance = 1f };
+
+    SoundStyle hitSound = new(SoundID.NPCHit37.SoundPath) { PitchVariance = 1f };
+    SoundStyle deathSound = new("eslamio/Assets/Sounds/Dop/Death") { PitchVariance = 1f };
+    SoundStyle breathingSound = new("eslamio/Assets/Sounds/Dop/Breathing") { PitchVariance = 0.5f, Variants = [0, 1, 2, 3] };
+
+    private Player skin = null;
 
     public override string Texture => "eslamio/Content/NPCs/Enemies/DopSprite";
 
@@ -54,22 +64,46 @@ public class DopInactive : ModNPC
         ]);
     }
 
-    Player skin;
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         if (NPC.IsABestiaryIconDummy)
             return true;
 
-        if (skin is not null)
+        if (skin is null)
+        {
+            // set the skin
+            NPC.TargetClosest();
+            DopSkinSystem.dopSkinID = (byte)NPC.target;
+            skin = JiskUtils.ClonePlayer(Main.player[DopSkinSystem.dopSkinID]);
+            skin.PlayerFrame();
+
+            // sync the skin to players
+            if (Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                ModPacket swagPacket = ModContent.GetInstance<eslamio>().GetPacket();
+                swagPacket.Write((byte)eslamio.MessageType.DopSkinSync);
+                swagPacket.Write(DopSkinSystem.dopSkinID);
+            }
+
+            // set values with the selected skin
+            NPC.GivenName = skin.name;
+            NPC.damage *= (int)(skin.statLifeMax * 0.005);
+            NPC.defense = skin.statDefense * 2;
+            NPC.lifeMax = skin.statLifeMax * 2;
+            NPC.life = NPC.lifeMax;
+
+            NPC.netUpdate = true;
+        }
+        else
         {
             // drawing stuff
-            skin.position.X = NPC.position.X;
-            skin.position.Y = NPC.position.Y;
-
+            skin.position = NPC.position - new Vector2(0, 2);
             skin.direction = NPC.direction;
-            skin.headFrame.Y = NPC.frame.Y;
-            skin.bodyFrame.Y = NPC.frame.Y;
-            skin.legFrame.Y = NPC.frame.Y;
+            skin.headFrame = NPC.frame;
+            skin.bodyFrame = NPC.frame;
+            skin.legFrame = NPC.frame;
+            skin.hairFrame = NPC.frame;
+
             Main.PlayerRenderer.DrawPlayer(Main.Camera, skin, skin.position, skin.fullRotation, skin.fullRotationOrigin);
         }
 
@@ -77,6 +111,7 @@ public class DopInactive : ModNPC
     }
 
     ref float AngerLevel => ref NPC.ai[0];
+    ref float BreathTimer => ref NPC.ai[1];
     public override void AI()
     {
         NPC.TargetClosest();
@@ -93,28 +128,38 @@ public class DopInactive : ModNPC
             }
             if (NPC.velocity.X != 0f || NPC.velocity.Y < 0f || NPC.velocity.Y > 2f || NPC.life != NPC.lifeMax)
                 AngerLevel = 1f;
+
+            BreathTimer++;
+            if (BreathTimer >= 300)
+            {
+                BreathTimer = 0;
+                if (!Main.dedServ) SoundEngine.PlaySound(breathingSound, NPC.position);
+            }
         }
         else
         {
             AngerLevel += 1f;
+            if (AngerLevel == 10f && !Main.dedServ)
+                SoundEngine.PlaySound(spottedSound, NPC.position);
             if (AngerLevel >= 21f)
             {
                 AngerLevel = 21f;
                 NPC.Transform(ModContent.NPCType<DopActive>());
-                SoundEngine.PlaySound(spottedSound, NPC.position);
+                if (!Main.dedServ) SoundEngine.PlaySound(screamSound, NPC.position);
             }
         }
     }
 
     public override bool CheckActive()
     {
-        Main.NewText($"timeLeft: {NPC.timeLeft}");
+        //Main.NewText($"timeLeft: {NPC.timeLeft}");
         if (NPC.timeLeft == 2)
         {
-            if (!Main.dedServ)
-                SoundEngine.PlaySound(disappearSound, null);
+            if (!Main.dedServ) SoundEngine.PlaySound(disappearSound, NPC.position);
 
-            Main.player[NPC.target].GetModPlayer<DopFollowPlayer>().dopSpawnMultiplier += 0.08f;
+            var player = Main.player[NPC.target];
+            player.GetModPlayer<DopFollowPlayer>().dopSpawnMultiplier += 0.04f;
+            player.GetModPlayer<CaveSounds>().PlaySound(Main.rand.Next(4), false);
 
             NPC.despawnEncouraged = true;
             NPC.active = false;
@@ -130,6 +175,11 @@ public class DopInactive : ModNPC
         Main.player[NPC.target].GetModPlayer<DopFollowPlayer>().dopSpawnMultiplier = 0.02f;
     }
 
+    public override void ModifyNPCLoot(NPCLoot npcLoot)
+    {
+        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CoolSwagSword>()));
+    }
+
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
         if (!NPC.AnyNPCs(Type) && !NPC.AnyNPCs(ModContent.NPCType<DopActive>()) &&
@@ -141,19 +191,8 @@ public class DopInactive : ModNPC
 
     public override void OnSpawn(IEntitySource source)
     {
-        AngerLevel = 0;
-
-        NPC.TargetClosest();
-        skin = JiskUtils.ClonePlayer(Main.player[NPC.target]);
-
-        if (skin is not null)
-        {
-            NPC.GivenName = skin.name;
-            NPC.damage *= (int)(skin.statLifeMax * 0.005);
-            NPC.defense = skin.statDefense * 2;
-            NPC.lifeMax = skin.statLifeMax * 2;
-            NPC.life = NPC.lifeMax;
-        }
+        // play the spoopy sound :o
+        Main.player[NPC.target].GetModPlayer<CaveSounds>().PlaySound(Main.rand.Next(4), false);
     }
 
     internal class DopInactiveBiome : ModBiome
@@ -161,11 +200,16 @@ public class DopInactive : ModNPC
         public override SceneEffectPriority Priority => SceneEffectPriority.BossMedium;
         public override bool IsBiomeActive(Player player)
         {
-            return JiskUtils.NPCInDistance(ModContent.NPCType<DopInactive>(), player.Center, 2000);
+            return JiskUtils.NPCInDistance(ModContent.NPCType<DopInactive>(), player.Center, 2500);
         }
         public override void SpecialVisuals(Player player, bool isActive)
         {
             player.ManageSpecialBiomeVisuals("eslamio:VignetteLight", isActive, player.Center);
+        }
+        public override void OnInBiome(Player player)
+        {
+            PunchCameraModifier modifier = new(player.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 0.01f, 6f, 2, 1f);
+            Main.instance.CameraModifiers.Add(modifier);
         }
     }
 
@@ -179,12 +223,6 @@ public class DopInactive : ModNPC
             Gore.NewGore(NPC.GetSource_Death(), NPC.position + new Vector2(0, 3), NPC.velocity, 11);
         }
     }
-
-    /*public override void ModifyNPCLoot(NPCLoot npcLoot)
-    {
-        npcLoot.AddCommon<Items.Sets.RunicSet.Rune>();
-        npcLoot.AddCommon<SoulDagger>(25);
-    }*/
 
     /*private static bool IsNpcOnscreen(Vector2 center)
     {

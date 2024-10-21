@@ -1,5 +1,6 @@
 using eslamio.Content.Items.Consumables;
 using eslamio.Content.Items.Pets;
+using eslamio.Content.Items.Pets.Drone;
 using eslamio.Content.Projectiles;
 using System;
 using System.Collections.Generic;

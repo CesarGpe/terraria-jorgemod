@@ -320,6 +320,11 @@ Items: {
 			Might attract a certain red monster...
 			'''
 	}
+
+	FamiliarPetItem: {
+		DisplayName: Familiar Pet Item
+		Tooltip: ""
+	}
 }
 
 Dialogue: {
@@ -695,6 +700,11 @@ Buffs: {
 		DisplayName: Glowing?
 		Description: Something feels off...
 	}
+
+	FamiliarPetBuff: {
+		DisplayName: Familiar Pet Buff
+		Description: Mods.eslamio.Buffs.FamiliarPetBuff.Description
+	}
 }
 
 Projectiles: {
@@ -718,6 +728,8 @@ Projectiles: {
 	MrKebobman.DisplayName: Mr Kebobman
 	BanbanProjSpawner.DisplayName: Banban Proj Spawner
 	DronePetProjectile.DisplayName: Drone Pet Projectile
+	FamiliarPet.DisplayName: Familiar Pet
+	FamiliarPetProjectile.DisplayName: Familiar Pet Projectile
 }
 
 Configs: {

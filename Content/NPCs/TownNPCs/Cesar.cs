@@ -1,5 +1,6 @@
 using eslamio.Content.Items.Consumables;
 using eslamio.Content.Items.Pets;
+using eslamio.Content.Items.Pets.Cesar;
 using eslamio.Content.Items.Weapons;
 using System.Collections.Generic;
 using System.Linq;

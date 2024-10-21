@@ -6,9 +6,10 @@ using Terraria.Graphics.Shaders;
 using Terraria.ID;
 
 namespace eslamio;
-
 public class eslamio : Mod
 {
+    public const string BlankTexture = "eslamio/Assets/Textures/Blank";
+
     public override void Load()
     {
         // All of this loading needs to be client-side.
@@ -50,7 +51,7 @@ public class eslamio : Mod
 
         switch (msgType)
         {
-            case MessageType.DopSkinSync:
+            case MessageType.DopFollowState:
                 byte playerNumber = reader.ReadByte();
                 DopFollowPlayer player = Main.player[playerNumber].GetModPlayer<DopFollowPlayer>();
                 player.ReceivePlayerSync(reader);
@@ -60,6 +61,9 @@ public class eslamio : Mod
                     // Forward the changes to the other clients
                     player.SyncPlayer(-1, whoAmI, false);
                 }
+                break;
+            case MessageType.DopSkinSync:
+                DopSkinSystem.dopSkinID = reader.ReadByte();
                 break;
             default:
                 Logger.WarnFormat("JORGEMOD: Unknown Message type: {0}", msgType);

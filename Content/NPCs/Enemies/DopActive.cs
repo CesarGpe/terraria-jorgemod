@@ -1,15 +1,23 @@
+using eslamio.Content.Items.Weapons;
+using eslamio.Content.Players;
 using eslamio.Core;
+using eslamio.Core.Helpers;
+using System;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 
 namespace eslamio.Content.NPCs.Enemies;
-public class DopActive : ModNPC
+public partial class DopActive : ModNPC
 {
-    SoundStyle disappearSound = new("eslamio/Assets/Sounds/Dop/Disappear") { PitchVariance = 0.5f };
-    SoundStyle deathSound = new("eslamio/Assets/Sounds/Dop/Death") { PitchVariance = 0.5f };
-    SoundStyle hitSound = new(SoundID.NPCHit37.SoundPath) { PitchVariance = 0.5f };
+    SoundStyle disappearSound = new("eslamio/Assets/Sounds/Dop/Disappear") { PitchVariance = 1f };
+    SoundStyle hitSound = new(SoundID.NPCHit37.SoundPath) { PitchVariance = 1f };
+    SoundStyle deathSound = new("eslamio/Assets/Sounds/Dop/Death") { PitchVariance = 1f };
+
+    private Player skin = null;
 
     public override string Texture => "eslamio/Content/NPCs/Enemies/DopSprite";
 
@@ -35,8 +43,8 @@ public class DopActive : ModNPC
         NPC.npcSlots = 10f;
         NPC.value = Main.rand.Next(50000, 100000);
 
-        NPC.aiStyle = NPCAIStyleID.Fighter;
-        AIType = NPCID.ZombieMerman;
+        //NPC.aiStyle = NPCAIStyleID.Fighter;
+        //AIType = NPCID.ZombieMerman;
         AnimationType = NPCID.BloodMummy;
     }
 
@@ -49,7 +57,6 @@ public class DopActive : ModNPC
         ]);
     }
 
-    Player skin;
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         if (NPC.IsABestiaryIconDummy)
@@ -57,25 +64,28 @@ public class DopActive : ModNPC
 
         if (skin is null)
         {
-            NPC.TargetClosest();
-            skin = JiskUtils.ClonePlayer(Main.player[NPC.target]);
+            skin = JiskUtils.ClonePlayer(Main.player[DopSkinSystem.dopSkinID]);
+            skin.eyeColor = Color.White; // herbronire?????
+            skin.PlayerFrame();
 
             NPC.GivenName = skin.name;
-            NPC.damage *= (int)(skin.statLifeMax * 0.005);
+            NPC.damage = (int)(60 * skin.statLifeMax * 0.005);
             NPC.defense = skin.statDefense * 2;
             NPC.lifeMax = skin.statLifeMax * 2;
             NPC.life = NPC.lifeMax;
+
+            NPC.netUpdate = true;
         }
         else
         {
             // drawing stuff
-            skin.position.X = NPC.position.X;
-            skin.position.Y = NPC.position.Y;
-
+            skin.position = NPC.position - new Vector2(0, 2);
             skin.direction = NPC.direction;
-            skin.headFrame.Y = NPC.frame.Y;
-            skin.bodyFrame.Y = NPC.frame.Y;
-            skin.legFrame.Y = NPC.frame.Y;
+            skin.headFrame = NPC.frame;
+            skin.bodyFrame = NPC.frame;
+            skin.legFrame = NPC.frame;
+            skin.hairFrame = NPC.frame;
+
             Main.PlayerRenderer.DrawPlayer(Main.Camera, skin, skin.position, skin.fullRotation, skin.fullRotationOrigin, 0f);
         }
 
@@ -110,12 +120,14 @@ public class DopActive : ModNPC
 
     public override bool CheckActive()
     {
+        //Main.NewText($"timeLeft: {NPC.timeLeft}");
         if (NPC.timeLeft == 2)
         {
-            if (!Main.dedServ)
-                SoundEngine.PlaySound(disappearSound, null);
+            if (!Main.dedServ) SoundEngine.PlaySound(disappearSound, null);
 
-            Main.player[NPC.target].GetModPlayer<DopFollowPlayer>().dopSpawnMultiplier += 0.1f;
+            var player = Main.player[NPC.target];
+            player.GetModPlayer<DopFollowPlayer>().dopSpawnMultiplier += 0.08f;
+            player.GetModPlayer<CaveSounds>().PlaySound(Main.rand.Next(4), true);
 
             NPC.despawnEncouraged = true;
             NPC.active = false;
@@ -131,6 +143,11 @@ public class DopActive : ModNPC
         Main.player[NPC.target].GetModPlayer<DopFollowPlayer>().dopSpawnMultiplier = 0.02f;
     }
 
+    public override void ModifyNPCLoot(NPCLoot npcLoot)
+    {
+        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CoolSwagSword>()));
+    }
+
     internal class DopActiveBiome : ModBiome
     {
         public override int Music => MusicLoader.GetMusicSlot("eslamio/Assets/Music/DopChase");
@@ -138,11 +155,16 @@ public class DopActive : ModNPC
         public override string MapBackground => "Terraria/Images/MapBG25";
         public override bool IsBiomeActive(Player player)
         {
-            return JiskUtils.NPCInDistance(ModContent.NPCType<DopActive>(), player.Center, 2000);
+            return JiskUtils.NPCInDistance(ModContent.NPCType<DopActive>(), player.Center, 2500);
         }
         public override void SpecialVisuals(Player player, bool isActive)
         {
             player.ManageSpecialBiomeVisuals("eslamio:VignetteStrong", isActive, player.Center);
+        }
+        public override void OnInBiome(Player player)
+        {
+            PunchCameraModifier modifier = new(player.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 1f, 6f, 2, 1f);
+            Main.instance.CameraModifiers.Add(modifier);
         }
     }
 
@@ -162,6 +184,6 @@ public class DopActive : ModNPC
 
     public override void OnSpawn(IEntitySource source)
     {
-        Main.NewText("Doppleganger spawned in active state?");
+        //Main.NewText("JiskMod: Doppleganger spawned in active state?", Color.DeepPink);
     }
 }
