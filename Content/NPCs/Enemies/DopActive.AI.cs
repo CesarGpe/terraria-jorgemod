@@ -12,6 +12,8 @@ public partial class DopActive : ModNPC
     // with AIType = NPCID.ZombieMerman
     public override void AI()
     {
+        Lighting.AddLight(NPC.position, 0.5f, 0.2f, 0f);
+
         if (Main.player[NPC.target].position.Y + (float)Main.player[NPC.target].height == NPC.position.Y + (float)NPC.height)
         {
             NPC.directionY = -1;
@@ -239,37 +241,36 @@ public partial class DopActive : ModNPC
             }
         }
 
-        float num181 = 1.5f + (1f - NPC.life / NPC.lifeMax) * 3.5f;
-
-        if (NPC.velocity.X < 0f - num181 || NPC.velocity.X > num181)
+        const float baseSpeed = 2.25f;
+        if (NPC.velocity.X < 0f - baseSpeed || NPC.velocity.X > baseSpeed)
         {
             if (NPC.velocity.Y == 0f)
             {
                 NPC.velocity *= 0.8f;
             }
         }
-        else if (NPC.velocity.X < num181 && NPC.direction == 1)
+        else if (NPC.velocity.X < baseSpeed && NPC.direction == 1)
         {
             if (NPC.velocity.Y == 0f && NPC.velocity.X < -1f)
             {
                 NPC.velocity.X *= 0.9f;
             }
             NPC.velocity.X += 0.07f;
-            if (NPC.velocity.X > num181)
+            if (NPC.velocity.X > baseSpeed)
             {
-                NPC.velocity.X = num181;
+                NPC.velocity.X = baseSpeed;
             }
         }
-        else if (NPC.velocity.X > 0f - num181 && NPC.direction == -1)
+        else if (NPC.velocity.X > 0f - baseSpeed && NPC.direction == -1)
         {
             if (NPC.velocity.Y == 0f && NPC.velocity.X > 1f)
             {
                 NPC.velocity.X *= 0.9f;
             }
             NPC.velocity.X -= 0.07f;
-            if (NPC.velocity.X < 0f - num181)
+            if (NPC.velocity.X < 0f - baseSpeed)
             {
-                NPC.velocity.X = 0f - num181;
+                NPC.velocity.X = 0f - baseSpeed;
             }
         }
 

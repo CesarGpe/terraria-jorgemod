@@ -1,3 +1,5 @@
+using eslamio.Content.Items.Consumables;
+using eslamio.Content.Items.Pets.Familiar;
 using eslamio.Content.Items.Weapons;
 using eslamio.Content.Players;
 using eslamio.Core;
@@ -8,7 +10,6 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
 
 namespace eslamio.Content.NPCs.Enemies;
@@ -75,7 +76,6 @@ public class DopInactive : ModNPC
             NPC.TargetClosest();
             DopSkinSystem.dopSkinID = (byte)NPC.target;
             skin = JiskUtils.ClonePlayer(Main.player[DopSkinSystem.dopSkinID]);
-            skin.PlayerFrame();
 
             // sync the skin to players
             if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -103,6 +103,7 @@ public class DopInactive : ModNPC
             skin.bodyFrame = NPC.frame;
             skin.legFrame = NPC.frame;
             skin.hairFrame = NPC.frame;
+            skin.PlayerFrame();
 
             Main.PlayerRenderer.DrawPlayer(Main.Camera, skin, skin.position, skin.fullRotation, skin.fullRotationOrigin);
         }
@@ -126,7 +127,7 @@ public class DopInactive : ModNPC
                 if (totalDistance < 22500f && Collision.CanHit(NPC.position, NPC.width, NPC.height, target.position, target.width, target.height))
                     AngerLevel = 1f;
             }
-            if (NPC.velocity.X != 0f || NPC.velocity.Y < 0f || NPC.velocity.Y > 2f || NPC.life != NPC.lifeMax)
+            if (NPC.velocity.X != 0f || NPC.velocity.Y < 0f || NPC.velocity.Y > 2f)
                 AngerLevel = 1f;
 
             BreathTimer++;
@@ -170,14 +171,42 @@ public class DopInactive : ModNPC
         return true;
     }
 
-    public override void OnKill()
+    public override void HitEffect(NPC.HitInfo hit)
     {
-        Main.player[NPC.target].GetModPlayer<DopFollowPlayer>().dopSpawnMultiplier = 0.02f;
+        if (NPC.life <= 0)
+        {
+            var prevVictim = Main.player[DopSkinSystem.dopSkinID];
+            prevVictim.GetModPlayer<DopFollowPlayer>().dopSpawnMultiplier = 0.02f;
+            for (int i = 0; i < Main.rand.Next(1, 4); i++)
+            {
+                GetRandomItem(prevVictim, out var item, out var amount);
+                Main.player[NPC.target].QuickSpawnItem(prevVictim.GetSource_FromThis(), item.type, amount);
+            }
+
+            if (Main.netMode != NetmodeID.Server && !Main.dedServ)
+            {
+                Gore.NewGore(NPC.GetSource_Death(), NPC.position + new Vector2(0, 2), NPC.velocity, 11);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.position + new Vector2(0, 2), NPC.velocity, 12);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.position + new Vector2(0, 3), NPC.velocity, 13);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.position + new Vector2(0, 3), NPC.velocity, 11);
+            }
+        }
+    }
+
+    private static void GetRandomItem(Player player, out Item item, out int amount)
+    {
+        item = player.inventory[Main.rand.Next(0, 50)];
+
+        int maxAmount = 50;
+        if (item.stack < 50)
+            maxAmount = item.stack;
+
+        amount = Main.rand.Next(0, maxAmount);
     }
 
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
-        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<CoolSwagSword>()));
+        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<FamiliarPetItem>(), 2));
     }
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -210,17 +239,6 @@ public class DopInactive : ModNPC
         {
             PunchCameraModifier modifier = new(player.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 0.01f, 6f, 2, 1f);
             Main.instance.CameraModifiers.Add(modifier);
-        }
-    }
-
-    public override void HitEffect(NPC.HitInfo hit)
-    {
-        if (Main.netMode != NetmodeID.Server && !Main.dedServ && NPC.life <= 0)
-        {
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position + new Vector2(0, 2), NPC.velocity, 11);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position + new Vector2(0, 2), NPC.velocity, 12);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position + new Vector2(0, 3), NPC.velocity, 13);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position + new Vector2(0, 3), NPC.velocity, 11);
         }
     }
 

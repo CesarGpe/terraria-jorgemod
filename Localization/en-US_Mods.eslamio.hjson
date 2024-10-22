@@ -322,8 +322,8 @@ Items: {
 	}
 
 	FamiliarPetItem: {
-		DisplayName: Familiar Pet Item
-		Tooltip: ""
+		DisplayName: Familiar Voodoo Doll
+		Tooltip: You feel oddly connected to it.
 	}
 }
 
@@ -702,8 +702,8 @@ Buffs: {
 	}
 
 	FamiliarPetBuff: {
-		DisplayName: Familiar Pet Buff
-		Description: Mods.eslamio.Buffs.FamiliarPetBuff.Description
+		DisplayName: It's alive?
+		Description: That doll is following you!
 	}
 }
 
@@ -728,7 +728,6 @@ Projectiles: {
 	MrKebobman.DisplayName: Mr Kebobman
 	BanbanProjSpawner.DisplayName: Banban Proj Spawner
 	DronePetProjectile.DisplayName: Drone Pet Projectile
-	FamiliarPet.DisplayName: Familiar Pet
 	FamiliarPetProjectile.DisplayName: Familiar Pet Projectile
 }
 

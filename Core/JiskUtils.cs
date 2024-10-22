@@ -36,9 +36,6 @@ public class JiskUtils : ModSystem
     {
         Player child = new()
         {
-            // use loadout
-            CurrentLoadoutIndex = parent.CurrentLoadoutIndex,
-
             // base player stuff
             name = parent.name,
             eyeColor = parent.eyeColor,
@@ -60,6 +57,35 @@ public class JiskUtils : ModSystem
             dye = parent.dye,
             miscEquips = parent.miscEquips,
             miscDyes = parent.miscDyes,
+            hideVisibleAccessory = parent.hideVisibleAccessory,
+
+            // dye stuff
+            cHead = parent.cHead,
+            cFace = parent.cFace,
+            cFaceHead = parent.cFaceHead,
+            cNeck = parent.cNeck,
+            cBody = parent.cBody,
+            cWaist = parent.cWaist,
+            cLegs = parent.cLegs,
+            cShoe = parent.cShoe,
+            cFront = parent.cFront,
+            cAngelHalo = parent.cAngelHalo,
+            cBack = parent.cBack,
+            cBackpack = parent.cBackpack,
+            cBalloon = parent.cBalloon,
+            cBalloonFront = parent.cBalloonFront,
+            cBeard = parent.cBeard,
+            cCarpet = parent.cCarpet,
+            cFaceFlower = parent.cFaceFlower,
+            cFlameWaker = parent.cFlameWaker,
+            cFloatingTube = parent.cFloatingTube,
+            cLeinShampoo = parent.cLeinShampoo,
+            cSapling = parent.cSapling,
+            cShield = parent.cShield,
+            cShieldFallback = parent.cShieldFallback,
+            cTail = parent.cTail,
+            cWings = parent.cWings,
+            cYorai = parent.cYorai,
 
             // player stats
             statDefense = parent.statDefense,
@@ -143,13 +169,5 @@ public class JiskUtils : ModSystem
             if (!activeSound.IsPlaying) return;
             _isPlayingSoundLastFrame = true;
         }
-    }
-}
-
-public static class JiskExtensions
-{
-    public static JiskPlayer Jisk(this Player player)
-    {
-        return player.GetModPlayer<JiskPlayer>();
     }
 }
