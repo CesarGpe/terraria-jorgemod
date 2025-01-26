@@ -1,6 +1,5 @@
-﻿using eslamio.Content.NPCs.Enemies;
-using eslamio.Core;
-using ReLogic.Content;
+﻿using ReLogic.Content;
+using System.IO;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
@@ -8,6 +7,68 @@ using Terraria.ModLoader.IO;
 namespace eslamio.Content.Items.Pets.Familiar;
 public class FamiliarPetItem : ModItem
 {
+    public Color[] colors = null;
+    public bool Male;
+    public int skinVariant;
+    public int hairVariant;
+    private string customName = "Player Voodoo Doll";
+
+    public byte dollOwner;
+
+    public override void OnCreated(ItemCreationContext context)
+    {
+        SetColors();
+    }
+
+    public override ModItem NewInstance(Item entity)
+    {
+        SetColors();
+        return base.NewInstance(entity);
+    }
+
+    public void SetColors()
+    {
+        Player copiedPlayer = Main.LocalPlayer;
+
+        customName = $"{copiedPlayer.name}'s Voodoo Doll";
+        Item.SetNameOverride(customName);
+
+        colors = new Color[7];
+        colors[0] = copiedPlayer.hairColor;
+        colors[1] = copiedPlayer.eyeColor;
+        colors[2] = copiedPlayer.skinColor;
+        colors[3] = copiedPlayer.shirtColor;
+        colors[4] = copiedPlayer.underShirtColor;
+        colors[5] = copiedPlayer.pantsColor;
+        colors[6] = copiedPlayer.shoeColor;
+
+        Male = copiedPlayer.Male;
+        skinVariant = copiedPlayer.skinVariant;
+        hairVariant = copiedPlayer.hair;
+    }
+
+    public override void PostUpdate()
+    {
+        Item.SetNameOverride(customName);
+    }
+    public override void UpdateInventory(Player player)
+    {
+        Item.SetNameOverride(customName);
+    }
+
+    public override ModItem Clone(Item newEntity)
+    {
+        FamiliarPetItem clone = (FamiliarPetItem)base.Clone(newEntity);
+
+        clone.colors = (Color[])colors?.Clone();
+        clone.Male = Male;
+        clone.skinVariant = skinVariant;
+        clone.hairVariant = hairVariant;
+        clone.customName = (string)customName?.Clone();
+
+        return clone;
+    }
+
     public override void SetDefaults()
     {
         Item.CloneDefaults(ItemID.ZephyrFish);
@@ -15,7 +76,61 @@ public class FamiliarPetItem : ModItem
         Item.shoot = ModContent.ProjectileType<FamiliarPetProjectile>();
         Item.buffType = ModContent.BuffType<FamiliarPetBuff>();
 
+        Item.noUseGraphic = true;
+        Item.useStyle = ItemUseStyleID.Thrust;
         Item.value = Item.buyPrice(gold: 20);
+    }
+
+    public override void SaveData(TagCompound tag)
+    {
+        tag["Colors"] = colors;
+        tag["Male"] = Male;
+        tag["SkinVariant"] = skinVariant;
+        tag["HairVariant"] = hairVariant;
+
+        if (customName != "Player Voodoo Doll")
+            tag["CustomName"] = customName;
+    }
+
+    public override void LoadData(TagCompound tag)
+    {
+        colors = tag.Get<Color[]>("Colors");
+        Male = tag.GetBool("Male");
+        skinVariant = tag.GetInt("SkinVariant");
+        hairVariant = tag.GetInt("HairVariant");
+
+        if (tag.TryGet("CustomName", out string foundName))
+            customName = foundName;
+    }
+
+    public override void NetSend(BinaryWriter writer)
+    {
+        writer.WriteRGB(colors[0]);
+        writer.WriteRGB(colors[1]);
+        writer.WriteRGB(colors[2]);
+        writer.WriteRGB(colors[3]);
+        writer.WriteRGB(colors[4]);
+        writer.WriteRGB(colors[5]);
+        writer.WriteRGB(colors[6]);
+        writer.Write(Male);
+        writer.Write(skinVariant);
+        writer.Write(hairVariant);
+        writer.Write(customName);
+    }
+
+    public override void NetReceive(BinaryReader reader)
+    {
+        colors[0] = (Color)reader?.ReadRGB();
+        colors[1] = (Color)reader?.ReadRGB();
+        colors[2] = (Color)reader?.ReadRGB();
+        colors[3] = (Color)reader?.ReadRGB();
+        colors[4] = (Color)reader?.ReadRGB();
+        colors[5] = (Color)reader?.ReadRGB();
+        colors[6] = (Color)reader?.ReadRGB();
+        Male = reader.ReadBoolean();
+        skinVariant = reader.ReadInt32();
+        hairVariant = reader.ReadInt32();
+        customName = reader.ReadString();
     }
 
     public override bool? UseItem(Player player)
@@ -36,131 +151,46 @@ public class FamiliarPetItem : ModItem
     readonly Asset<Texture2D> shoes = ModContent.Request<Texture2D>("eslamio/Content/Items/Pets/Familiar/Shoes");
     public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
     {
-        spriteBatch.Draw(hair.Value, position, frame, Main.LocalPlayer.hairColor, 0, origin, scale, SpriteEffects.None, 0);
-        spriteBatch.Draw(pupil.Value, position, frame, Main.LocalPlayer.eyeColor, 0, origin, scale, SpriteEffects.None, 0);
-        spriteBatch.Draw(skin.Value, position, frame, Main.LocalPlayer.skinColor, 0, origin, scale, SpriteEffects.None, 0);
-        spriteBatch.Draw(shirt.Value, position, frame, Main.LocalPlayer.shirtColor, 0, origin, scale, SpriteEffects.None, 0);
-        spriteBatch.Draw(pants.Value, position, frame, Main.LocalPlayer.pantsColor, 0, origin, scale, SpriteEffects.None, 0);
-        spriteBatch.Draw(shoes.Value, position, frame, Main.LocalPlayer.shoeColor, 0, origin, scale, SpriteEffects.None, 0);
+        if (colors == null)
+            SetColors();
+
+        spriteBatch.Draw(hair.Value, position, frame, colors[0], 0, origin, scale, SpriteEffects.None, 0);
+        spriteBatch.Draw(pupil.Value, position, frame, colors[1], 0, origin, scale, SpriteEffects.None, 0);
+        spriteBatch.Draw(skin.Value, position, frame, colors[2], 0, origin, scale, SpriteEffects.None, 0);
+        spriteBatch.Draw(shirt.Value, position, frame, colors[4], 0, origin, scale, SpriteEffects.None, 0);
+        spriteBatch.Draw(pants.Value, position, frame, colors[5], 0, origin, scale, SpriteEffects.None, 0);
+        spriteBatch.Draw(shoes.Value, position, frame, colors[6], 0, origin, scale, SpriteEffects.None, 0);
         spriteBatch.Draw(eyes.Value, position, frame, Color.White, 0, origin, scale, SpriteEffects.None, 0);
+
         return false;
     }
     public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
     {
+        if (colors == null)
+            SetColors();
+
         Main.GetItemDrawFrame(Item.type, out _, out var frame);
         Vector2 origin = frame.Size() / 2f;
         Vector2 position = Item.Bottom - Main.screenPosition - new Vector2(0, origin.Y);
 
-        //spriteBatch.Draw(itemTexture, position, frame, lightColor, rotation, origin, scale, SpriteEffects.None, 0);
-        spriteBatch.Draw(hair.Value, position, frame, Main.LocalPlayer.hairColor.MultiplyRGBA(lightColor), 0, origin, scale, SpriteEffects.None, 0);
-        spriteBatch.Draw(pupil.Value, position, frame, Main.LocalPlayer.eyeColor.MultiplyRGBA(lightColor), 0, origin, scale, SpriteEffects.None, 0);
-        spriteBatch.Draw(skin.Value, position, frame, Main.LocalPlayer.skinColor.MultiplyRGBA(lightColor), 0, origin, scale, SpriteEffects.None, 0);
-        spriteBatch.Draw(shirt.Value, position, frame, Main.LocalPlayer.shirtColor.MultiplyRGBA(lightColor), 0, origin, scale, SpriteEffects.None, 0);
-        spriteBatch.Draw(pants.Value, position, frame, Main.LocalPlayer.pantsColor.MultiplyRGBA(lightColor), 0, origin, scale, SpriteEffects.None, 0);
-        spriteBatch.Draw(shoes.Value, position, frame, Main.LocalPlayer.shoeColor.MultiplyRGBA(lightColor), 0, origin, scale, SpriteEffects.None, 0);
+        spriteBatch.Draw(hair.Value, position, frame, colors[0].MultiplyRGBA(lightColor), 0, origin, scale, SpriteEffects.None, 0);
+        spriteBatch.Draw(pupil.Value, position, frame, colors[1].MultiplyRGBA(lightColor), 0, origin, scale, SpriteEffects.None, 0);
+        spriteBatch.Draw(skin.Value, position, frame, colors[2].MultiplyRGBA(lightColor), 0, origin, scale, SpriteEffects.None, 0);
+        spriteBatch.Draw(shirt.Value, position, frame, colors[4].MultiplyRGBA(lightColor), 0, origin, scale, SpriteEffects.None, 0);
+        spriteBatch.Draw(pants.Value, position, frame, colors[5].MultiplyRGBA(lightColor), 0, origin, scale, SpriteEffects.None, 0);
+        spriteBatch.Draw(shoes.Value, position, frame, colors[6].MultiplyRGBA(lightColor), 0, origin, scale, SpriteEffects.None, 0);
         spriteBatch.Draw(eyes.Value, position, frame, Color.White.MultiplyRGBA(lightColor), 0, origin, scale, SpriteEffects.None, 0);
 
         return false;
     }
 }
+
 public class FamiliarPetBuff : BasePetBuff
 {
     protected override int PetProj => ModContent.ProjectileType<FamiliarPetProjectile>();
-}
-public class FamiliarPetProjectile : ModProjectile
-{
-    public override string Texture => eslamio.BlankTexture;
-    private Player copiedPlayer;
-
     public override void SetStaticDefaults()
     {
-        Main.projFrames[Projectile.type] = 20;
-        Main.projPet[Projectile.type] = true;
-        ProjectileID.Sets.CharacterPreviewAnimations[Type] = new() { Offset = new(8f, 1f) };
-    }
-
-    public override void SetDefaults()
-    {
-        Projectile.width = 20;
-        Projectile.height = 42;
-        Projectile.friendly = true;
-        Projectile.aiStyle = ProjAIStyleID.Pet;
-        AIType = ProjectileID.BlackCat;
-        Projectile.scale = 0.75f;
-    }
-
-    public void CopyPlayerAttributes(Player parent)
-    {
-        // copies player attributes
-        copiedPlayer.eyeColor = parent.eyeColor;
-        copiedPlayer.hairColor = parent.hairColor;
-        copiedPlayer.hairDyeColor = parent.hairDyeColor;
-        copiedPlayer.pantsColor = parent.pantsColor;
-        copiedPlayer.shirtColor = parent.shirtColor;
-        copiedPlayer.shoeColor = parent.shoeColor;
-        copiedPlayer.skinColor = parent.skinColor;
-        copiedPlayer.underShirtColor = parent.underShirtColor;
-        copiedPlayer.Male = parent.Male;
-        copiedPlayer.skinVariant = parent.skinVariant;
-        copiedPlayer.hairDye = parent.hairDye;
-        copiedPlayer.hairDyeVar = parent.hairDyeVar;
-        copiedPlayer.hair = parent.hair;
-
-        // copies proj attributes
-        copiedPlayer.width = Projectile.width;
-        copiedPlayer.height = Projectile.height;
-        copiedPlayer.oldVelocity = Projectile.oldVelocity;
-        copiedPlayer.velocity = Projectile.velocity;
-        copiedPlayer.oldDirection = Projectile.oldDirection;
-        copiedPlayer.wet = Projectile.wet;
-        copiedPlayer.lavaWet = Projectile.lavaWet;
-        copiedPlayer.honeyWet = Projectile.honeyWet;
-        copiedPlayer.wetCount = Projectile.wetCount;
-        if (Projectile.velocity != Vector2.Zero || Projectile.direction == 0)
-        {
-            copiedPlayer.direction = Projectile.velocity.X < 0f ? -1 : 1;
-        }
-        copiedPlayer.oldPosition = Projectile.oldPosition;
-        copiedPlayer.position = Projectile.position;
-        copiedPlayer.position.Y -= 42 * (1f - Projectile.scale);
-        copiedPlayer.whoAmI = Projectile.owner;
-
-        copiedPlayer.PlayerFrame();
-    }
-    private void UpdateTick()
-    {
-        var owner = Main.player[Projectile.owner];
-        copiedPlayer ??= new Player();
-
-        CopyPlayerAttributes(owner);
-    }
-    public override bool PreAI()
-    {
-        JiskUtils.UpdateProjActive<FamiliarPetBuff>(Projectile);
-        UpdateTick();
-        return true;
-    }
-
-    public override bool PreDraw(ref Color lightColor)
-    {
-        if (Projectile.isAPreviewDummy)
-        {
-            UpdateTick();
-            copiedPlayer.headFrame = Main.player[Projectile.owner].headFrame;
-            copiedPlayer.bodyFrame = Main.player[Projectile.owner].bodyFrame;
-            copiedPlayer.legFrame = Main.player[Projectile.owner].legFrame;
-        }
-        if (copiedPlayer == null)
-        {
-            return false;
-        }
-
-        if (!Projectile.isAPreviewDummy)
-        {
-            copiedPlayer.Bottom = Projectile.Bottom;
-        }
-
-        Main.PlayerRenderer.DrawPlayer(Main.Camera, copiedPlayer, Projectile.position, 0f, Vector2.Zero, 0f, Projectile.scale);
-        return false;
+        base.SetStaticDefaults();
+        Main.buffNoSave[Type] = true;
     }
 }

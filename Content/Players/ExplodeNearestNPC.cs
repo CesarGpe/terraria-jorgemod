@@ -31,7 +31,7 @@ class ExplodeNPCPlayer : ModPlayer
         float sqrMaxDetectDistance = maxDetectDistance * maxDetectDistance;
         foreach (NPC target in Main.npc)
         {
-            if (!target.townNPC)
+            if (!target.isLikeATownNPC)
                 continue;
 
             float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, Player.Center);
@@ -122,7 +122,7 @@ class StockExplosion : ModProjectile
         int frameHeight = texture.Height / Main.projFrames[Type];
         int startY = frameHeight * Projectile.frame;
 
-        Rectangle sourceRectangle = new Rectangle(0, startY, texture.Width, frameHeight);
+        Rectangle sourceRectangle = new(0, startY, texture.Width, frameHeight);
         Vector2 origin = sourceRectangle.Size() / 2f;
 
         float offsetX = 50f;

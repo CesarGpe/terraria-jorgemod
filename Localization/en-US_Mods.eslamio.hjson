@@ -322,8 +322,13 @@ Items: {
 	}
 
 	FamiliarPetItem: {
-		DisplayName: Familiar Voodoo Doll
-		Tooltip: You feel oddly connected to it.
+		DisplayName: Player Voodoo Doll
+		Tooltip: I swear I saw it blink.
+	}
+
+	MarkiplierPetItem: {
+		DisplayName: Markiplier Pet Item
+		Tooltip: ""
 	}
 }
 
@@ -704,6 +709,11 @@ Buffs: {
 	FamiliarPetBuff: {
 		DisplayName: It's alive?
 		Description: That doll is following you!
+	}
+
+	MarkiplierPetBuff: {
+		DisplayName: Markiplier Pet Buff
+		Description: Mods.eslamio.Buffs.MarkiplierPetBuff.Description
 	}
 }
 

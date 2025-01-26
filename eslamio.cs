@@ -1,4 +1,3 @@
-using eslamio.Content.NPCs.Enemies;
 using ReLogic.Content;
 using System.IO;
 using Terraria.Graphics.Effects;
@@ -51,7 +50,7 @@ public class eslamio : Mod
 
         switch (msgType)
         {
-            case MessageType.DopFollowState:
+            /*case MessageType.DopFollowState:
                 byte playerNumber = reader.ReadByte();
                 DopFollowPlayer player = Main.player[playerNumber].GetModPlayer<DopFollowPlayer>();
                 player.ReceivePlayerSync(reader);
@@ -64,7 +63,7 @@ public class eslamio : Mod
                 break;
             case MessageType.DopSkinSync:
                 DopSkinSystem.dopSkinID = reader.ReadByte();
-                break;
+                break;*/
             default:
                 Logger.WarnFormat("JORGEMOD: Unknown Message type: {0}", msgType);
                 break;

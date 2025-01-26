@@ -1,4 +1,5 @@
 displayName = JORGE MOD
 author = cesar
-version = 0.36.9
+version = 0.37.0
 homepage = https://github.com/CesarGpe/terraria-jorgemod
+buildIgnore = .ase

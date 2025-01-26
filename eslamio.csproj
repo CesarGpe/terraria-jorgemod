@@ -6,6 +6,8 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\Items\Pets\Markiplier\DVDPetBuff.png" />
+    <None Remove="Content\Items\Pets\Markiplier\DVDPetItem.png" />
     <None Remove="Effects\Vignette - Copia.fx" />
   </ItemGroup>
 </Project>
